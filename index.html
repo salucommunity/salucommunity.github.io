@@ -78,7 +78,7 @@ footer b{color:var(--blue)}
 <body>
 <header>
   <div class="bar glass">
-    <a class="brand" href="#home"><span class="mark"><img src="logo.png" alt="" onerror="this.remove();this.parentNode.textContent='SC'"></span>SALU Community</a>
+    <a class="brand" href="#home"><span class="mark"><img src="logo.png" alt="" onerror="var p=this.parentNode;this.remove();p.textContent='SC'"></span>SALU Community</a>
     <nav id="nav" aria-label="Main menu"></nav>
   </div>
 </header>
@@ -242,4 +242,11 @@ out.innerHTML=h+`</div>`};
 
 /* Mock test */
 const QS=[["What is the chemical symbol of sodium?",["Na","S","So","N"],0],["What is the SI unit of force?",["Joule","Newton","Watt","Pascal"],1],["Which organelle is called the powerhouse of the cell?",["Nucleus","Ribosome","Mitochondria","Vacuole"],2],["Choose the word closest in meaning to 'rapid'.",["Slow","Quick","Heavy","Quiet"],1],["What is the value of 12 x 12?",["124","132","144","148"],2]];
-function drawQuiz(){$("#quiz").innerHTML=QS.map((q,i)=>`<div class="glass q"><p>${i+1}. ${q[0]}</p>${q[1].map((o,j)=>`<lab
+function drawQuiz(){$("#quiz").innerHTML=QS.map((q,i)=>`<div class="glass q"><p>${i+1}. ${q[0]}</p>${q[1].map((o,j)=>`<label class="opt"><input type="radio" name="q${i}" value="${j}">${o}</label>`).join("")}</div>`).join("");$("#quizOut").innerHTML=""}
+drawQuiz();
+$("#quizReset").onclick=drawQuiz;
+$("#quizBtn").onclick=()=>{let s=0;QS.forEach((q,i)=>{const c=document.querySelector(`input[name=q${i}]:checked`);document.querySelectorAll(`input[name=q${i}]`).forEach(r=>{const l=r.parentNode;if(+r.value===q[2])l.classList.add("ok");else if(r.checked)l.classList.add("no");r.disabled=true});if(c&&+c.value===q[2])s++});
+$("#quizOut").innerHTML=`<div class="glass out"><p>Your marks</p><div class="big">${s} / ${QS.length}</div><p style="margin-top:6px;color:var(--mute)">Correct answers are highlighted in green above.</p></div>`;$("#quizOut").scrollIntoView({behavior:"smooth",block:"nearest"})};
+</script>
+</body>
+</html>
