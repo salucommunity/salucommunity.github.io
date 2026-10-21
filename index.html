@@ -3,7 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SALU Community | Student Support & Information Platform</title>
+<title>SALU Community | Student Guidance, Admissions & Test Preparation</title>
+<meta name="theme-color" content="#123c75">
+<meta property="og:title" content="SALU Community — Student Support & Information">
+<meta property="og:description" content="Admission guidance, aggregate calculator, merit-list updates and free entry-test practice for SALU students.">
+<meta property="og:type" content="website">
 <meta name="description" content="Admission guidance, merit information, aggregate calculator, entry test preparation and free mock tests for SALU Khairpur students.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -73,30 +77,138 @@ th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
 footer{max-width:1080px;margin:0 auto;padding:0 14px 30px}
 footer .glass{padding:18px;font-size:14px;color:var(--mute)}
 footer b{color:var(--blue)}
+.menubtn{margin-left:auto;border:0;font:inherit;font-weight:700;background:#fff;color:var(--blue);padding:9px 18px;border-radius:12px;cursor:pointer;box-shadow:0 2px 8px rgba(31,79,216,.15)}
+#panel{display:none;max-width:1080px;margin:8px auto 0;padding:14px 16px;max-height:78vh;overflow:auto}
+#panel.open{display:block}
+#panel h4{font-size:14px;color:var(--mute);margin:10px 0 4px}
+#panel a{display:block;padding:10px 12px;border-radius:12px;color:var(--ink);text-decoration:none;font-weight:600}
+#panel a:hover{background:rgba(255,255,255,.7)}
+#panel a.on{background:#fff;color:var(--blue)}
+.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:2px 12px}
+.team{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.person{padding:22px;text-align:center}
+.person p{color:var(--mute);font-size:14.5px}
+.ph{width:116px;height:116px;border-radius:50%;margin:0 auto 12px;overflow:hidden;background:linear-gradient(135deg,var(--blue),var(--teal));color:#fff;display:grid;place-items:center;font-size:34px;font-weight:800;border:3px solid #fff;box-shadow:0 6px 18px rgba(31,79,216,.2)}
+.ph img{width:100%;height:100%;object-fit:cover}
+.person .role{color:var(--blue);font-weight:700;margin-bottom:2px}
+.ann{padding:16px 18px}.ann time{font-size:13px;color:var(--mute)}.ann p{color:var(--mute);margin-top:4px}
+.sec{margin:28px 0 12px}
+
+/* Enhanced visual system */
+:root{--ink:#102443;--mute:#5d6c83;--blue:#1458c8;--teal:#078b80;--line:rgba(16,36,67,.12)}
+body{background:radial-gradient(55rem 35rem at 0% 0%,#dce8ff 0,transparent 58%),radial-gradient(45rem 32rem at 100% 12%,#d4f5ed 0,transparent 56%),#f5f8fd}
+header{padding:10px 12px 0}
+.bar{background:rgba(255,255,255,.82);border-color:rgba(255,255,255,.95);box-shadow:0 10px 32px rgba(20,50,95,.09)}
+.mark{width:42px;height:42px;border-radius:13px}
+.brand{font-size:15px;letter-spacing:-.02em}
+.hero{position:relative;overflow:hidden;background:linear-gradient(125deg,rgba(255,255,255,.94),rgba(236,246,255,.86));border-color:#fff;box-shadow:0 18px 50px rgba(31,79,216,.12)}
+.hero:after{content:"SC";position:absolute;right:3%;bottom:-38px;font-size:clamp(100px,20vw,190px);font-weight:800;line-height:1;color:rgba(20,88,200,.055);pointer-events:none}
+.hero>*{position:relative;z-index:1}
+.hero h1{max-width:17ch}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 11px;border-radius:999px;background:#e7f4f2;color:#08776e;font-weight:800;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:15px}
+.btn{transition:transform .18s ease,box-shadow .18s ease;background:linear-gradient(135deg,#1458c8,#2875e8)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 9px 22px rgba(31,79,216,.25)}
+.btn.alt{border:1px solid #dce5f3}
+.grid{gap:16px}
+.tile,.card,.person,.ann{transition:transform .18s ease,box-shadow .18s ease}
+.tile:hover,.card:hover,.person:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(31,79,216,.11)}
+.tile h3{color:#163b70}
+.sec{margin-top:32px}
+.socials{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.socials a{display:inline-flex;align-items:center;gap:8px}
+.social-dot{width:8px;height:8px;border-radius:50%;background:#18a779;display:inline-block}
+footer .footer-links{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px}
+footer .footer-links a{font-weight:700;text-decoration:none}
+footer .footer-links a:hover{text-decoration:underline}
+.pill{display:inline-block;border-radius:999px;padding:4px 9px;background:#e8f0ff;color:#174ba5;font-size:12px;font-weight:800;margin-bottom:8px}
+@media(max-width:520px){main{padding:16px 12px 32px}.hero{padding:23px 20px}.btns .btn{width:100%;text-align:center}.brand{font-size:14px}.bar{padding:8px 10px}}
+
+/* Reference-inspired university portal layout */
+body{background:#f3f7fc;color:#123252}
+.site-header{padding:0;background:#fff;box-shadow:0 3px 16px rgba(9,35,72,.10)}
+.site-header .bar{max-width:1240px;border-radius:0;background:#fff;border:0;box-shadow:none;padding:10px 18px;gap:18px}
+.brand{flex-shrink:0}.brand b{font-weight:800}
+.top-nav{display:flex;align-items:center;justify-content:flex-end;gap:4px;overflow-x:auto;flex:1}
+.top-nav a{display:flex;align-items:center;gap:6px;padding:10px 11px;color:#31465d;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap;border-radius:8px}
+.top-nav a:first-child,.top-nav a.on{background:#eaf2ff;color:#1458c8}
+.top-nav a:hover{background:#eef4fb}
+.menubtn{margin-left:0;flex-shrink:0;border-radius:9px;background:#174c8c;color:#fff}
+#panel{max-width:1240px;border-radius:0 0 16px 16px;background:#fff}
+main{max-width:1240px;padding:24px 18px 42px}
+.hero{background:linear-gradient(125deg,#073c73,#1768bd 58%,#2454d7);color:#fff;border:0;border-radius:0 0 20px 20px;box-shadow:0 12px 28px rgba(10,54,112,.2)}
+.hero .lead{color:rgba(255,255,255,.88);max-width:68ch}
+.hero .eyebrow{background:rgba(255,255,255,.15);color:#fff}
+.hero:after{color:rgba(255,255,255,.06)}
+.hero .btn{background:linear-gradient(135deg,#ff8a21,#f34a4f);box-shadow:0 5px 14px rgba(0,0,0,.15)}
+.hero .btn.alt{background:#fff;color:#174c8c}
+.hero .socials .btn.alt{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.35);color:#fff}
+#tiles{margin-top:22px}
+.tile{background:#fff;border:1px solid #e8edf4;border-radius:13px;box-shadow:0 4px 14px rgba(16,48,86,.06)}
+.tile .tile-icon{width:44px;height:44px;display:grid;place-items:center;border-radius:12px;background:#eaf2ff;color:#1458c8;font-size:23px;margin-bottom:12px}
+.home-band{background:linear-gradient(120deg,#092f5c,#1c4da4);color:#fff;border-radius:18px;padding:26px;margin-top:24px}
+.home-band h2,.home-band p{color:#fff}
+.home-band .tile{background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.12);color:#fff}
+.home-band .tile h3,.home-band .tile p{color:#fff}
+.view>h2{color:#103a66}
+.ann{background:#fff;border:1px solid #e7edf5;border-radius:13px}
+footer .glass{background:#fff;border-radius:14px}
+@media(max-width:760px){.site-header .bar{gap:8px;padding:9px 10px}.top-nav{justify-content:flex-start;gap:2px}.top-nav a{padding:9px 8px;font-size:12px}.top-nav a span{display:none}.top-nav a{font-size:19px;min-width:36px;justify-content:center}.brand{gap:7px}.brand span:last-child{font-size:13px}.mark{width:36px;height:36px}.menubtn{padding:9px 11px}.menubtn span{display:none}main{padding:14px 12px 32px}.hero{border-radius:16px}}
+@media(max-width:380px){.brand span:last-child{max-width:82px;white-space:normal;line-height:1.1}.top-nav a{min-width:31px;padding:8px 5px}}
+
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
+.hdr-icons{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.ib{width:40px;height:40px;display:grid;place-items:center;border-radius:12px;background:#eaf2ff;transition:background .2s}
+.ib:hover{background:#dbe8ff}
+.ib svg{width:20px;height:20px;fill:currentColor}
+.ib.fb{color:#1877f2}.ib.wa{color:#1fa855}
+.menubtn{display:inline-flex;align-items:center;gap:8px;padding:9px 14px}
+.menubtn svg{width:20px;height:20px;fill:currentColor}
+.ico{width:18px;height:18px;fill:currentColor;flex-shrink:0}
+.footer-links a{display:inline-flex;align-items:center;gap:6px}
+.top-nav a:first-child:not(.on){background:none;color:#31465d}
+#panel a.quick{background:#eaf2ff;color:#1458c8}
+@media(max-width:760px){.top-nav{display:none}.site-header .bar{justify-content:space-between}}
+@media(max-width:380px){.menubtn span{display:none}.menubtn{padding:9px 11px}}
 </style>
 </head>
 <body>
-<header>
+<header class="site-header">
   <div class="bar glass">
-    <a class="brand" href="#home"><span class="mark"><img src="logo.png" alt="" onerror="var p=this.parentNode;this.remove();p.textContent='SC'"></span>SALU Community</a>
-    <nav id="nav" aria-label="Main menu"></nav>
+    <a class="brand" href="#home" aria-label="SALU Community home"><span class="mark"><img src="logo.png" alt="SALU Community logo" onerror="var p=this.parentNode;this.remove();p.textContent='SC'"></span><span>SALU <b>Community</b></span></a>
+    <nav class="top-nav" aria-label="Main navigation">
+      <a href="#announcements" data-top="announcements">▤ <span>Announcements</span></a>
+      <a href="#results" data-top="results">✓ <span>Results</span></a>
+      <a href="#contact" data-top="contact">☏ <span>Contact</span></a>
+    </nav>
+    <div class="hdr-icons"><a class="ib fb" data-link="fb" href="#" aria-label="SALU Community Facebook page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a><a class="ib wa" data-link="wa" href="#" aria-label="SALU Community WhatsApp group"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a><button class="menubtn" id="menuBtn" aria-expanded="false" aria-controls="panel" aria-label="Open menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v2.2H3zM3 10.9h18v2.2H3zM3 15.8h18V18H3z"/></svg><span>Menu</span></button></div>
   </div>
+  <div class="glass" id="panel" aria-label="All services and pages"></div>
 </header>
 
 <main>
 <section class="view" id="v-home">
   <div class="hero glass">
-    <h1>Everything about SALU admissions, in one place.</h1>
-    <p class="lead">Merit lists, closing aggregates, entry test preparation and free mock tests for students of Shah Abdul Latif University, Khairpur. Run by students for about 3 years, with no profit motive.</p>
-    <div class="btns"><a class="btn" href="#calculator">Calculate my aggregate</a><a class="btn alt" href="#mocktests">Take a free mock test</a></div>
+    <span class="eyebrow"><span class="social-dot"></span> Student-led • Student-focused</span>
+    <h1>Your SALU journey, made simpler.</h1>
+    <p class="lead">Find admission guidance, merit-list updates, aggregate calculation, department information and free entry-test practice — all in one student-friendly place.</p>
+    <div class="btns"><a class="btn" href="#calculator">Calculate my aggregate →</a><a class="btn alt" href="#mocktests">Try a free mock test</a></div>
+    <div class="socials"><a class="btn alt" data-link="wa" href="#" aria-label="Join SALU Community WhatsApp group">Join WhatsApp Community ↗</a><a class="btn alt" data-link="fb" href="#" aria-label="Visit SALU Community Facebook page">Follow on Facebook ↗</a></div>
   </div>
   <div class="grid" id="tiles"></div>
-  <div class="glass note"><b>Not an official SALU group.</b> SALU Community is an independent student platform. For official decisions, always verify through official SALU sources.</div>
+  <div class="glass card" style="margin-top:16px"><h2>About SALU Community</h2>
+    <p style="margin-bottom:10px">SALU Community is a student-led support platform for Shah Abdul Latif University, Khairpur. For about three years we have guided new students through admissions, merit lists, departments and entry test preparation, so they no longer need to ask around for basic information.</p>
+    <p>Everything we share is free and made for student welfare, with no profit motive. We are an independent student community and not an official group of Shah Abdul Latif University Khairpur.</p></div>
+  <h2 class="sec">Meet the team</h2>
+  <div class="team">
+    <div class="glass person"><div class="ph"><img src="founder.jpg" alt="Ziauddin, founder" onerror="var p=this.parentNode;this.remove();p.textContent='ZU'"></div><h3>Ziauddin</h3><p class="role">Founder</p><p>Student of English Language and Literature</p></div>
+    <div class="glass person"><div class="ph"><img src="cofounder.jpg" alt="Muhammad Younis, co-founder" onerror="var p=this.parentNode;this.remove();p.textContent='MY'"></div><h3>Muhammad Younis</h3><p class="role">Co-founder</p><p>Student of Law</p></div>
+  </div>
+  <div class="glass note"><b>Disclaimer.</b> SALU Community is an independent student platform and not an official group of Shah Abdul Latif University Khairpur. For official decisions, always verify through official Shah Abdul Latif University Khairpur sources.</div>
 </section>
 
 <section class="view" id="v-admissions">
   <h2>Admissions</h2>
-  <p class="sub">A simple walkthrough for new students. Dates and rules change every year, so confirm them on the official SALU notice.</p>
+  <p class="sub">A simple walkthrough for new students. Dates and rules change every year, so confirm them on the official Shah Abdul Latif University Khairpur notice.</p>
   <details class="glass" open><summary>How admission works</summary><ul><li>SALU announces admissions and the application schedule.</li><li>You apply and choose your department preferences.</li><li>You appear in the entry test.</li><li>SALU publishes merit lists based on your aggregate.</li><li>Selected students complete the fee and document process.</li></ul></details>
   <details class="glass"><summary>Documents students usually keep ready</summary><ul><li>Matric and Intermediate mark sheets and certificates</li><li>CNIC or B-Form</li><li>Passport-size photographs</li><li>Domicile, where required</li></ul></details>
   <details class="glass"><summary>Choosing your department</summary><p>Compare your aggregate with the closing aggregates on the Departments page, then list departments in order of preference, including a few safer choices.</p></details>
@@ -109,144 +221,6 @@ footer b{color:var(--blue)}
   <div class="stack" id="meritList"></div>
 </section>
 
-<section class="view" id="v-calculator">
-  <h2>CPN / Aggregate Calculator</h2>
-  <p class="sub">Enter your marks to calculate your aggregate and see where you stand.</p>
-  <div class="glass card">
-    <div class="seg" id="modeSeg"><button class="on" data-m="bs1">BS Part-I</button><button data-m="bs3">BS-III</button></div>
-    <div class="stack" id="calcFields"></div>
-    <div class="btns" style="margin-top:16px"><button class="btn" id="calcBtn">Calculate</button></div>
-    <div id="calcOut" aria-live="polite"></div>
-  </div>
-  <div class="glass note">Result is an estimate based on the published formula. Final merit is decided only by SALU.</div>
-</section>
-
-<section class="view" id="v-departments">
-  <h2>Departments</h2>
-  <p class="sub">Closing aggregates are taken from the most recent merit list shared by SALU Community.</p>
-  <div class="grid" id="deptGrid"></div>
-</section>
-
-<section class="view" id="v-entry">
-  <h2>Entry Test Preparation</h2>
-  <p class="sub">Free preparation material that follows the Sindh Textbook Board syllabus and SALU past-paper style.</p>
-  <div class="grid">
-    <div class="glass card"><h3>Syllabus</h3><p>The full SALU entry test syllabus, subject by subject.</p></div>
-    <div class="glass card"><h3>Important topics</h3><p>The chapters that appear most often in past papers.</p></div>
-    <div class="glass card"><h3>Practice questions</h3><p>Past-paper style MCQs to test each subject.</p></div>
-    <div class="glass card"><h3>Preparation material</h3><p>Notes and short guides in simple language.</p></div>
-  </div>
-  <div class="btns" style="margin-top:18px"><a class="btn" href="#mocktests">Start a mock test</a><a class="btn alt" data-link="wa" href="#">Get material on WhatsApp</a></div>
-</section>
-
-<section class="view" id="v-mocktests">
-  <h2>Free Mock Tests</h2>
-  <p class="sub">Practice tests prepared by SALU Community. These are not official university examinations.</p>
-  <div class="glass card" style="margin-bottom:16px"><h3>Register for the next mock test</h3><p style="margin-bottom:12px">Register once to join the scheduled test and have your result published.</p><a class="btn" data-link="form" href="#">Open registration form</a></div>
-  <div class="glass card" style="margin-bottom:12px"><h3>Sample practice test</h3><p>Answer all questions, then submit to see your marks and the answer key.</p></div>
-  <div id="quiz"></div>
-  <div class="btns"><button class="btn" id="quizBtn">Submit test</button><button class="btn alt" id="quizReset">Start again</button></div>
-  <div id="quizOut" aria-live="polite"></div>
-</section>
-
-<section class="view" id="v-results">
-  <h2>Results</h2>
-  <p class="sub">Mock test results shared by SALU Community.</p>
-  <div class="glass scroll" id="resultsBox"></div>
-</section>
-
-<section class="view" id="v-guidance">
-  <h2>Admission Guidance</h2>
-  <p class="sub">Plain explanations of the things new students ask most.</p>
-  <details class="glass" open><summary>How is the aggregate calculated?</summary><p>For BS Part-I, the entry test counts for 50%, Matric for 20% and Intermediate for 30%. Each part is converted to a percentage of its total marks, then multiplied by its weight.</p></details>
-  <details class="glass"><summary>What if my entry test marks are low?</summary><p>An entry test score below 17 counts as a fail, so no aggregate is calculated.</p></details>
-  <details class="glass"><summary>How do I read a merit list?</summary><p>Find your department, then check whether your aggregate is at or above the last selected candidate. That last figure is the closing aggregate.</p></details>
-  <details class="glass"><summary>What is a closing aggregate?</summary><p>It is the aggregate of the last student admitted to a department in a merit list. It changes every year, so use it as a guide, not a guarantee.</p></details>
-  <details class="glass"><summary>How should I choose departments?</summary><p>Rank your preferred departments first, then add some with lower closing aggregates as backups.</p></details>
-</section>
-
-<section class="view" id="v-about">
-  <h2>About SALU Community</h2>
-  <div class="glass card">
-    <p style="margin-bottom:10px">SALU Community is a student support platform for Shah Abdul Latif University, Khairpur. It has been helping new students for about 3 years.</p>
-    <p style="margin-bottom:10px">The goal is simple: students should not have to ask many people for basic admission and preparation information. Admissions, merit lists, aggregates, departments, entry test preparation, mock tests and schedules should all be found in one place.</p>
-    <p>Everything here is free, with no personal interest or profit motive.</p>
-  </div>
-  <div class="glass note"><b>Disclaimer.</b> SALU Community is not an official department, office or group of Shah Abdul Latif University. It is an independent student platform for welfare, guidance and educational support.</div>
-</section>
-
-<section class="view" id="v-contact">
-  <h2>Contact</h2>
-  <p class="sub">Join the community to get updates, ask questions and receive study material.</p>
-  <div class="cols">
-    <div class="glass card"><h3>WhatsApp group</h3><p style="margin-bottom:12px">Daily updates, notices and help from other students.</p><a class="btn" data-link="wa" href="#">Join the group</a></div>
-    <div class="glass card"><h3>Registration form</h3><p style="margin-bottom:12px">Register for mock tests and student activities.</p><a class="btn alt" data-link="form" href="#">Open form</a></div>
-  </div>
-</section>
-</main>
-
-<footer><div class="glass">
-  <p><b>SALU Community</b> - Student Support & Information Platform. Independent student platform, not an official SALU group. Verify all information from official SALU sources.</p>
-  <p style="margin-top:6px">Designed by <b>Ziauddin</b></p>
-</div></footer>
-
-<script>
-/* ===== EDIT THESE ===== */
-const WHATSAPP = "";          // paste your SALU Community WhatsApp group link
-const FORM_URL = "";          // paste your Google Form link for mock test registration
-/* Closing aggregate in percent. Replace null with the real number from the latest merit list. */
-const DEPTS = [
-  {n:"Computer Science",c:null},{n:"Business Administration",c:null},{n:"English",c:null},
-  {n:"Education",c:null},{n:"Mathematics",c:null},{n:"Physics",c:null},{n:"Chemistry",c:null},
-  {n:"Botany",c:null},{n:"Zoology",c:null},{n:"Sindhi",c:null},{n:"Urdu",c:null},{n:"Islamic Studies",c:null}
-];
-/* Merit lists: {t:"Title", u:"link", d:"date"} */
-const MERITS = [];
-/* Results: {name:"", id:"", marks:"", city:"", test:""} */
-const RESULTS = [];
-/* ===================== */
-
-const VIEWS=[["home","Home"],["admissions","Admissions"],["merit","Merit Lists"],["calculator","CPN Calculator"],["departments","Departments"],["entry","Entry Test"],["mocktests","Mock Tests"],["results","Results"],["guidance","Guidance"],["about","About Us"],["contact","Contact"]];
-const $=s=>document.querySelector(s);
-$("#nav").innerHTML=VIEWS.map(v=>`<a href="#${v[0]}" data-v="${v[0]}">${v[1]}</a>`).join("");
-$("#tiles").innerHTML=[["admissions","Admissions","How admission works and what to prepare."],["merit","Merit Lists","Latest merit lists and closing aggregates."],["departments","Departments","Compare departments and closing marks."],["entry","Entry Test","Free syllabus, topics and practice."],["mocktests","Mock Tests","Attempt MCQs and see your marks."],["guidance","Guidance","Simple answers to common questions."]].map(t=>`<a class="glass tile" href="#${t[0]}"><h3>${t[1]}</h3><p>${t[2]}</p></a>`).join("");
-document.querySelectorAll("[data-link]").forEach(a=>{const u=a.dataset.link==="wa"?WHATSAPP:FORM_URL;if(u){a.href=u;a.target="_blank";a.rel="noopener"}else{a.addEventListener("click",e=>{e.preventDefault();alert("This link has not been added yet.")})}});
-
-function route(){const id=(location.hash||"#home").slice(1);const ok=VIEWS.some(v=>v[0]===id)?id:"home";
-document.querySelectorAll(".view").forEach(s=>s.classList.toggle("on",s.id==="v-"+ok));
-document.querySelectorAll("#nav a").forEach(a=>{const on=a.dataset.v===ok;a.classList.toggle("on",on);if(on)a.scrollIntoView({inline:"center",block:"nearest"})});
-window.scrollTo(0,0)}
-addEventListener("hashchange",route);route();
-
-$("#meritList").innerHTML=MERITS.length?MERITS.map(m=>`<a class="glass tile" href="${m.u}" target="_blank" rel="noopener"><h3>${m.t}</h3><p>${m.d||""}</p></a>`).join(""):`<div class="glass empty">No merit list has been posted yet. Check back after SALU announces one.</div>`;
-$("#deptGrid").innerHTML=DEPTS.map(d=>`<div class="glass card"><h3>${d.n}</h3><p>${d.c==null?"Closing aggregate not added yet":"Closing aggregate: <b>"+d.c.toFixed(2)+"%</b>"}</p></div>`).join("");
-$("#resultsBox").innerHTML=RESULTS.length?`<table><tr><th>Name</th><th>Test ID</th><th>Marks</th><th>City</th><th>Test</th></tr>${RESULTS.map(r=>`<tr><td>${r.name}</td><td>${r.id}</td><td>${r.marks}</td><td>${r.city||""}</td><td>${r.test||""}</td></tr>`).join("")}</table>`:`<div class="empty">Results will appear here after each mock test.</div>`;
-
-/* Calculator */
-let mode="bs1";
-const F={bs1:[["entry","Entry test marks",50],["matric","Matric marks",1100],["inter","Intermediate marks",1100]],bs3:[["entry","Entry test marks",50],["ads","ADS / BSc marks",""],["inter","Intermediate marks",1100]]};
-function drawFields(){$("#calcFields").innerHTML=F[mode].map(f=>`<div><label for="${f[0]}">${f[1]}</label><div class="row"><input id="${f[0]}" type="number" inputmode="decimal" min="0" placeholder="Obtained"><input id="${f[0]}T" type="number" inputmode="decimal" min="1" value="${f[2]}" placeholder="Total" aria-label="${f[1]} total"></div></div>`).join("");$("#calcOut").innerHTML=""}
-document.querySelectorAll("#modeSeg button").forEach(b=>b.onclick=()=>{mode=b.dataset.m;document.querySelectorAll("#modeSeg button").forEach(x=>x.classList.toggle("on",x===b));drawFields()});
-drawFields();
-$("#calcBtn").onclick=()=>{const out=$("#calcOut"),W=mode==="bs1"?{entry:50,matric:20,inter:30}:{entry:50,ads:30,inter:20};let agg=0,entry=0;
-for(const f of F[mode]){const o=parseFloat($("#"+f[0]).value),t=parseFloat($("#"+f[0]+"T").value);
-if(isNaN(o)||isNaN(t)||t<=0){out.innerHTML=`<div class="out bad">Enter obtained and total marks for ${f[1]}.</div>`;return}
-if(o>t){out.innerHTML=`<div class="out bad">${f[1]}: obtained marks cannot be more than total marks.</div>`;return}
-if(f[0]==="entry")entry=o;agg+=o/t*W[f[0]]}
-if(entry<17){out.innerHTML=`<div class="out"><p class="bad">Entry test marks are below 17, which counts as failed. No aggregate is calculated.</p></div>`;return}
-let h=`<div class="out"><p>Your aggregate</p><div class="big">${agg.toFixed(2)}%</div>`;
-if(mode==="bs1"){const ok=DEPTS.filter(d=>d.c!=null&&agg>=d.c);const has=DEPTS.some(d=>d.c!=null);
-h+=!has?`<p style="margin-top:10px;color:var(--mute)">Closing aggregates have not been added yet, so departments cannot be matched.</p>`:ok.length?`<p style="margin-top:10px">Departments where your aggregate meets the last closing aggregate:</p><div class="chips">${ok.map(d=>`<span class="chip">${d.n}</span>`).join("")}</div>`:`<p style="margin-top:10px;color:var(--mute)">Your aggregate is below the last closing aggregate of the listed departments.</p>`}
-else h+=`<p style="margin-top:10px;color:var(--mute)">You may have chances of selection in your chosen department.</p>`;
-out.innerHTML=h+`</div>`};
-
-/* Mock test */
-const QS=[["What is the chemical symbol of sodium?",["Na","S","So","N"],0],["What is the SI unit of force?",["Joule","Newton","Watt","Pascal"],1],["Which organelle is called the powerhouse of the cell?",["Nucleus","Ribosome","Mitochondria","Vacuole"],2],["Choose the word closest in meaning to 'rapid'.",["Slow","Quick","Heavy","Quiet"],1],["What is the value of 12 x 12?",["124","132","144","148"],2]];
-function drawQuiz(){$("#quiz").innerHTML=QS.map((q,i)=>`<div class="glass q"><p>${i+1}. ${q[0]}</p>${q[1].map((o,j)=>`<label class="opt"><input type="radio" name="q${i}" value="${j}">${o}</label>`).join("")}</div>`).join("");$("#quizOut").innerHTML=""}
-drawQuiz();
-$("#quizReset").onclick=drawQuiz;
-$("#quizBtn").onclick=()=>{let s=0;QS.forEach((q,i)=>{const c=document.querySelector(`input[name=q${i}]:checked`);document.querySelectorAll(`input[name=q${i}]`).forEach(r=>{const l=r.parentNode;if(+r.value===q[2])l.classList.add("ok");else if(r.checked)l.classList.add("no");r.disabled=true});if(c&&+c.value===q[2])s++});
-$("#quizOut").innerHTML=`<div class="glass out"><p>Your marks</p><div class="big">${s} / ${QS.length}</div><p style="margin-top:6px;color:var(--mute)">Correct answers are highlighted in green above.</p></div>`;$("#quizOut").scrollIntoView({behavior:"smooth",block:"nearest"})};
-</script>
-</body>
-</html>
+<section class="view" id="v-announcements">
+  <h2>Announcements</h2>
+  <p class="sub">Lat
