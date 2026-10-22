@@ -1219,7 +1219,7 @@ footer a:hover { color: var(--white) !important; text-decoration: underline; }
     </div>
     <section id="terms" class="footer-policy">
       <h3>Terms &amp; Privacy</h3>
-      <p>Use of this website is for educational and student-guidance purposes. We respect your privacy and do not sell or misuse personal information.</p>
+      <p>Use of this website is for educational and student-guidance purposes. We respect your privacy and do not sell or misuse personal information. This website uses Google Analytics to count visits and see which pages are useful; it does not identify you personally.</p>
     </section>
     <div class="footer-bottom"><p>© SALU Community. All rights reserved.</p></div>
   </div>
@@ -1227,6 +1227,8 @@ footer a:hover { color: var(--white) !important; text-decoration: underline; }
 
 <script>
 const WHATSAPP = "https://chat.whatsapp.com/E7LRPS1suwKEVCOdEUGzYA?s=cl&p=a&mlu=4&ilr=4";
+/* Google Analytics: paste your Measurement ID here, e.g. "G-ABC123XYZ9". Leave empty to turn tracking off. */
+const GA_ID = "G-M9S2H2V00W";
 const FACEBOOK = "https://www.facebook.com/profile.php?id=61581235382207";
 const FORM_URL = "";
 
@@ -1654,6 +1656,18 @@ function route() {
   document.querySelectorAll("[data-top]").forEach(a => a.classList.toggle("on", a.dataset.top === ok));
   closeMenu();
   window.scrollTo(0, 0);
+  if (window.gtag && GA_ID) gtag("event", "page_view", { page_title: (N[ok] || ok), page_location: location.origin + location.pathname + "#" + ok, page_path: location.pathname + "#" + ok });
+}
+/* Load Google Analytics only when an ID is set */
+if (GA_ID) {
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { dataLayer.push(arguments); };
+  gtag("js", new Date());
+  gtag("config", GA_ID, { send_page_view: false });
+  const ga = document.createElement("script");
+  ga.async = true;
+  ga.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(GA_ID);
+  document.head.appendChild(ga);
 }
 addEventListener("hashchange", route);
 route();
