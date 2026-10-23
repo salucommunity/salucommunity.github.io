@@ -1,0 +1,23 @@
+{
+  "name": "SALU Community",
+  "short_name": "SALU Community",
+  "description": "Admissions, merit lists, fee structure, seats, past papers and free mock tests for Shah Abdul Latif University, Khairpur students.",
+  "id": "./",
+  "start_url": "./?source=app",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#0a3d91",
+  "lang": "en",
+  "categories": ["education"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Merit Lists", "url": "./#merit" },
+    { "name": "Past Papers", "url": "./past-papers.html" },
+    { "name": "Aggregate Calculator", "url": "./#calculator" }
+  ]
+}
