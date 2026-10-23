@@ -8,7 +8,7 @@
 
 /* ---------- Links and settings ---------- */
 const WHATSAPP = "https://chat.whatsapp.com/E7LRPS1suwKEVCOdEUGzYA?s=cl&p=a&mlu=4&ilr=4";
-const First Merit List = "https://drive.google.com/file/d/1HWcdbt1rt_5V9e5eKesc5-PBEmcGdhe4/view?usp=drivesdk";
+const FACEBOOK = "https://www.facebook.com/profile.php?id=61581235382207";
 const FORM_URL = "";
 const GA_ID = "G-M9S2H2V00W";
 
