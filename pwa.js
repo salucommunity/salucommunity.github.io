@@ -3,11 +3,13 @@
    It is hidden only inside the installed app itself. */
 (function () {
   "use strict";
+  /* Sends app events to Google Analytics (works when GA_ID is set in data.js) */
+  function track(name, params) { try { if (window.gtag) window.gtag("event", name, params || {}); } catch (e) {} }
   if ("serviceWorker" in navigator && location.protocol !== "file:") {
     addEventListener("load", function () { navigator.serviceWorker.register("sw.js").catch(function () {}); });
   }
   var standalone = (window.matchMedia && matchMedia("(display-mode: standalone)").matches) || navigator.standalone === true;
-  if (standalone) return;
+  if (standalone) { track("pwa_app_open"); return; }
 
   var ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
   var deferred = window.__bip || null, bar = null, steps = false, installed = false;
@@ -49,12 +51,14 @@
     bar.innerHTML = '<img src="icon-192.png" alt="" width="46" height="46"><div class="pwa-txt"><b>Install SALU Community App</b><span></span></div>' +
       '<div class="pwa-act"><button type="button" class="pwa-go">Install</button><button type="button" class="pwa-no">Not now</button></div>';
     document.body.appendChild(bar);
+    track("pwa_banner_shown");
     document.body.classList.add("pwa-pad");
     bar.querySelector(".pwa-no").addEventListener("click", hide);
     bar.querySelector(".pwa-go").addEventListener("click", function () {
+      track("pwa_install_click", { has_prompt: !!deferred });
       if (deferred) {
         var p = deferred; deferred = null; window.__bip = null; p.prompt();
-        p.userChoice.then(function (r) { if (r && r.outcome === "accepted") hide(); });
+        p.userChoice.then(function (r) { track(r && r.outcome === "accepted" ? "pwa_install_accepted" : "pwa_install_dismissed"); if (r && r.outcome === "accepted") hide(); });
         return;
       }
       if (steps) { hide(); return; }
@@ -67,7 +71,7 @@
   }
   addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); deferred = e; });
   addEventListener("bip-ready", function () { deferred = window.__bip || deferred; });
-  addEventListener("appinstalled", function () { deferred = null; hide(); });
+  addEventListener("appinstalled", function () { track("pwa_installed"); deferred = null; hide(); });
   function init() { setTimeout(build, 900); }
   if (document.readyState === "loading") addEventListener("DOMContentLoaded", init); else init();
 })();
