@@ -10,7 +10,7 @@
   if (standalone) return;
 
   var ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
-  var deferred = null, bar = null;
+  var deferred = window.__bip || null, bar = null, steps = false;
 
   var css = ".pwa-bar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:200;max-width:560px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:18px;color:#fff;background:linear-gradient(135deg,#061e47,#0f3f96 60%,#1d64df);border:1.5px solid rgba(255,255,255,.28);box-shadow:0 16px 40px rgba(6,30,71,.35);animation:pwaUp .5s cubic-bezier(.22,1,.36,1) both}" +
     ".pwa-bar img{width:46px;height:46px;border-radius:12px;flex-shrink:0;background:#fff}" +
@@ -22,14 +22,16 @@
     "@media(prefers-reduced-motion:reduce){.pwa-bar,.pwa-bar.out{animation:none}}";
 
   function message() {
-    if (deferred) return "Add it to your home screen for one-tap access to merit lists, fees and past papers.";
-    if (ios) return "On iPhone, tap the Share button, then Add to Home Screen to install it.";
-    return "Already installed? Open it from your home screen. If not, use your browser menu and tap Install app.";
+    if (!steps) return "Get merit lists, fees and past papers one tap away, right from your home screen.";
+    if (ios) return "On iPhone, tap the Share button, then Add to Home Screen.";
+    return "Tap the browser menu (three dots), then Install app or Add to Home screen. Already installed? Open it from your home screen.";
   }
   function render() {
     if (!bar) return;
+    var go = bar.querySelector(".pwa-go");
     bar.querySelector(".pwa-txt span").textContent = message();
-    bar.querySelector(".pwa-go").hidden = !deferred;
+    go.hidden = false;
+    go.textContent = steps ? "Got it" : "Install";
   }
   function hide() {
     if (!bar) return;
@@ -43,19 +45,23 @@
     bar = document.createElement("div");
     bar.className = "pwa-bar"; bar.setAttribute("role", "dialog"); bar.setAttribute("aria-label", "Install SALU Community app");
     bar.innerHTML = '<img src="icon-192.png" alt="" width="46" height="46"><div class="pwa-txt"><b>Install SALU Community App</b><span></span></div>' +
-      '<div class="pwa-act"><button type="button" class="pwa-go" hidden>Install</button><button type="button" class="pwa-no">Not now</button></div>';
+      '<div class="pwa-act"><button type="button" class="pwa-go">Install</button><button type="button" class="pwa-no">Not now</button></div>';
     document.body.appendChild(bar);
     document.body.classList.add("pwa-pad");
     bar.querySelector(".pwa-no").addEventListener("click", hide);
     bar.querySelector(".pwa-go").addEventListener("click", function () {
-      if (!deferred) return;
-      var p = deferred; deferred = null; p.prompt();
-      p.userChoice.then(function (r) { if (r && r.outcome === "accepted") hide(); else render(); });
-      render();
+      if (deferred) {
+        var p = deferred; deferred = null; window.__bip = null; p.prompt();
+        p.userChoice.then(function (r) { if (r && r.outcome === "accepted") hide(); });
+        return;
+      }
+      if (steps) { hide(); return; }
+      steps = true; render();
     });
     render();
   }
-  addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); deferred = e; render(); });
+  addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); deferred = e; });
+  addEventListener("bip-ready", function () { deferred = window.__bip || deferred; });
   addEventListener("appinstalled", function () { deferred = null; hide(); });
   function init() { setTimeout(build, 900); }
   if (document.readyState === "loading") addEventListener("DOMContentLoaded", init); else init();
