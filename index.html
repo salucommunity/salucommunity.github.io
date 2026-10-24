@@ -27,6 +27,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <script>window.__bip=null;addEventListener("beforeinstallprompt",function(e){e.preventDefault();window.__bip=e;dispatchEvent(new Event("bip-ready"))});</script>
 <script src="pwa.js" defer></script>
+<script src="sheet.js" defer></script>
 <link rel="canonical" href="https://salucommunity.github.io/">
 <link rel="alternate" hreflang="en-pk" href="https://salucommunity.github.io/">
 <link rel="alternate" hreflang="x-default" href="https://salucommunity.github.io/">
@@ -84,7 +85,7 @@
     "itemListElement": [
       {"@type": "SiteNavigationElement", "position": 1, "name": "SALU Admissions & How to Apply", "url": "https://salucommunity.github.io/#admissions"},
       {"@type": "SiteNavigationElement", "position": 2, "name": "SALU Merit Lists", "url": "https://salucommunity.github.io/#merit"},
-      {"@type": "SiteNavigationElement", "position": 3, "name": "SALU Entry Test Past Papers (2015-2027)", "url": "https://salucommunity.github.io/past-papers"},
+      {"@type": "SiteNavigationElement", "position": 3, "name": "SALU Entry Test Past Papers (2015-2027)", "url": "past-papers"},
       {"@type": "SiteNavigationElement", "position": 4, "name": "SALU Departments & Faculties", "url": "https://salucommunity.github.io/#departments"},
       {"@type": "SiteNavigationElement", "position": 5, "name": "SALU Department Seats & Quotas", "url": "https://salucommunity.github.io/#seats"},
       {"@type": "SiteNavigationElement", "position": 6, "name": "SALU Fee Structure", "url": "https://salucommunity.github.io/#fees"},
@@ -945,21 +946,21 @@ mark.gs-hl{background:#fde047;color:#061e47;padding:0 2px;border-radius:4px;font
 <body>
 <header class="site-header">
   <div class="bar">
-    <a class="brand" href="#home" aria-label="SALU Community home">
+    <a class="brand" href="./" aria-label="SALU Community home">
       <span class="mark"><img src="data:image/webp;base64,UklGRkQkAABXRUJQVlA4WAoAAAAQAAAAjwAAjwAAQUxQSC0EAAABCjqztimym56eFUMsMzMz2xEzY3RDKXMpN3v1AygyMzNsKTc7Y7YzMfPunemq7Vma6X7N9vt9HRGMJEmJREOgiHNbZXkAm4DNNTMkZx116VT76c6Xv25wpQhlg37ZSe2pS4+aZUhmuVoTAzJVbzj2+vte+37DPjcWuOH71/T6Y70l1yx4ixjygBtWfbHVVVBMJ5ZklUgWKVEq2PrFqhvUkDZkgyjJQ5e8tcb1Me33ypjwW5P0seatJeq323BHC+9+aXt1rZSJweqSvnT3wjAHKuSJ7V8qllJqAysGbZ9oaPPAPDLD81/Y5qQYtNRpKET0hfMNs4AcMjG8upOc9EppBFSR1Lna0Gah3MuGF77jpEyUxsBEEb3QMIh73JJHPF44JmkYicLHjzC0jVtbZs7S9U4qo8YHIlw6x7Sypq3nfuKkJ4FARdK5zRpbTPfv8ndPMKDKrtQyqUG3kz8csSuQTR9qU16Z4V2bh1iDMqa7DJvgnLNWDLEGZ+Qsow3Ioo4rSgkSLEQX1c4tnvbdULcAvb47zaSa5ZINw9zC9NrAWjnnrTu8hM07bqXWKHd0XSGBg9K9ozZu8c59ZV+C53KfmlTT+JaKRMFay1B58VYvcfDWVAMrT97k+hIJi548MVsu+s5NSzRI8h0n/MzIdE7H9SQiqHRSzsmuvly6Lip0XZro4so7B1djWtQJfCxP2FQWsRFLPcHYsZ1mf+J1fOoTHdenxQf6V4gQKjRpTNvZe4oyRmKRzh7PJDM/q9piNH02cxzKeY+XWFnHuKDNDllfMFYi1x+S2dH6Ua/jVTpSKc/uVsbRDrtnj2LN3vE6ZqUcTsorXV9HreTK4crKaq/jVqutDNXn7i0ZN5FJhynLV7yOXb1CO0SO3eF17CodO8jKZa4n0UNl2ZDpwt+qu2PfnBYO6ru9IOC7q8ry5ap3/M5KW5GDdzoQ4MGeW1zs5ximi01i3/Cmn2OYvtm3CPdf60oMRNH9jc15o5+jmCajylXlNApKXGU0m/G5w0GizMyxW/0KioWtxxre4DUOdQN5r+vhIJV7yTdw7BShqJn1HRb6btaR670nDsf1etk+gQLqlN+JZONUGw3xGTTED5DsFKF88BWSnSKUr35FQ7oBDW1wf3sBz4XwPIfxvKfwvMfxfOfg+Q7E852M5z8Cz38Wnv9QOP/peM4xAJ3z4DkHw3NOiOccFc85M55zeDBxCkRxHDxxLjhxQDxxUjhxZDxxdjx5CHDyNPDkscDJ88GTBwUnTwxPHh2cPEM8eZhw8lTh5PHiyXOGkweOJ08eTh0BnDoLOHUoeOp04NQxwanzglMHB6dOEE4dJZw6Uzh1uHDqlOHUccOpc4fTBwBOnwQ4fSTQ9NmA04cETp8WNH1s4PT5QdMHCU2fKDR9tND0GUPThw1Nnzrwffzg9DkkAFZQOCDwHwAAUGIAnQEqkACQAD5JGopEIqGhGt0/ECgEhLQZyD0jSDc7wgB0rI53jRyAfrqLWOxqIcV1eAfV+TbyL3hfG4MvJHlZ8+eej/UepT9V+wBzo/3N9Qf7Qfs97zX/J9Wn969Qr/Af7HrMP239hP9qvTk/cj4WP6//1/3H9qf//5w1/K/Px3hfdvym/cP1f/Gvmf7z/av2i/r/7S/GDkb61v7z0O/kH22/D/2v9vPzW+Lf9T4J/kH71/lvzQ/t3yBfjv8t/xn9o/bb+3/uj8+f0P+h7fzVv8H/2P8P7AvsB9C/0393/cv/GeiB/Zf3v9w/cv6uf638y/8N9gH86/oP+t/tH7n/4D///Wf+i8H3x/9kvgD/mH9f/4H+S/xv7X/S9/Lf9T/If7D9xvan+b/3n/l/4397P9d9g38m/pH+w/vn+a/9P+T////r+7T2T/tj7Lv7Hf+V4ugtmavQ19L4vjqsRsyX6bxgIsbeM/9tDadj+lylJdSG786S+59D6qvSt7z63lTHWej2ednrfXe47oJFIIW7+QRLaryU/dvK4hX0E1nD0vBV0lNIEF8llkv/GC1lCruN6WLCIAe2MpRQUEWVvfECyWeM9cCyQgyXDJ5fMyZJA5YWZyKeRcvt1xK9BzTdVOpClpYJO+KmF/hIgc/I9N+OlaWdJ1nlmFqRdXv85UIykJSUgU4O8yEKKVxVXXwXw14ksKobxDdGRNuvtwL3noOsMWZOWJCvLcLefMK4BOG1qfXKBLin91gSH7k+zusrWxEQGvVAmeZYNM7F8ziGLnVsaskzQiJLjZazx9iM9m7br792AG7OnGryF+ALWehvCDCR3pUCZbpzMBPxyx5gfFTLOQ261GfXlUyuwUd6qoSws4LWOEdH03/qb0J5Lp7dzYEp1eoOsvMkYvxArIr6Y3aq0XxCbMoPRvbVjuZrFGi4Wq1oteSYJ5AIi2a04VW8aDzZBLfpESnEBY0wHqYGV+Y8pl6J9KB6My9invlWlmmHvt69T9xo1mJi4aWo3KVvMNUjQFPf8zZZzUn3CfrxdU9P/n358FF8q3sAAP7/DWS9ySPyxQ9srQlJ3JPpe/AtwNxf0NBnCHAh6Dh6Y7vj3XuVHFSN9S4TAMjNEna4KS0dY4op0MMIYrfqxtXshq5T2QZY7XSqWCqsIlYzKX8aq6A2N8r7Pvt3cnTvlY/wudtYAU70GjER8r+O9EiRcN7+AxC3d0zkLNv28Yj3M6GDZF9wEDuLUKE3grU5x3TG5D6XP5OJlFTihZH9nTS7Ln9KhGt+AlfOObHBRERJi+RuL5/iOn9dPTCgR0qIL6obpoxUPph68Cu5FlYfzcRPMYcrBXmGbveSgXCbp27tMvg481whcMUVwKr9t1TAY/RfsuLY7sliPDl8zMYbfGds0+KcuvyiXr8rJEVCmdUIPjh3ZXwsMIGSi3KBkqZ6bWbUTJZFqTqI56sC1zAGmZb30CjaX8wTY9ceNHPZyv3BKS+onGoAB/k5HT8B7UP30KRaj4a0RrnVx/rABy7zcTtJmnIw9e5TceCXvi4DjhyyjqedTTI2EuRs2zowM5zm/EUAD6Bi/FmxTfDWmxeMhoUJAqZnM/CZiAKSuNa+bdRZ8B7e5VY02A4s3SE385/pg9j1J6G2ucXn3gfQJr84prE3nzRyyv+AiIW0XtrRUX6c27zMPD06pUTossUteelzeFr4KQf7s2vT0tVwm8ZIRPOUBFES3Vtd+MAgBhC5Z/jQ9FVJDlGEpvDz4Sqmta9X5lSiTGpuxdP78KTMY0jDo03hacRQ+7ykqssBetp3/Z0jtvj7qR5W/cc5KMJW8nLbuEOvAIXYuXv81lXh+B+U7l6340VLJ4cH4WGoLO7+f9a7rvcYeRb5ifRIJ+FJrasJABFm8EGlToPs4e8Ae3TYnvQzNqoR+iIDxXcYdgDPx4EpaEmPJYX+c+SNG0cOsyiQh8HsTPsEAOCDmJYYBG/d73k0+8bxK2qIBk+onmUUEyheXlnFRo3cCZP6YnjQxN4Pabuwb8nQne9cBOz0LToKElIP9FiP58+2xvbfW1B1VXZW3txjj4q04evxLgZhqrUCJxMXbyXSXVYrTlW4RUxJpbNr6wHAZ9dXHdXfHDzxOtneOda/oXtT4T9EJhzEkmP+ePN78I8/UkjJhP9XvYZcbCEMQcBg8/47br7b+YiTYfYtD3xXdCgQU991ldMyWaBDKwojAsnQ2fn5Lqk6cO6mXI3RuKAbNDU2Cs+239M2BZXJ6iyZTSjZX7LFEnXXTMy3T0HH7tMgEKHnQOttAxJQKhqHRarPws9XIG0YnXuJE3pr4LNgHe1S+ZSnC2yVMkD9dhCFA8bKVd5izeihV/9b8fUFA3mS/D7SM1xIMTofODAZ821ZPVtd39Z5PyTT8aLyYN1bY41+siYj+D8VvMVnAouKcZXDpadwUpK52JZTMUFOjHgi7JXhv7R08y+kYW7nVrQ8A5QMTTBEKU+zQxXOSVnwleb1x80RkSEpRDmW/WGrmGKwKpVaRCvmnJqzDI1YeU+pNBiOOnJDvjBIArvROqIcBKHhfy6/NhhFDcZxzzUSpj8nS2tn7tE+gAtNsKDxN9goAqESYFjDTNuhBInSRxKwupZfFguJWN5KnubqX6iBtuKISH5v9Salz8yHztH5l4KtFxki2+5L4a4MdMuEy9iBJ7m61Wqg5ofDmk4mn9Bzk1MDlw97K2dfnmfYno0CbJnGTRNDXF2GZcyfMcI6IpzTf70x23lbfQxVjgEEiZqDs6RrZ/iax1bn6aJnirqXVW7PJ9teHkSUhwSNcImpkFwZJxY6Tb2DwHBLy6QprHUhAxFIlvS94ey9U9Ksl6TooE+q2QgQm2t6iRikuSG37t3I8PPA2cmyX6tlGdifTC26ztwscLFzDiAbnIskA4r7zJLCVLKQisSqAUa1RYra5uTIM+PxiC1EzMHW8ffCjxJJ9v/B3hwJGzwbg6+c79pxinvov1bZwkQxW1JukO23DvboicUimf/UvnMiv7xGss4M3ZTR44v/2j2sj/7FjPQBp88w8d26EQI9KPfp94yWY77xJyY08V/0b41mXVgVkxU/o+4rKL2ppFHoWG5QH5c+V+VCG6GUlRC10vPmeXlbuSyMassjibi16ystZNIctdufg5vrdWxloxYV2uQz4VD5eNfQEkoAn4T4XhW9cTgvCyCwzji2aX3c3utONBIpItVGCyh29l5H/6+9Li5wUM/JzMaiDcCl9OjkEGANZ3E0P1vxixG07GX8s8AVud8PxXDvMJma7Ukpf9gi8QFDZkUjorjJBkXcjT+OMoahW58rpnS23rnz27c+q4qxUUYLTYrar7gmbuXzteYPfvuJGd0HSo29YICjaHTs+79Eu1DsBI3Znla1t2a69rENYzUOj6Gv1J4hhKDsegg4B7JzLgIg0EPzEuIjI2v63stF8NYzQafFI+/IqqHFACFeQkMj/sQk3nFNQEK/RtmU8Nea6g2nYZzxMALfALFUX4zE/bOhrpqBCTx+W6OOmG4ty+bsqvlhzP/F9Y0XrTl0KwGnV3fuzyiBLaqhx/f7BjRrO8cpVFUwCKOGsjkEHafEqn5+9vo2Apvb1AlqHNE5RYezqqyhhDrci9n19hXhG3XiPHxHpNb75iQ9Ioyas4GCVg8upaK33XH1DvAjLqTpojG/VZ46jMhFABu4IULowDuxaV3Xgt25EMWokcY1RLlMUV+pUkzmBCP7Tw9+qpRD5bz4Tpp8n73FFk5nZO1Zr5YsWfoOZhbZAy8JXMh4X8IsuhnZw3FnON6covy1hkrQu5vdEE2pN4UAPCA+Rg0XqB8ssfGV/n6ZGEdxfWqQYRSmbyC1BvAHFZhbqXNjVJWeei7udYNm6IX3gYDIJAOxt9N0LI7BfeHDlLvu2Vgi127cChIu6aCAhu7wCefmWo9SgXkhxNbrPYk0o8+dUrwZh2Jqsyl3R3n2G1InyYutJNZgYxQdZVnN7OPVQpjpVnZ9IWd7J30TZeGJ+9xcLWwXUTOQ7RdVLqcJ73df+F6UXn8nu8bu7Z5XVuskiHV3/8AFJgtQIyh7nuHn19kO/B4gzY45SRDeq5dIvOAq5ugX9B+5K1ZpFfWqsYSPjDSp51u52Ce78M2KFQwS03z5b31IlES+XnhZ//V0JyLTPsg4D0taSPrJ0FK4Dg4SOMuKiqnfYfINO8uHxM0MzMV/kYtX/O/faAr0yFfFonlqemMZN1Y+iA/fhoFr8lbHI2/e6n+I0uU8mxRHB3L8peITzPTm4p1XA1mneO21qwUXe/6PPDz6SoBsy285Uh0VfNlSNq+3iDuwAxZQTMfhwzRMJyb5xAMiKbUAeql1FO+hYu8dIju53BWfyxm7eHBpm96Q5P3PdMZ62wCQkQrT/oVdtDegHKLUdPjLJOlqCOJobkTNdtNWPhYaenOBwyRv9iug+U3b6bs6kt61tLp9HgAP4lmo5RqbhcPC0QQKrgoRU/ntwMDnXhZsfvi5pZIUSD76SIMTbwaMJx6aOVAQOFP66j7/PDo+/jz+Xfxq8OdPSU5gfnD1rOXd6SZHut78dohExocwPWptZO02t9ExaEYh1Dd7YVV4lCgWke2ddhmSoqtAOWPnH6/dGp0C/6TWBf0OvwELgCi9ZNUvgX1E56hNPmo6n5Lz9O/JPMx9oaZub8sEsvqpoOIN/vUZLQ9ja2gWO6Pw6RakRQ+zl1e5iSsTZDSRQbn5wIDhGY7bmmi0ERW3dNaJVjOxqx+Vubl2zdUd1spKefjYlDFhSRNgQxl/x3D/qOlrgRQqryC2hwPqdml5mxEB4TzA7sWS1AVyMiCd/Um/jYCLR/kct3tPPRHQgtMbT2QKnrcQs1WyCrOXvXZtgjKMwfFoIIxTFKLpRL3NRffRxGe+tpaSOe+lyPBu3QYiCfadPnjgqq6OXgboFAKIiPcnjn2HYt1zrWj9b3eFY6jbztdAfblXpYuTu35+iE9Nqjl+8D66TYPNbcqEJjY2OYJqq8HWT7kaXb0pMkvXCzRJ+P2n6g8n/zA6iaA6adpK5GUVFTdIFIW7oMw53j2PpDvOlAkqcDy5Nq/gb5Piypd2IVWoZS9r1ZtBql+rTkvJ3duqt5kqfyRv/ccKkeTdxSYbQ1CQoWycHWn/65kb8zurhzjmPDAo+1dYzjnyu1UkkTDrGZiYLgJ9voF9GMius/of4W0TfJUUHQykA+61khcBHadQW3pQdL/xiP9jM1+3dATzGxXcvABBm+3Ph5kre7Dwi1vHg+2ucsba36FDhmTiAPFUZ7wNmw0pthGQ6wt8F8SXFcXrqp+t16eVFNfgYhdfnY9iarpJTx9Hz+9J/1HVxjIFec0vUL5fFf7340tZ05m3R/fiawwneBGxEtnotFzTnUD3nLl+Ul+lAkBXSSyDdS4VmsP5NN9pb07Rn5NM5i66VIbxOnEtMw4wAMW1UunZqhN64ejsidsQvIWjMjkAKcO4aZu5+jgV/5Xqf+qpuVUZA3NF51vmcWMIPxbezq0aYeYeqkOdZCerkUXhbSwJqzUH9mnOkCROB/dOwB6n1i86Sk2sCu3ogBmLr2LzaVqIo/RuNZTBThprGDVSt4wkCohFiwVyjxvMpQ+LCC8ew3MqpJaF9X7kGK1i4eR6isCLLNnqc/xNfywf+DX/zFs4G0Fjo4wfd+0n4qe3hNL1/5bdo2QfCuTB/9XN/9r2XuQX9XPEASCsCtyWPS4HFWO//v85z58XTXX2FAMzs/z68nS5/f1b2Q/V43JdPddqYxllhzji2vHjG9HJr2nquUx55EDD6MMmikZjWEoDk7kIJ+MdZXnzGMxYBmWFwwuSkhjfr8IKkuzbO8SFelNqaB5kUU3lA5fRLFVJ4Hp/AOslIKlFgRHZIg2GZ1KLtnT8ykyFYC9Rx4xstHC+DvxzBT8m2LPdy5Gf2a99w0IN2WsfI8KRd9QH0C79Nv70aRvHG071geN6iikLAITXB0dZSE3RAmuloO9VIKbbXaWsTZZGdVVev1q2il/cPUaTYCeDXuuOYqmP/V6KLjl7smVG+H24XFJHnNhWLXm11wX82BmNYQEyRqjNHPALVKkaLp92vpH4Z3kmt9l3qvn5MNQm6JQ8EKPq6X5tp6l5FDdp6hIx4HSJg77FcmtKiZEEzFI85tEuTlD3lI/vonbcs9O5g+dI9yjMvwO7VpXpbevRn1ktUM+oqVOy3DV+ft+Kyg4pOEWMfFjxqVU+xKY0A164W82JU7r05fzuMUY+7gYp01/Y7bVHlhFvPjaXkgGou/5d9cB7xqlTmqo21l+BkZZ8RddvPE2YdPSzRxDkbx3ssnj6ImeC2ryTOEPwgffnvgtZsBXrrv11Y1ZskTQOj36HxLI4FHr2lZorS9CX9ydOD+X3jKNWM4YlbH0NNy2IovpW5D9qZ1dZdFS8LUmyXNjeg5A94NRcoyHzLoTRH8J3K7yfwI/mQy7MrX17rMMiOx1wAGZaJLeLwL10FwNVLR9bdPHPa4YVA/GcKa2qhNCYiQf5r0Z8mytH4DHHxZ8yJg/OCQMM5Ou4lIN3L9VvLWvy4lNBUG/rozySr6kH2SnZHlkdUIRQbCh5jO/3deUy4DWwXqyjJpt3N6z1fCftcBBCoifMkhBG2ZcBXsPjkOZGbrrcY0olEsC+z6D1UfuxswsC7jw6TpU7FB8p9xcAxag9Pqq438bDv85LvkwioibNOYyweXie7wJn78xCC54v1LAgk/PjKO1q+/QKQSOhk8hW3evycFp9a217OcawgRu3RHOxNrLVWiyEhjE5REsKFbA2TXVXeJZwIWPeioI+6/zQj2YWRLQwAHGEugxG1ZakcLMw3i2v9ixOIr63sc+1E1f6IL23OfW5nyb+OfDmGeNlazKQ3zJR48PTYUM5N0IGOgtkwsRre7Jb+MuzTz2/kdHsT6qNhUBeWdhuyeVyHFdw7QlEKtHNWjPFOQvszgNfx1+ha3LN2jJsT8P0etceP3g1aijQif3Oxt/QePJxAwxEC93pQOjeK0KKkrpC7eFCZ6RXX7rWaMwlABcpX1u7PyMcJ32XKxgBDIVLjBMksLM8QSpsFRRCeuOKV4TtLelgciHvuTmrYhmMoLsdERM1ppc9ewUDsl9Ng/iNniINc8Stzn+DD9LbQxaZQkZhYzW9fa1NP7sOYgqJZqjihi1tb7x5rav58gps0KSVUxDS7MRBxQEuFZ0zGtR8V/MWlzhWtaQku18/K3gLYcJ35TgXuhAO/5gfF7K1uaKVoW8pCrkcd6D5z4Tt0IgwKt+76IpD96UL1/AqHgZtx+6vmac4g+RE4pAb4dfK9ihNCs1eO/FW9j1seRHvjdi3nC8/iTns3gY0rviouNss7FPxUhc65PQFIBY3GS/+wz6WsOh3B1GKlHqpEB8EOrrinZ3K+B1sNBrU66HpAW2yu493Xcy3zxF/OkIeqVkN7qrkydBCJdysBWU4zrvjU1JB7Nb1RXR3BExJQi88/WEDXmAUHSI70/hyC3xhFr+mjakQfWG5IdFbehS+fu0egBvsA/FJUlC+Gcw4LsLpz68czHlxVRbJBT774pox/h4hrTwVPjZ5ZZ/ZraltRCIt+x1smBNiTNuONM6NVoEH+6jSjjnHzAJ1u87H0jumUVT0oz8s0amLrY3j91LJAT8c4DPNjLddjbeNoIWJehx8Oh4eoeUjlRpxZ8bNrgP9yF+SMDyas4jn9W2lgMgg1rAc1dTQouVh839+JmjTeBjS3830mYgW/0zHXuTYq/bG3vRpDbpnv1hElacbzGsF9vEH4EPoU3mUmKQerYETBTOz/RlYl1owWK2lBGtlEX9NZLSj0O5nQzKQ7u+wo3K8odpxn1x/rFZZJmLz+q8tEm7z6IjiAtg9WGLLcSfCcV2TJi/AvNv28YhW7+tl/AlaYxJ1JC3hW9+LgKikrXsZknD2uzE9e3PEd05/uEFbadH3jUyuyz5chVTy4o/4pXv4+Sz8u7QmtCe/HpNMPfuGe4/Z6vfRIbXQCIL8pidcPk3H8kPLwGPRvTTeRkXtfSo8BrTHKXKRftz3eDL9vfig1t/gOifgcDboeUmUa0htQzorRnByV5QjV8LKhgILhMnYJVJxFpHYg7i6gFvU97prodhHJc+K4elvynbj1Txs1bJRisP71+YrN0EKR+wAD49dZfRYHjOm1RGydtQsSFEssECTfTX0tAE8yUqb/vbvlKG8S1eami3TsBCMBfntOEStNweKlwDkAKk3aK+KZA5jAIfEoRRiohcHGTDsERUlgnf5t0pRmwesNa8omHeatfWWk5qq32LAk0oLR+OLZ32v0qPkGRSv8s6S0/EjZx3oepUO6qvgmuxq83s6+qr0F8FyqsGdBNrr8wxpwEvnNUlzI3cVVLec8Pj3fZ5kKXJIgB3VXCLdNwvT416devexYMpuFIIYjVNMhmxRafJjQjpxMUdSJlv4cmGeyK84ULdZHRhfVzkw+m3RXvJuegdbm6Gsq1FlT3uk0cKPdA9OgjJONZXW1VTSICrHXTUwB+spW8903fp/406AANahZW3EgxfAjBmFNDoqmbT1/mNoX0rdc3GpGQLScgR6TiqzmKbLlv/LVITO66IYdL3lJabEVLyWlT1EAb7UG6x/4mbWj9/rGSckKuOGoYR+GDz+7WqcLjTeuP3JQ3MDOAg4iB1xIrlGBlRtel1oAVWNwGaKTJZIPgpI3DeSURDEkv5rMe1UWGBYN4+7fBBtzBZMCiySk0jFqn4d2TO1F3lvMIOecrRkwZr6+HSosNtgBnOYtzq+u/tT+hpc9QkL773xvUHtiC2slmBEdzXn8GHHogMHk4pHDEGWHjE4sMLhplUUobn0mx5LIWlpDai6owdqvzwr0Eo3MoN7nZHYGE7WFUaDE930XLkWr1IIR3gnkatLm0aKmV4ZF+2OMyG41y2Ops5m4/Za7spp5O/SNAOHwioDFQxsGlfGsoE59KnnaOOHV7LSxsEVBqVabSCOtXCI+JzRKvTIfmSLZjln10dXSlAWVPSxgWOxvcinbvJbF8ViPwVbPEMqW8wSeSAuaVi96jlNTfXfcfZhMsT1pGJ9NtU0FOGPLpyb7HSGjdtmQwhN6aQirZ0cGy6sZpiLD7eoG7boJoS5ctksHboWIZ9raonRF1uXTM/Qk/KKqQj6PtojmZ5Qk/YsJxJgKNEpOcFhtn11tocdb9F0wQfd7kDinfgHytF4uz0lQckGR6y4cN1q6hjniXhT65G4NEqmvA/iOVMO/Zor57gggvfEuefJ6qAui1VEXh+Xd/kXc6ZuyldRgdyzwqZTXpXtebsOgoQHnA3kUC+M+zwNURsblMDU57rjOh/gILrAo6ZOQzF8GSMNHBAIs7HTHov7dSJb7WirVQi3AsNMHsox2dJN9qGX6eX9rFKRrzMafgvXM+0cwSVrajhtjx0XPGoGu57C7HxxaQRjWChr603bpqEP9WEnCvj0EKppQnsNr5eGNOQ+ACTbVyn0UwkRhMzy3NsryF1VmBCa8pkDZuqSo67QNaV+aXbaVz0h7OIVIUMtgh3IfkXYUiptQQlakclYn9sGg2eXLmNH3dj44wxO4N52rjG46gs9pme2cYTXS9AL6FbNuAI7j1G30CajcT9iR3iV2WgxehHby4M6OHLOiKr3jb0zY2f8RAxwjhYL/ZKPov8Ivjk4BOuQGl8IDD0lY9Ta7Yxv1W24zLOVbjthOS0lmL0UVQIrINtvhJNerszQqI6/25pV8Av9O3Rsb1rh6CNAeuiejYFn/OhpAofpK+3qRY5A/QpjskklXNkK8TejuRg2qO7/LEsvGx01xl72HXfxIRGkMVwY5glmAr1Acp2yBL8QZmgMGsRZ57MJuf9ZS8NDki4RvkhfBT11o7dL25r2tH3+f5M808QtOmTxKAhv7bZ/5DOMZa+A3FLpSs0NBQBQ3fqfl65AEY8pXHPjNKUBHtU33GGWFOEOLw82h5zm1sFgtJcgeoslElNRdFtRus1lDLYs6Z8AG8f5ZP5+3AmEhcKsY0AcmhvOHHOZ/c9LrKOgTbdx4gGRhOfM/fEH9C37VQZp80Z5Y+1dY+43ZS6TZATVoeWXHvumrBfB5TOIva1zQiwFXeb5IlIkKHVqLX0o8AKlpZjNTgD0wd1BXF3EMRdMoWMtRAEvyAf46bgpwe6ilEblSL4sLn1J+l8gZc+K5+c3vgPWwJ0CfYNSYg6ne7umPEurCSHfEdgo6DrslHawo4ggdc+GTO6D6OGPe5ohZkXXislRAB8KPOnk91ph0XBBjbpxarciewqrCNr7Iu1wtsVGZpwEsM/zQAybtbgxhXn4MjAR4ZcK4kJ+vyW+/br2lquSwesja8BOsSRHS1ts+dwJziVrixcDNzoshrknf5qLgMxbXLx0/ybzz5ghePjbJTe5LPp2Kvpk7apbpkTzmwjGwORaKlJTTwZM7FswtExi5YfAEesOxk/OOWlL3jyoUHOvbSK5ISi4ke+8XAEnJ3EL4aTHK216SPUQUXw9qJpklKvLyzRmcJe/WLnU95/Epvyw3JYvavwW3HU6c1FuQcOdf2CYEdQmO36WaH/rg+9Yg2ZCloSFJIdNUDYdkh1d99w+PfRvPv2k9qroN/+UdQtlv4yMBZWtW3DLlVAopGSTQIqMSI2PkPMzR3kVhhh6276ScwPAsfVa89Z/dL7y9R45So5UnkaePISCO3guKhvR7ATCV6hifJ60Mo1T0OdpK2+RPNwYfL8WageT/GntDTOrt6AqT5YyrJ1FTH3YsXAgvEwFWdBUFImrqUPcP+QwgBnV/IxU8Q+4+rDnRoz7RgHXgJ9dS0Ruehx4togTH0y6INmF1IA0vu3MWm3SgjhA/eSyyKPuY7WfhhtCi2CHwAVGzwTY/gzBJamzzcycQEZJNGhSMyq3+lWOsWmAAAAAAA==" alt="SALU Community emblem"></span>
       <span>SALU <b>Community</b></span>
     </a>
     <nav class="top-nav" aria-label="Primary navigation">
-      <a href="#home" data-top="home"><span>Home</span></a>
-      <a href="#announcements" data-top="announcements"><span>Announcements</span></a>
-      <a href="#admissions" data-top="admissions"><span>Admissions</span></a>
-      <a href="#merit" data-top="merit"><span>Merit Lists</span></a>
-      <a href="#departments" data-top="departments"><span>Departments</span></a>
-      <a href="#seats" data-top="seats"><span>Seats</span></a>
-      <a href="#fees" data-top="fees"><span>Fees</span></a>
-      <a href="#calculator" data-top="calculator"><span>Calculator</span></a>
-      <a href="https://salucommunity.github.io/past-papers" data-top="papers"><span>Past Papers</span></a>
-      <a href="#mocktests" data-top="mocktests"><span>Mock Tests</span></a>
+      <a href="./" data-top="home"><span>Home</span></a>
+      <a href="announcements" data-top="announcements"><span>Announcements</span></a>
+      <a href="admissions" data-top="admissions"><span>Admissions</span></a>
+      <a href="merit-list" data-top="merit"><span>Merit Lists</span></a>
+      <a href="departments" data-top="departments"><span>Departments</span></a>
+      <a href="department-seats" data-top="seats"><span>Seats</span></a>
+      <a href="fee-structure" data-top="fees"><span>Fees</span></a>
+      <a href="aggregate-calculator" data-top="calculator"><span>Calculator</span></a>
+      <a href="past-papers" data-top="papers"><span>Past Papers</span></a>
+      <a href="mock-tests" data-top="mocktests"><span>Mock Tests</span></a>
     </nav>
     <div class="hdr-icons">
       <button type="button" class="ib hdr-sbtn" id="hdrSearchBtn" aria-label="Search website" title="Search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></button>
@@ -980,7 +981,7 @@ mark.gs-hl{background:#fde047;color:#061e47;padding:0 2px;border-radius:4px;font
       <div class="ticker-track" id="tickerTrack"></div>
       <span class="ticker-state">Paused</span>
     </div>
-    <a class="ticker-all" href="#announcements">All</a>
+    <a class="ticker-all" href="announcements">All</a>
   </div>
 </div>
 
@@ -1030,30 +1031,15 @@ mark.gs-hl{background:#fde047;color:#061e47;padding:0 2px;border-radius:4px;font
 <main>
 <!-- ==================== HOME VIEW ==================== -->
 <section class="view on" id="v-home">
-  <!-- SALU First Merit List 2027 Announcement --><div style="background:linear-gradient(135deg,#064e3b,#047857);color:#fff;padding:20px;border-radius:16px;margin-bottom:20px;text-align:center;box-shadow:0 8px 22px rgba(0,0,0,0.12);">
-  <div style="font-size:12px;font-weight:800;letter-spacing:1px;margin-bottom:8px;">
-    🎓 SALU ADMISSION UPDATE 2027
-  </div>  <h2 style="color:#fff;font-size:clamp(20px,4vw,28px);margin-bottom:8px;">
-    SALU First Merit List 2027
-  </h2>  <p style="color:#eafff5;margin-bottom:16px;">
-    Check and download the First Merit List PDF.
-  </p><a href="https://drive.google.com/file/d/1iZdiGbx6g_t_OK6rM8d7L40SYtUSpjy2/view?usp=drivesdk"
-target="_blank"
-rel="noopener noreferrer"
-style="display:inline-block;background:#fff;color:#065f46;padding:12px 24px;border-radius:10px;font-weight:800;text-decoration:none;">
- Download Merit List PDF ↓
-</a>
-
-</div>
   <div class="hero">
     <span class="eyebrow"><span class="social-dot"></span> SALU Student Guidance Platform • Khairpur</span>
     <h1>Admissions, Merit Lists, Past Papers &amp; Test Preparation in One Place.</h1>
     <p class="lead">SALU Community helps prospective and enrolled students of Shah Abdul Latif University, Khairpur with admission updates, merit lists, department seats, fee structures, aggregate calculation, past papers, and free mock tests.</p>
     <div class="btns">
-      <a class="btn" href="#admissions">Explore Admissions →</a>
-      <a class="btn alt" href="#calculator">Calculate Aggregate</a>
-      <a class="btn alt" href="#mocktests">Take a Free Mock Test</a>
-      <a class="btn alt" href="https://salucommunity.github.io/past-papers">Past Papers</a>
+      <a class="btn" href="admissions">Explore Admissions →</a>
+      <a class="btn alt" href="aggregate-calculator">Calculate Aggregate</a>
+      <a class="btn alt" href="mock-tests">Take a Free Mock Test</a>
+      <a class="btn alt" href="past-papers">Past Papers</a>
     </div>
     <div class="socials">
       <a class="btn alt" data-link="wa" href="#">Join WhatsApp Group ↗</a>
@@ -1068,8 +1054,8 @@ style="display:inline-block;background:#fff;color:#065f46;padding:12px 24px;bord
   <div class="card">
     <p style="margin-bottom:10px"><b>SALU Community</b> is a student-run guidance platform dedicated to supporting applicants and students of Shah Abdul Latif University, Khairpur. For the past three years, our team has helped thousands of students understand admission requirements, check merit lists, calculate aggregates, and prepare for the entry test free of cost.</p>
     <div class="btns" style="margin-top:12px">
-      <a class="btn" href="#about">Read Full Story →</a>
-      <a class="btn alt" href="#contact">Contact Us</a>
+      <a class="btn" href="about">Read Full Story →</a>
+      <a class="btn alt" href="contact">Contact Us</a>
     </div>
   </div>
 
@@ -1095,393 +1081,6 @@ style="display:inline-block;background:#fff;color:#065f46;padding:12px 24px;bord
 </section>
 
 <!-- ==================== ADMISSIONS VIEW ==================== -->
-<section class="view" id="v-admissions">
-  <div class="sec-head">
-    <div>
-      <span class="pill solid">ADMISSION GUIDE</span>
-      <h2>Admissions &amp; How to Apply</h2>
-      <p class="sub">Step-by-step online application procedure, key dates, required documents, eligibility, and hostel information.</p>
-    </div>
-  </div>
-
-  <div class="card" style="margin-bottom:18px">
-    <span class="pill solid">ADMISSION SCHEDULE</span>
-    <h3>Key Admission Dates (Main, Ghotki &amp; Shahdad Kot Campuses)</h3>
-    <div class="scroll" style="margin-top:8px">
-      <table>
-        <thead><tr><th>Activity</th><th>Schedule</th></tr></thead>
-        <tbody>
-          <tr><td><b>Online Admission Forms Submission</b></td><td>20 August to 22 September 2026</td></tr>
-          <tr><td><b>Pre-Entry Test (BS Part-I &amp; BS-III Bridging)</b></td><td>13 October 2026</td></tr>
-          <tr><td><b>1st Merit List (BS Part-I &amp; BS-III)</b></td><td>23 October to 5 November 2026</td></tr>
-          <tr><td><b>2nd Merit List (BS-III Bridging)</b></td><td>6 November to 8 November 2026 (Classes start 9 Nov 2026)</td></tr>
-          <tr><td><b>2nd Merit List (BS Part-I)</b></td><td>11 November to 19 November 2026</td></tr>
-          <tr><td><b>3rd Merit List (BS Part-I)</b></td><td>25 November to 3 December 2026</td></tr>
-          <tr><td><b>4th Merit List (Self-Finance &amp; Quotas)</b></td><td>15 December to 21 December 2026</td></tr>
-          <tr><td><b>Orientation &amp; Commencement of BS Part-I Classes</b></td><td>4 – 5 January 2027</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <details class="glass" open>
-    <summary>How to Apply (Step-by-Step)</summary>
-    <ol>
-      <li>Create an account on the official SALU online admission portal (<a href="https://salu.edu.pk/" target="_blank" rel="noopener noreferrer"><b>www.salu.edu.pk</b></a>) using your own CNIC or B-Form number.</li>
-      <li>Fill in your personal and academic details and select your preferred departments in order of priority.</li>
-      <li>Generate and pay the admission processing fee challan of <b>Rs. 2,500/-</b> (non-refundable) via <b>HBL Konnect</b>.</li>
-      <li>Upload your paid challan receipt and required documents on the online portal, then print the application form and submit it with attested copies and the original challan to the Directorate of Admissions.</li>
-      <li>Download your Admit Slip when announced and appear in the Pre-Entry Test on the scheduled date.</li>
-    </ol>
-  </details>
-
-  <details class="glass" open>
-    <summary>Documents Required</summary>
-    <ul>
-      <li>SSC (Matriculation) Marks Sheet &amp; Pacca Certificate (attested copies).</li>
-      <li>HSC (Intermediate) Part-I / Part-II Marks Sheet &amp; Certificate (passed between 2023 and 2026 for BS Part-I).</li>
-      <li>2-Year Bachelor / Associate Degree (ADE/ADS/ADC) Marks Sheet &amp; Pass Certificate (passed in 2021 or onwards with at least 50% marks for BS Part-III Bridging).</li>
-      <li>Candidate's CNIC or B-Form copy and Father/Guardian's CNIC copy.</li>
-      <li>Domicile &amp; PRC (Form-D) of the candidate or Father/Mother.</li>
-      <li>Three recent passport-size photographs attested on the back.</li>
-      <li>Original Transfer/Leaving Certificate (TC), Character Certificate, and Undertaking on Rs. 50/- Stamp Paper at the time of enrollment.</li>
-      <li>Eligibility Certificate (required only if passing Intermediate/Bachelor from a board/university other than BISE Sukkur or BISE Larkana).</li>
-    </ul>
-  </details>
-
-  <details class="glass">
-    <summary>General Eligibility Criteria</summary>
-    <ul>
-      <li><b>BS Part-I (4-Year) &amp; Pharm-D (5-Year):</b> Intermediate (HSC-II) or equivalent passed between 2023 and 2026. Pharm-D, Biochemistry, Botany, Microbiology, and Zoology require Pre-Medical; BS Mathematics requires Pre-Engineering; Chemistry, Physics, Statistics, and Archaeology accept Pre-Medical or Pre-Engineering; Computer Science, IT, and Software Engineering accept Pre-Medical, Pre-Engineering, or DAE; all other departments accept Pre-Medical, Pre-Engineering, Commerce, Arts, and DAE.</li>
-      <li><b>LLB (4-Year):</b> Intermediate in any group plus passing the <b>HEC Law Admission Test (LAT)</b>.</li>
-      <li><b>BS Part-III (Bridging — 2 Years / 4 Semesters):</b> 2-Year Bachelor (B.A./B.Sc./B.Com.) or Associate Degree (ADE/ADS/ADC) passed in 2021 or onwards with at least <b>50% marks</b>.</li>
-      <li><b>Sub-Campuses (Ghotki &amp; Shahdad Kot):</b> Offer 4-Year BS programs in Business Administration (BBA), Computer Science &amp; I.T., and English Language &amp; Literature.</li>
-    </ul>
-  </details>
-
-  <details class="glass">
-    <summary>Hostels &amp; Campus Facilities</summary>
-    <p>Separate hostel accommodation is available on the Main Campus for male and female students (5 Boys Hostels and 3 Girls Hostels) at an annual hostel fee of <b>Rs. 14,000/-</b>. Rooms are allotted to regular enrolled students on a distance/district basis. Campus facilities also include the Central Library &amp; Book Bank, Smart WiFi, Sports Complex, Medical Dispensary, and University Bus Transport.</p>
-  </details>
-
-  <div class="btns" style="margin-top:14px">
-    <a class="btn" href="#seats">View Department Seats</a>
-    <a class="btn alt" href="#fees">View Fee Structure</a>
-    <a class="btn alt" href="#scholarships">View Scholarships</a>
-  </div>
-</section>
-
-<!-- ==================== MERIT LISTS VIEW ==================== -->
-<section class="view" id="v-merit">
-  <div class="sec-head">
-    <div>
-      <span class="pill solid">MERIT LISTS</span>
-      <h2>Merit Lists</h2>
-      <p class="sub">Official merit list schedule and links for BS Part-I, BS Part-III (Bridging), Self-Finance, and Quota seats.</p>
-    </div>
-  </div>
-  <div class="stack" id="meritList"></div>
-</section>
-
-<!-- ==================== ANNOUNCEMENTS VIEW ==================== -->
-<section class="view" id="v-announcements">
-  <div class="sec-head">
-    <div>
-      <span class="pill solid">UPDATES</span>
-      <h2>Announcements</h2>
-      <p class="sub">Latest admission notices, entry test dates, merit list schedules, and community mock test alerts.</p>
-    </div>
-  </div>
-  <div class="stack" id="annList"></div>
-</section>
-
-<!-- ==================== DEPARTMENT SEATS VIEW ==================== -->
-<section class="view" id="v-seats">
-  <div class="sec-head">
-    <div>
-      <span class="pill solid">SEAT ALLOCATION</span>
-      <h2>Department Seats &amp; Quotas</h2>
-      <p class="sub">Morning program Merit and Self-Finance seats for BS Part-I and BS Part-III (Bridging), plus reserved quotas.</p>
-    </div>
-  </div>
-  <div class="card" style="margin-bottom:18px">
-    <h3>Department-Wise Seat Allocation</h3>
-    <div class="scroll" id="seatBox" style="margin-top:10px"></div>
-  </div>
-  <div class="card">
-    <span class="pill">RESERVED QUOTAS</span>
-    <h3>Reserved Quota Seats Summary</h3>
-    <div class="chips">
-      <span class="chip">Sports Quota: 02 Seats / Dept</span>
-      <span class="chip">SALU Employees' Children: 02 Seats / Dept</span>
-      <span class="chip">Pak Army Personnel Children: 02 Seats / Dept</span>
-      <span class="chip">Disabled Quota: 01 Seat / Dept</span>
-      <span class="chip">Minority Quota: 01 Seat / Dept</span>
-      <span class="chip">Advocates' Children (LLB): 05 Seats</span>
-      <span class="chip">Balochistan: 03 Seats</span>
-      <span class="chip">Punjab: 02 Seats</span>
-      <span class="chip">Gilgit-Baltistan: 02 Seats</span>
-      <span class="chip">KPK: 01 Seat</span>
-      <span class="chip">AJK: 01 Seat</span>
-      <span class="chip">Foreign Students: 05 Seats</span>
-      <span class="chip">Overseas Pakistanis: 02 Seats</span>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== FEE STRUCTURE VIEW ==================== -->
-<section class="view" id="v-fees">
-  <div class="sec-head">
-    <div>
-      <span class="pill solid">FEES</span>
-      <h2>Fee Structure</h2>
-      <p class="sub">Annual Merit and Self-Finance fee structure across departments and programs.</p>
-    </div>
-  </div>
-  <div class="grid" id="feeList" style="margin-bottom:18px"></div>
-  <div class="card">
-    <span class="pill">FEE REFUND TIMELINE</span>
-    <h3>Tuition Fee Refund Policy</h3>
-    <div class="chips">
-      <span class="chip ok-chip">Up to 10th Day of Classes: 100% Refund</span>
-      <span class="chip">Up to 15th Day: 80% Refund</span>
-      <span class="chip">Up to 20th Day: 60% Refund</span>
-      <span class="chip">Up to 30th Day: 50% Refund</span>
-      <span class="chip">31st Day Onwards: No Refund (0%)</span>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== SCHOLARSHIPS VIEW ==================== -->
-<section class="view" id="v-scholarships">
-  <div class="sec-head">
-    <div>
-      <span class="pill solid">FINANCIAL AID</span>
-      <h2>Scholarships &amp; Financial Aid</h2>
-      <p class="sub">Merit and need-based scholarships, tuition freeships, and bursaries available for SALU students.</p>
-    </div>
-  </div>
-  <div class="grid" id="schList"></div>
-</section>
-
-<!-- ==================== PAST PAPERS VIEW ==================== -->
-<section class="view" id="v-papers">
-  <div class="sec-head">
-    <div>
-      <span class="pill solid">ARCHIVE (2015–2027)</span>
-      <h2>Past Papers &amp; Practice Material</h2>
-      <p class="sub">Download SALU entry test past papers (2015 to 2027) as PDF or practice all 555 solved MCQs in our interactive online quiz portal.</p>
-    </div>
-    <div class="btns">
-      <a class="btn" href="https://salucommunity.github.io/past-papers">Open Past Papers Portal →</a>
-      <a class="btn alt" href="https://salucommunity.github.io/past-papers#random">Start Random Mock Test</a>
-    </div>
-  </div>
-  <div class="grid" id="paperList"></div>
-</section>
-
-<!-- ==================== AGGREGATE CALCULATOR VIEW ==================== -->
-<section class="view" id="v-calculator">
-  <div class="sec-head">
-    <div>
-      <span class="pill solid">MERIT FORMULA</span>
-      <h2>Aggregate Calculator</h2>
-      <p class="sub">Calculate your merit aggregate using the official weightage: <b>Entry Test / USAT 50% + Intermediate 30% + Matric 20%</b>.</p>
-    </div>
-  </div>
-  <div class="card">
-    <div class="seg" id="modeSeg">
-      <button class="on" data-m="salu">BS Part-I (Entry Test)</button>
-      <button data-m="usat">BS Part-I (HEC USAT)</button>
-      <button data-m="bs3">BS Part-III (Bridging)</button>
-    </div>
-    <div class="stack" id="calcFields" style="margin-top:14px"></div>
-    <div class="btns" style="margin-top:16px">
-      <button class="btn" id="calcBtn">Calculate Aggregate</button>
-    </div>
-    <div id="calcOut" aria-live="polite"></div>
-  </div>
-</section>
-
-<!-- ==================== DEPARTMENTS VIEW ==================== -->
-<section class="view" id="v-departments">
-  <div class="sec-head">
-    <div>
-      <span class="pill solid">7 FACULTIES • 28 DEPARTMENTS</span>
-      <h2>Departments &amp; Degree Programs</h2>
-      <p class="sub">List of academic departments and degree programs offered at Shah Abdul Latif University, Khairpur.</p>
-    </div>
-  </div>
-
-  <div class="toolbar">
-    <div class="search-box">
-      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-      <input type="search" id="deptSearch" placeholder="Search department or faculty name...">
-    </div>
-    <div class="seg" id="facFilter">
-      <button class="on" data-f="all">All (28)</button>
-      <button data-f="Natural Sciences">Natural Sciences</button>
-      <button data-f="Physical Sciences">Physical Sciences</button>
-      <button data-f="Social Sciences">Social Sciences</button>
-      <button data-f="Management Sciences">Management</button>
-      <button data-f="Arts & Languages">Arts &amp; Languages</button>
-      <button data-f="Education">Education</button>
-      <button data-f="Law">Law</button>
-    </div>
-  </div>
-
-  <div class="grid" id="deptGrid"></div>
-</section>
-
-<!-- ==================== ENTRY TEST PREP VIEW ==================== -->
-<section class="view" id="v-entry">
-  <div class="sec-head">
-    <div>
-      <span class="pill solid">TEST PATTERN</span>
-      <h2>Entry Test Preparation</h2>
-      <p class="sub">Understand the SALU Pre-Entry Test structure, MCQ distribution, and test-day instructions.</p>
-    </div>
-  </div>
-  <div class="cols">
-    <div class="card">
-      <span class="pill solid">50 MCQs PAPER PATTERN</span>
-      <h3>Paper Structure &amp; Syllabus</h3>
-      <ul style="padding-left:18px;color:var(--mute);font-size:14.5px;display:grid;gap:8px;margin-top:8px">
-        <li><b>Total Questions:</b> 50 Multiple Choice Questions (MCQs) with 4 options (A, B, C, D).</li>
-        <li><b>Section A — 30 Questions (General &amp; Languages):</b> English, Sindhi, Urdu, General Knowledge, Current Affairs, Pakistan Studies, and Islamic Studies.</li>
-        <li><b>Section B — 20 Questions (Subject Group):</b> Intermediate-level questions from your selected group (<b>Pre-Medical</b>, <b>Pre-Engineering</b>, <b>Commerce</b>, or <b>Arts</b>).</li>
-        <li><b>Merit Weightage:</b> The Entry Test carries <b>50% weightage</b> in the final merit calculation.</li>
-      </ul>
-    </div>
-    <div class="card">
-      <span class="pill">TEST-DAY INSTRUCTIONS</span>
-      <h3>Important OMR Sheet Rules</h3>
-      <ul style="padding-left:18px;color:var(--mute);font-size:14.5px;display:grid;gap:8px;margin-top:8px">
-        <li>Bring your printed Admit Slip, original CNIC/B-Form, and a <b>7000 # 2 Goldfish pencil</b>.</li>
-        <li>Fill the chosen circle completely; double-marked or half-filled circles are marked wrong.</li>
-        <li>Calculators, mobile phones, smartwatches, and electronic devices are not allowed in the test center.</li>
-        <li>Do not fold or bend the computer OMR answer sheet.</li>
-      </ul>
-    </div>
-  </div>
-  <div class="btns" style="margin-top:16px">
-    <a class="btn" href="#mocktests">Practice Free Mock Test →</a>
-    <a class="btn alt" href="https://salucommunity.github.io/past-papers">View Past Papers</a>
-    <a class="btn alt" data-link="wa" href="#">Join Prep Group on WhatsApp</a>
-  </div>
-</section>
-
-<!-- ==================== FREE MOCK TESTS VIEW ==================== -->
-<section class="view" id="v-mocktests">
-  <div class="sec-head">
-    <div>
-      <span class="pill solid">PRACTICE</span>
-      <h2>Free Mock Tests</h2>
-      <p class="sub">Register for our upcoming live community mock test or practice the interactive 15-question sample test below.</p>
-    </div>
-  </div>
-  <div class="card" style="margin-bottom:16px">
-    <h3>Register for the Next Scheduled Mock Test</h3>
-    <p style="margin-bottom:12px">Registration links for live community mock tests are shared in our WhatsApp group before each scheduled test.</p>
-    <div class="btns">
-      <a class="btn" data-link="form" href="#">Open Registration Form</a>
-      <a class="btn alt" data-link="wa" href="#">Get Test Link on WhatsApp</a>
-    </div>
-    <div id="formNotice" aria-live="polite"></div>
-  </div>
-  <div id="quiz"></div>
-  <div class="btns" style="margin-top:14px">
-    <button class="btn" id="quizBtn">Submit Answers</button>
-    <button class="btn alt" id="quizReset">Reset Test</button>
-  </div>
-  <div id="quizOut" aria-live="polite"></div>
-</section>
-
-<!-- ==================== RESULTS VIEW ==================== -->
-<section class="view" id="v-results">
-  <div class="sec-head">
-    <div>
-      <span class="pill solid">SCORES</span>
-      <h2>Mock Test Results</h2>
-      <p class="sub">Scores from SALU Community scheduled mock tests are published here.</p>
-    </div>
-  </div>
-  <div class="glass scroll" id="resultsBox"></div>
-</section>
-
-<!-- ==================== FAQs / GUIDANCE VIEW ==================== -->
-<section class="view" id="v-guidance">
-  <div class="sec-head">
-    <div>
-      <span class="pill solid">STUDENT HELP</span>
-      <h2>FAQs &amp; Guidance</h2>
-      <p class="sub">Answers to common questions about SALU admissions, entry test, merit formula, fees, and hostels.</p>
-    </div>
-  </div>
-  <div id="faqList"></div>
-</section>
-
-<!-- ==================== ABOUT US VIEW ==================== -->
-<section class="view" id="v-about">
-  <div class="sec-head">
-    <div>
-      <span class="pill solid">OUR MISSION</span>
-      <h2>About SALU Community</h2>
-      <p class="sub">Who we are and how we support students of Shah Abdul Latif University, Khairpur.</p>
-    </div>
-  </div>
-  <div class="card" style="margin-bottom:18px">
-    <p style="margin-bottom:12px"><b>SALU Community</b> is a student-run informational and educational platform dedicated to helping prospective and current students of Shah Abdul Latif University, Khairpur. For the past three years, our team has worked consistently to guide students through every stage of the admission and entry test process.</p>
-    <p style="margin-bottom:12px">Every year, thousands of students apply to SALU, and many face confusion regarding admission procedures, entry test preparation, merit lists, department selection, and fee structures. SALU Community bridges this information gap by providing clear, reliable, and timely student updates in one place.</p>
-    <h3 style="margin-top:14px">What We Offer (100% Free for Students)</h3>
-    <ul style="padding-left:20px;color:var(--mute);font-size:14.5px;display:grid;gap:6px;margin-top:8px">
-      <li>Complete admission guidance and form-filling support</li>
-      <li>Entry test preparation material, past papers, and online mock tests</li>
-      <li>Merit list updates, seat distribution, and aggregate calculator</li>
-      <li>Department, fee structure, hostel, and scholarship information</li>
-      <li>Direct student support via our WhatsApp community and Facebook page</li>
-    </ul>
-  </div>
-
-  <h3 class="sec">Meet Our Founders</h3>
-  <div class="team">
-    <div class="person">
-      <div class="ph"><img src="data:image/jpeg;base64,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" alt="Ziauddin — Founder of SALU Community"></div>
-      <p class="role">Founder</p>
-      <h3>Ziauddin</h3>
-      <p>Student of English Language &amp; Literature, SALU Khairpur</p>
-    </div>
-    <div class="person">
-      <div class="ph"><img src="data:image/jpeg;base64,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" alt="Muhammad Younis — Co-Founder of SALU Community"></div>
-      <p class="role">Co-Founder</p>
-      <h3>Muhammad Younis</h3>
-      <p>Student of Law, SALU Khairpur</p>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== CONTACT VIEW ==================== -->
-<section class="view" id="v-contact">
-  <div class="sec-head">
-    <div>
-      <span class="pill solid">GET IN TOUCH</span>
-      <h2>Contact Us</h2>
-      <p class="sub">Reach out to the SALU Community team on WhatsApp, Facebook, phone, or email for any admission query.</p>
-    </div>
-  </div>
-  <div class="card">
-    <p style="margin-bottom:14px">Have a question about admissions, entry test preparation, merit lists, or departments? Join our community channels or contact us directly:</p>
-    <div class="btns">
-      <a class="btn" data-link="wa" href="#">Join WhatsApp Group ↗</a>
-      <a class="btn alt" data-link="fb" href="#">Message on Facebook ↗</a>
-    </div>
-    <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--blue-150);font-size:14.5px;color:var(--mute);display:grid;gap:6px">
-      <p><b>Phone:</b> <a href="tel:03443482883">03443482883</a></p>
-      <p><b>Email:</b> <a href="mailto:salucommunity@gmail.com">salucommunity@gmail.com</a></p>
-      <p><b>Official University Website:</b> <a href="https://salu.edu.pk/" target="_blank" rel="noopener noreferrer">www.salu.edu.pk</a></p>
-    </div>
-  </div>
-</section>
 </main>
 
 <footer>
@@ -1499,23 +1098,23 @@ style="display:inline-block;background:#fff;color:#065f46;padding:12px 24px;bord
       <section>
         <h3>Quick Links</h3>
         <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#admissions">Admissions</a></li>
-          <li><a href="#merit">Merit Lists</a></li>
-          <li><a href="#departments">Departments</a></li>
-          <li><a href="#seats">Department Seats</a></li>
-          <li><a href="#fees">Fee Structure</a></li>
+          <li><a href="./">Home</a></li>
+          <li><a href="admissions">Admissions</a></li>
+          <li><a href="merit-list">Merit Lists</a></li>
+          <li><a href="departments">Departments</a></li>
+          <li><a href="department-seats">Department Seats</a></li>
+          <li><a href="fee-structure">Fee Structure</a></li>
         </ul>
       </section>
       <section>
         <h3>Tools &amp; Prep</h3>
         <ul>
-          <li><a href="#calculator">Aggregate Calculator</a></li>
-          <li><a href="#entry">Entry Test Prep</a></li>
-          <li><a href="https://salucommunity.github.io/past-papers">Past Papers</a></li>
-          <li><a href="#mocktests">Free Mock Tests</a></li>
-          <li><a href="#scholarships">Scholarships</a></li>
-          <li><a href="#guidance">FAQs &amp; Guidance</a></li>
+          <li><a href="aggregate-calculator">Aggregate Calculator</a></li>
+          <li><a href="entry-test-preparation">Entry Test Prep</a></li>
+          <li><a href="past-papers">Past Papers</a></li>
+          <li><a href="mock-tests">Free Mock Tests</a></li>
+          <li><a href="scholarships">Scholarships</a></li>
+          <li><a href="faqs">FAQs &amp; Guidance</a></li>
         </ul>
       </section>
       <section>
@@ -1586,8 +1185,10 @@ const GROUPS = [
   ["Support", ["guidance", "about", "contact"]]
 ];
 
-const L = id => id === "papers" ? "https://salucommunity.github.io/past-papers" : "#" + id;
-const $ = s => document.querySelector(s);
+const PAGE_URL = {"home": "./", "admissions": "admissions", "merit": "merit-list", "announcements": "announcements", "seats": "department-seats", "fees": "fee-structure", "scholarships": "scholarships", "calculator": "aggregate-calculator", "departments": "departments", "entry": "entry-test-preparation", "mocktests": "mock-tests", "results": "results", "guidance": "faqs", "about": "about", "contact": "contact", "papers": "past-papers"};
+const L = id => PAGE_URL[id] || "#" + id;
+const DUMMY = document.createElement("div");
+const $ = s => document.querySelector(s) || DUMMY;
 
 $("#panel").innerHTML = GROUPS.map(g => `<h4>${g[0]}</h4><div class="pg">${g[1].map(id => `<a href="${L(id)}" data-v="${id}">${ICONS[id] || ""}<span>${N[id]}</span></a>`).join("")}</div>`).join("");
 
@@ -1654,6 +1255,8 @@ $("#seatBox").innerHTML = `
   </table>
 `;
 
+/* Content that can change (also refreshed live from the Google Sheet) */
+function renderLive() {
 /* Merit Lists */
 
 $("#meritList").innerHTML = MERITS.map(m => `<a class="tile" href="${m.pdf || m.u}" target="_blank" rel="noopener"><span class="pill">${m.pdf ? "MERIT LIST PDF" : "MERIT SCHEDULE"}</span><h3>${m.t}</h3><p>${m.d}</p><span class="tile-view">${m.pdf ? "Download PDF" : "Open details"} <span aria-hidden="true">→</span></span></a>`).join("");
@@ -1679,6 +1282,9 @@ $("#paperList").innerHTML = PAPERS.map(x => `<a class="tile" href="${x.u}"><span
 $("#resultsBox").innerHTML = RESULTS.length
   ? `<table><tr><th>Name</th><th>Test ID</th><th>Marks</th><th>City</th><th>Test</th></tr>${RESULTS.map(r => `<tr><td>${r.name}</td><td>${r.id}</td><td>${r.marks}</td><td>${r.city||""}</td><td>${r.test||""}</td></tr>`).join("")}</table>`
   : `<div class="empty">Mock test results will appear here after the next scheduled community test.</div>`;
+  if (window.drawTicker) window.drawTicker();
+}
+renderLive();
 
 /* Aggregate Calculator */
 let mode = "salu";
@@ -1796,10 +1402,14 @@ $("#faqList").innerHTML = FAQS.map((f, i) => `
 /* Announcements ticker: scrolls continuously, tap to pause / resume */
 (function () {
   const v = $("#tickerView"), tr = $("#tickerTrack");
-  if (!v || !tr || !ANNOUNCE.length) return;
-  const items = ANNOUNCE.map(a => `<span class="ticker-item"><b>${a.d}</b>${a.t}</span>`).join("");
-  tr.innerHTML = items + items;
-  requestAnimationFrame(() => tr.style.setProperty("--dur", Math.max(20, tr.scrollWidth / 2 / 55) + "s"));
+  if (!v || !tr) return;
+  window.drawTicker = function () {
+    if (!ANNOUNCE.length) return;
+    const items = ANNOUNCE.map(a => `<span class="ticker-item"><b>${a.d}</b>${a.t}</span>`).join("");
+    tr.innerHTML = items + items;
+    requestAnimationFrame(() => tr.style.setProperty("--dur", Math.max(20, tr.scrollWidth / 2 / 55) + "s"));
+  };
+  window.drawTicker();
   const toggle = () => { const p = v.classList.toggle("paused"); v.setAttribute("aria-pressed", p); };
   v.addEventListener("click", toggle);
   v.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); } });
@@ -1831,6 +1441,7 @@ document.querySelectorAll("[data-link]").forEach(a => {
 function route() {
   let raw = (location.hash || "#home").slice(1);
   if (raw === "faqs") raw = "guidance";
+  if (raw !== "home" && PAGE_URL[raw]) { location.replace(PAGE_URL[raw]); return; }
   const ok = VIEWS.some(v => v[0] === raw) ? raw : "home";
   document.querySelectorAll(".view").forEach(s => s.classList.toggle("on", s.id === "v-" + ok));
   document.querySelectorAll("#panel a").forEach(a => a.classList.toggle("on", a.dataset.v === ok));
@@ -2132,6 +1743,9 @@ if (GA_ID) {
   addEventListener("hashchange", () => setTimeout(later, 60));
   new MutationObserver(later).observe(document.querySelector("main"), { childList: true, subtree: true });
 })();
+
+/* Opens the search box when a page links here with ?search=1 */
+if (/[?&]search=1/.test(location.search)) setTimeout(() => { const b = document.getElementById("hdrSearchBtn"); if (b) b.click(); }, 400);
 </script>
 </body>
 </html>
