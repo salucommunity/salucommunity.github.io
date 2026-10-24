@@ -1100,6 +1100,48 @@ mark.gs-hl{background:#fde047;color:#061e47;padding:0 2px;border-radius:4px;font
 .gate-in img{animation:kenburns 20s ease-in-out infinite alternate}
 @media(prefers-reduced-motion:reduce){.js-anim .rv{opacity:1;transform:none;transition:none}.gate-in img{animation:none}}
 
+.crumb-nav {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding: 7px 14px;
+  background: var(--white);
+  border: 1.5px solid var(--blue-200);
+  border-radius: 11px;
+  box-shadow: 0 2px 10px rgba(10, 46, 110, 0.05);
+  font-size: 13.5px;
+  font-weight: 700;
+}
+.crumb-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--blue-700);
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+.crumb-home svg {
+  width: 15px;
+  height: 15px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.2;
+}
+.crumb-home:hover {
+  color: var(--blue-900);
+  text-decoration: underline;
+}
+.crumb-sep {
+  color: var(--mute);
+  font-weight: 800;
+  user-select: none;
+}
+.crumb-cur {
+  color: var(--blue-900);
+  font-weight: 800;
+}
 </style>
 </head>
 <body data-active-page="home" data-multipage="1">
@@ -1239,6 +1281,7 @@ mark.gs-hl{background:#fde047;color:#061e47;padding:0 2px;border-radius:4px;font
 
 
 <section class="view" id="v-announcements">
+  <nav class="crumb-nav" aria-label="Breadcrumb"><a class="crumb-home" href="./"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1v-10.5z"/></svg><span>Home</span></a><span class="crumb-sep" aria-hidden="true">&gt;</span><span class="crumb-cur" aria-current="page">Announcements</span></nav>
   <div class="sec-head">
     <div>
       <h2>Announcements</h2>
@@ -1257,6 +1300,7 @@ mark.gs-hl{background:#fde047;color:#061e47;padding:0 2px;border-radius:4px;font
 
 
 <section class="view" id="v-admissions">
+  <nav class="crumb-nav" aria-label="Breadcrumb"><a class="crumb-home" href="./"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1v-10.5z"/></svg><span>Home</span></a><span class="crumb-sep" aria-hidden="true">&gt;</span><span class="crumb-cur" aria-current="page">Admissions</span></nav>
   <div class="sec-head">
     <div>
       <h2>Admissions</h2>
@@ -1334,6 +1378,7 @@ mark.gs-hl{background:#fde047;color:#061e47;padding:0 2px;border-radius:4px;font
 
 
 <section class="view" id="v-merit">
+  <nav class="crumb-nav" aria-label="Breadcrumb"><a class="crumb-home" href="./"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1v-10.5z"/></svg><span>Home</span></a><span class="crumb-sep" aria-hidden="true">&gt;</span><span class="crumb-cur" aria-current="page">Merit Lists</span></nav>
   <div class="sec-head">
     <div>
       <h2>Merit Lists</h2>
@@ -1352,6 +1397,7 @@ mark.gs-hl{background:#fde047;color:#061e47;padding:0 2px;border-radius:4px;font
 
 
 <section class="view" id="v-departments">
+  <nav class="crumb-nav" aria-label="Breadcrumb"><a class="crumb-home" href="./"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1v-10.5z"/></svg><span>Home</span></a><span class="crumb-sep" aria-hidden="true">&gt;</span><span class="crumb-cur" aria-current="page">Departments</span></nav>
   <div class="sec-head">
     <div>
       <h2>Departments</h2>
@@ -1410,6 +1456,7 @@ mark.gs-hl{background:#fde047;color:#061e47;padding:0 2px;border-radius:4px;font
 
 
 <section class="view" id="v-seats">
+  <nav class="crumb-nav" aria-label="Breadcrumb"><a class="crumb-home" href="./"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1v-10.5z"/></svg><span>Home</span></a><span class="crumb-sep" aria-hidden="true">&gt;</span><span class="crumb-cur" aria-current="page">Seats</span></nav>
   <div class="sec-head">
     <div>
       <h2>Department Seats</h2>
@@ -1464,6 +1511,7 @@ mark.gs-hl{background:#fde047;color:#061e47;padding:0 2px;border-radius:4px;font
 
 
 <section class="view" id="v-fees">
+  <nav class="crumb-nav" aria-label="Breadcrumb"><a class="crumb-home" href="./"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1v-10.5z"/></svg><span>Home</span></a><span class="crumb-sep" aria-hidden="true">&gt;</span><span class="crumb-cur" aria-current="page">Fees</span></nav>
   <div class="sec-head">
     <div>
       <h2>Fee Structure</h2>
@@ -1492,6 +1540,7 @@ mark.gs-hl{background:#fde047;color:#061e47;padding:0 2px;border-radius:4px;font
 
 
 <section class="view" id="v-scholarships">
+  <nav class="crumb-nav" aria-label="Breadcrumb"><a class="crumb-home" href="./"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1v-10.5z"/></svg><span>Home</span></a><span class="crumb-sep" aria-hidden="true">&gt;</span><span class="crumb-cur" aria-current="page">Scholarships</span></nav>
   <div class="sec-head">
     <div>
       <h2>Scholarships</h2>
@@ -1512,6 +1561,7 @@ mark.gs-hl{background:#fde047;color:#061e47;padding:0 2px;border-radius:4px;font
 
 
 <section class="view" id="v-calculator">
+  <nav class="crumb-nav" aria-label="Breadcrumb"><a class="crumb-home" href="./"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1v-10.5z"/></svg><span>Home</span></a><span class="crumb-sep" aria-hidden="true">&gt;</span><span class="crumb-cur" aria-current="page">Calculator</span></nav>
   <div class="sec-head">
     <div>
       <h2>Aggregate Calculator</h2>
@@ -1535,6 +1585,7 @@ mark.gs-hl{background:#fde047;color:#061e47;padding:0 2px;border-radius:4px;font
 
 
 <section class="view" id="v-entry">
+  <nav class="crumb-nav" aria-label="Breadcrumb"><a class="crumb-home" href="./"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1v-10.5z"/></svg><span>Home</span></a><span class="crumb-sep" aria-hidden="true">&gt;</span><span class="crumb-cur" aria-current="page">Entry Test Prep</span></nav>
   <div class="sec-head">
     <div>
       <h2>Entry Test Prep</h2>
@@ -1575,6 +1626,7 @@ mark.gs-hl{background:#fde047;color:#061e47;padding:0 2px;border-radius:4px;font
 
 
 <section class="view" id="v-papers">
+  <nav class="crumb-nav" aria-label="Breadcrumb"><a class="crumb-home" href="./"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1v-10.5z"/></svg><span>Home</span></a><span class="crumb-sep" aria-hidden="true">&gt;</span><span class="crumb-cur" aria-current="page">Past Papers</span></nav>
   <div class="sec-head">
     <div>
       <h2>Past Papers</h2>
@@ -1613,6 +1665,7 @@ mark.gs-hl{background:#fde047;color:#061e47;padding:0 2px;border-radius:4px;font
 
 
 <section class="view" id="v-mocktests">
+  <nav class="crumb-nav" aria-label="Breadcrumb"><a class="crumb-home" href="./"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1v-10.5z"/></svg><span>Home</span></a><span class="crumb-sep" aria-hidden="true">&gt;</span><span class="crumb-cur" aria-current="page">Mock Tests</span></nav>
   <div class="sec-head">
     <div>
       <h2>Free Mock Tests</h2>
@@ -1636,6 +1689,7 @@ mark.gs-hl{background:#fde047;color:#061e47;padding:0 2px;border-radius:4px;font
 
 
 <section class="view" id="v-results">
+  <nav class="crumb-nav" aria-label="Breadcrumb"><a class="crumb-home" href="./"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1v-10.5z"/></svg><span>Home</span></a><span class="crumb-sep" aria-hidden="true">&gt;</span><span class="crumb-cur" aria-current="page">Results</span></nav>
   <div class="sec-head">
     <div>
       <h2>Results</h2>
@@ -1650,6 +1704,7 @@ mark.gs-hl{background:#fde047;color:#061e47;padding:0 2px;border-radius:4px;font
 
 
 <section class="view" id="v-guidance">
+  <nav class="crumb-nav" aria-label="Breadcrumb"><a class="crumb-home" href="./"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1v-10.5z"/></svg><span>Home</span></a><span class="crumb-sep" aria-hidden="true">&gt;</span><span class="crumb-cur" aria-current="page">FAQs / Guidance</span></nav>
   <div class="sec-head">
     <div>
       <h2>FAQs / Guidance</h2>
@@ -1671,6 +1726,7 @@ mark.gs-hl{background:#fde047;color:#061e47;padding:0 2px;border-radius:4px;font
 
 
 <section class="view" id="v-about">
+  <nav class="crumb-nav" aria-label="Breadcrumb"><a class="crumb-home" href="./"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1v-10.5z"/></svg><span>Home</span></a><span class="crumb-sep" aria-hidden="true">&gt;</span><span class="crumb-cur" aria-current="page">About Us</span></nav>
   <div class="sec-head">
     <div>
       <h2>About Us</h2>
@@ -1701,6 +1757,7 @@ mark.gs-hl{background:#fde047;color:#061e47;padding:0 2px;border-radius:4px;font
 
 
 <section class="view" id="v-contact">
+  <nav class="crumb-nav" aria-label="Breadcrumb"><a class="crumb-home" href="./"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1v-10.5z"/></svg><span>Home</span></a><span class="crumb-sep" aria-hidden="true">&gt;</span><span class="crumb-cur" aria-current="page">Contact</span></nav>
   <div class="sec-head">
     <div>
       <h2>Contact</h2>
