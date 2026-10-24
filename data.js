@@ -12,8 +12,15 @@ const FACEBOOK = "https://www.facebook.com/profile.php?id=61581235382207";
 const FORM_URL = "";
 const GA_ID = "G-M9S2H2V00W";
 
+/* Google Sheet that controls announcements, merit lists, fees, scholarships and results.
+   Paste only the long ID from the sheet link (the part between /d/ and /edit).
+   Leave it as "" to use the lists below instead. */
+const SHEET_ID = "";
+
 /* ---------- Announcements (top bar and Announcements page). Format: {d: "date", t: "title", b: "details", pdf: "PDF link (optional)"}. The newest date shows in the top bar. ---------- */
 const ANNOUNCE = [
+  {d: "24 October 2026", t: "1st Merit List (BS Part-I) is now available", b: "The first merit list for BS Part-I (Batch 2027) is published. Download the PDF and check your name. Fee submission window: 23 October to 5 November 2026.", pdf: "https://drive.google.com/uc?export=download&id=1iZdiGbx6g_t_OK6rM8d7L40SYtUSpjy2"},
+  {d: "24 October 2026", t: "1st Merit List (BS Part-III Bridging) is now available", b: "The first merit list for BS Part-III Bridging (2027) is published. Download the PDF and check your name. Fee submission window: 23 October to 5 November 2026.", pdf: "https://drive.google.com/uc?export=download&id=1eEVELX7KYFxgjNOVsn0rEbaOthSK3T3-"},
   {d: "20 Aug – 22 Sep 2026", t: "Online Admission Forms Open (Main, Ghotki & Shahdad Kot Campuses)", b: "Apply online at www.salu.edu.pk for BS Part-I, Pharm-D, LLB, and BS Part-III (Bridging). Admission processing fee is Rs. 2,500/- via HBL Konnect."},
   {d: "13 October 2026", t: "Pre-Entry Test for Bachelor (BS-I) & BS-III (Bridging)", b: "The Pre-Entry Test (50 MCQs) will be conducted on Tuesday, 13 October 2026 across Main Campus, Ghotki Campus, and Shahdad Kot Campus."},
   {d: "23 Oct – 21 Dec 2026", t: "Merit Lists Display & Fee Submission Schedule", b: "1st Merit List: 23 Oct – 5 Nov 2026 | BS-III 2nd List: 6 – 8 Nov | BS-I 2nd List: 11 – 19 Nov | 3rd List: 25 Nov – 3 Dec | 4th List (Self-Finance & Quotas): 15 – 21 Dec 2026."},
@@ -22,7 +29,8 @@ const ANNOUNCE = [
 
 /* ---------- Merit Lists. Format: {t: "title", d: "date", u: "page link", pdf: "PDF link (optional, shows a Download PDF button)"} ---------- */
 const MERITS = [
-  {t: "1st Merit List (BS Part-I & BS Part-III Bridging)", d: "Display & Fee Window: 23 October to 5 November 2026 (Main, Ghotki & Shahdad Kot Campuses)", u: "https://salu.edu.pk/"},
+  {t: "1st Merit List (BS Part-I)", d: "Display & Fee Window: 23 October to 5 November 2026 (Main, Ghotki & Shahdad Kot Campuses)", u: "https://salu.edu.pk/", pdf: "https://drive.google.com/uc?export=download&id=1iZdiGbx6g_t_OK6rM8d7L40SYtUSpjy2"},
+  {t: "1st Merit List (BS Part-III Bridging)", d: "Display & Fee Window: 23 October to 5 November 2026 (Main, Ghotki & Shahdad Kot Campuses)", u: "https://salu.edu.pk/", pdf: "https://drive.google.com/uc?export=download&id=1eEVELX7KYFxgjNOVsn0rEbaOthSK3T3-"},
   {t: "2nd Merit List (BS Part-III Bridging)", d: "Display & Fee Window: 6 November to 8 November 2026 (Classes start 9 November 2026)", u: "https://salu.edu.pk/"},
   {t: "2nd Merit List (BS Part-I)", d: "Display & Fee Window: 11 November to 19 November 2026", u: "https://salu.edu.pk/"},
   {t: "3rd Merit List (BS Part-I)", d: "Display & Fee Window: 25 November to 3 December 2026", u: "https://salu.edu.pk/"},
