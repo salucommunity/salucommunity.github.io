@@ -29,16 +29,20 @@
   ],
   "shortcuts": [
     {
-      "name": "Merit Lists",
-      "url": "./#merit"
+      "name": "Merit List",
+      "url": "./merit-list"
     },
     {
       "name": "Past Papers",
-      "url": "./past-papers.html"
+      "url": "./past-papers"
     },
     {
       "name": "Aggregate Calculator",
-      "url": "./#calculator"
+      "url": "./aggregate-calculator"
+    },
+    {
+      "name": "Announcements",
+      "url": "./announcements"
     }
   ],
   "prefer_related_applications": false,

@@ -1,7 +1,7 @@
 /* SALU Community service worker: always loads the newest files when online,
    and falls back to the saved copy when the internet is off. */
-const CACHE = "salu-community-v2";
-const CORE = ["./", "index.html", "past-papers.html", "data.js", "pwa.js", "sheet.js", "manifest.webmanifest", "icon-192.png"];
+const CACHE = "salu-community-v3";
+const CORE = ["./", "index.html", "data.js", "pwa.js", "manifest.webmanifest", "icon-192.png", "merit-list", "announcements", "fee-structure", "department-seats", "aggregate-calculator", "past-papers"];
 
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE).then(c => Promise.allSettled(CORE.map(u => c.add(u)))).then(() => self.skipWaiting()));

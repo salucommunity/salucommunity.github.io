@@ -3,6 +3,17 @@
    It is hidden only inside the installed app itself. */
 (function () {
   "use strict";
+  /* Google Analytics: loads on every page using GA_ID from data.js (skipped if the page already did it) */
+  if (typeof GA_ID !== "undefined" && GA_ID && !window.gtag) {
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag("js", new Date());
+    window.gtag("config", GA_ID);
+    var ga = document.createElement("script");
+    ga.async = true;
+    ga.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(GA_ID);
+    document.head.appendChild(ga);
+  }
   /* Sends app events to Google Analytics (works when GA_ID is set in data.js) */
   function track(name, params) { try { if (window.gtag) window.gtag("event", name, params || {}); } catch (e) {} }
   if ("serviceWorker" in navigator && location.protocol !== "file:") {
