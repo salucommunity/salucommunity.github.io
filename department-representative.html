@@ -1218,6 +1218,316 @@ textarea {
   object-fit: cover;
   display: block;
 }
+
+/* Digital Member Card Generator Styles */
+.mc-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  align-items: start;
+}
+@media (min-width: 920px) {
+  .mc-layout {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+}
+.mc-upload-tile {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--blue-50);
+  border: 1.5px dashed var(--blue-200);
+}
+.mc-hint {
+  font-size: 12.5px;
+  color: var(--mute);
+  line-height: 1.4;
+}
+.mc-wa-btn {
+  background: #16a34a;
+  border-color: #15803d;
+}
+.mc-wa-btn:hover {
+  background: #15803d;
+}
+.mc-preview-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.mc-preview-label {
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--blue-700);
+  text-transform: uppercase;
+}
+.mc-card {
+  width: 100%;
+  max-width: 390px;
+  background: var(--white);
+  border-radius: 22px;
+  border: 2px solid var(--blue-700);
+  box-shadow: 0 18px 42px rgba(6, 30, 71, 0.18);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.mc-card-top {
+  background: linear-gradient(135deg, #061e47 0%, #0f3f96 58%, #1d64df 100%);
+  color: var(--white);
+  padding: 20px 18px 16px;
+  text-align: center;
+  position: relative;
+  border-bottom: 3px solid #60a5fa;
+}
+.mc-logo-ring {
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 2.5px solid #93c5fd;
+  margin: 0 auto 8px;
+  padding: 4px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+.mc-logo-ring img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.mc-org-title {
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  line-height: 1.15;
+  color: #ffffff;
+}
+.mc-org-web {
+  font-size: 13px;
+  font-weight: 700;
+  color: #dbeafe;
+  margin-top: 2px;
+}
+.mc-org-contact {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #bfdbfe;
+  margin-top: 2px;
+}
+.mc-badge-pill {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+}
+.mc-card-body {
+  padding: 18px 18px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: linear-gradient(180deg, #ffffff 0%, #f4f8ff 100%);
+}
+.mc-avatar-wrap {
+  width: 112px;
+  height: 112px;
+  border-radius: 18px;
+  margin: 0 auto;
+  border: 3px solid var(--blue-700);
+  background: var(--blue-100);
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(15, 63, 150, 0.18);
+}
+.mc-avatar-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.mc-info-table {
+  background: var(--white);
+  border: 1.5px solid var(--blue-200);
+  border-radius: 14px;
+  padding: 10px 13px;
+  display: grid;
+  gap: 7px;
+}
+.mc-info-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  border-bottom: 1px dashed var(--blue-150);
+  padding-bottom: 5px;
+  font-size: 13px;
+}
+.mc-info-row:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+.mc-info-k {
+  font-weight: 800;
+  color: var(--blue-800);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.mc-info-v {
+  font-weight: 700;
+  color: var(--ink);
+  text-align: right;
+  word-break: break-word;
+}
+.mc-id-highlight {
+  background: var(--blue-100);
+  color: var(--blue-900);
+  padding: 1px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--blue-200);
+  font-weight: 800;
+}
+.mc-qr-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--white);
+  border: 1.5px solid var(--blue-200);
+  border-radius: 14px;
+  padding: 10px 12px;
+}
+.mc-qr-box {
+  width: 86px;
+  height: 86px;
+  padding: 4px;
+  background: var(--white);
+  border: 1.5px solid var(--blue-200);
+  border-radius: 10px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+}
+.mc-qr-box canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.mc-qr-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.mc-qr-tag {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  background: var(--blue-700);
+  color: var(--white);
+  padding: 2px 8px;
+  border-radius: 99px;
+}
+.mc-prop-text {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--blue-900);
+  line-height: 1.3;
+}
+.mc-verify-url {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--blue-600);
+}
+.mc-sigs-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 2px;
+  padding-top: 4px;
+}
+.mc-sig-col {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.mc-sig-box {
+  height: 38px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.mc-sig-box img {
+  max-height: 36px;
+  max-width: 120px;
+  object-fit: contain;
+}
+.mc-sig-script {
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--blue-900);
+}
+.mc-sig-line {
+  width: 90%;
+  height: 1.5px;
+  background: var(--blue-800);
+  margin: 2px 0 4px;
+}
+.mc-sig-title {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--blue-900);
+  line-height: 1.2;
+}
+.mc-sig-org {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--mute);
+  line-height: 1.2;
+}
+.mc-card-foot {
+  background: var(--blue-950);
+  color: #dbeafe;
+  text-align: center;
+  padding: 9px 14px;
+  font-size: 10.5px;
+  font-weight: 600;
+  line-height: 1.35;
+  border-top: 2px solid var(--blue-700);
+}
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+  #mcCardElement, #mcCardElement * {
+    visibility: visible !important;
+  }
+  #mcCardElement {
+    position: fixed !important;
+    left: 50% !important;
+    top: 24px !important;
+    transform: translateX(-50%) !important;
+    width: 360px !important;
+    box-shadow: none !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
+
+
 </style>
 </head>
 <body data-active-page="representative" data-multipage="1">
@@ -2103,6 +2413,7 @@ const ICONS = {
   guidance: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg>',
   about: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>',
   representative: '<svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>',
+  membercard: '<svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><circle cx="8" cy="11" r="2.5"/><path d="M4 17c0-2 2-3 4-3s4 1 4 3"/><line x1="14" y1="9" x2="19" y2="9"/><line x1="14" y1="13" x2="19" y2="13"/></svg>',
   contact: '<svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>'
 };
 
@@ -2597,6 +2908,715 @@ $("#faqList").innerHTML = FAQS.map((f, i) => `
   });
 })();
 
+
+/* SALU Community Digital Member Card Generator & ISO QR Code Engine */
+(function () {
+  const form = document.getElementById("mcAdminForm");
+  if (!form) return;
+
+  const logoInput = document.getElementById("mcLogoInput");
+  const logoBtn = document.getElementById("mcLogoBtn");
+  const logoResetBtn = document.getElementById("mcLogoResetBtn");
+  const photoInput = document.getElementById("mcPhotoInput");
+  const photoBtn = document.getElementById("mcPhotoBtn");
+  const photoStatus = document.getElementById("mcPhotoStatus");
+  const idInput = document.getElementById("mcIdInput");
+  const autoIdBtn = document.getElementById("mcAutoIdBtn");
+  const nameInput = document.getElementById("mcNameInput");
+  const deptInput = document.getElementById("mcDeptInput");
+  const contactInput = document.getElementById("mcContactInput");
+  const founderSigInput = document.getElementById("mcFounderSigInput");
+  const founderSigBtn = document.getElementById("mcFounderSigBtn");
+  const founderSigResetBtn = document.getElementById("mcFounderSigResetBtn");
+  const cofounderSigInput = document.getElementById("mcCofounderSigInput");
+  const cofounderSigBtn = document.getElementById("mcCofounderSigBtn");
+  const cofounderSigResetBtn = document.getElementById("mcCofounderSigResetBtn");
+
+  const cardLogoImg = document.getElementById("mcCardLogoImg");
+  const cardPhotoImg = document.getElementById("mcCardPhotoImg");
+  const cardIdText = document.getElementById("mcCardIdText");
+  const cardNameText = document.getElementById("mcCardNameText");
+  const cardDeptText = document.getElementById("mcCardDeptText");
+  const cardContactText = document.getElementById("mcCardContactText");
+  const founderSigBox = document.getElementById("mcFounderSigBox");
+  const cofounderSigBox = document.getElementById("mcCofounderSigBox");
+  const qrCanvas = document.getElementById("mcQrCanvas");
+  const exportCanvas = document.getElementById("mcExportCanvas");
+  const statusOut = document.getElementById("mcStatusOut");
+
+  const defaultLogoSrc = cardLogoImg ? cardLogoImg.src : "";
+  const defaultPhotoSrc = cardPhotoImg ? cardPhotoImg.src : "";
+  let founderSigDataUrl = "";
+  let cofounderSigDataUrl = "";
+
+  /* Self-contained ISO/IEC 18004 QR Code Generator (Versions 1-10, Byte Mode, Level L) */
+  const QR = (function () {
+    const CAPACITIES = [0, 17, 32, 53, 78, 106, 134, 154, 192, 230, 271];
+    const TOTAL_CW   = [0, 26, 44, 70, 100, 134, 172, 196, 242, 292, 346];
+    const EC_PER_BLK = [0, 7, 10, 15, 20, 26, 18, 20, 24, 30, 18];
+    const NUM_BLKS   = [0, 1, 1, 1, 1, 1, 2, 2, 2, 2, 4];
+    const ALIGN_POS  = [[], [], [6, 18], [6, 22], [6, 26], [6, 30], [6, 34], [6, 22, 38], [6, 24, 42], [6, 26, 46], [6, 28, 50]];
+
+    const EXP = new Uint8Array(512);
+    const LOG = new Uint8Array(256);
+    let x = 1;
+    for (let i = 0; i < 255; i++) {
+      EXP[i] = x;
+      LOG[x] = i;
+      x <<= 1;
+      if (x & 256) x ^= 0x11d;
+    }
+    for (let i = 255; i < 512; i++) EXP[i] = EXP[i - 255];
+
+    function gfMul(a, b) {
+      return (a === 0 || b === 0) ? 0 : EXP[LOG[a] + LOG[b]];
+    }
+
+    function rsPoly(deg) {
+      let p = [1];
+      for (let i = 0; i < deg; i++) {
+        const next = new Array(p.length + 1).fill(0);
+        const root = EXP[i];
+        for (let j = 0; j < p.length; j++) {
+          next[j] ^= p[j];
+          next[j + 1] ^= gfMul(p[j], root);
+        }
+        p = next;
+      }
+      return p;
+    }
+
+    function rsEncode(data, ecLen) {
+      const gen = rsPoly(ecLen);
+      const msg = data.slice().concat(new Array(ecLen).fill(0));
+      for (let i = 0; i < data.length; i++) {
+        const coef = msg[i];
+        if (coef !== 0) {
+          for (let j = 0; j < gen.length; j++) {
+            msg[i + j] ^= gfMul(gen[j], coef);
+          }
+        }
+      }
+      return msg.slice(data.length);
+    }
+
+    function encodeMatrix(text) {
+      const utf8 = Array.from(new TextEncoder().encode(text));
+      let ver = 1;
+      while (ver <= 10 && utf8.length > CAPACITIES[ver]) ver++;
+      if (ver > 10) {
+        ver = 10;
+        utf8.length = CAPACITIES[10];
+      }
+
+      const totalCw = TOTAL_CW[ver];
+      const ecLen = EC_PER_BLK[ver];
+      const numBlks = NUM_BLKS[ver];
+      const dataCw = totalCw - ecLen * numBlks;
+
+      const bits = [];
+      const pushBits = (val, len) => {
+        for (let i = len - 1; i >= 0; i--) bits.push((val >>> i) & 1);
+      };
+      pushBits(0b0100, 4);
+      pushBits(utf8.length, ver <= 9 ? 8 : 16);
+      utf8.forEach(b => pushBits(b, 8));
+      for (let i = 0; i < 4 && bits.length < dataCw * 8; i++) bits.push(0);
+      while (bits.length % 8 !== 0) bits.push(0);
+
+      const codewords = [];
+      for (let i = 0; i < bits.length; i += 8) {
+        let b = 0;
+        for (let j = 0; j < 8; j++) b = (b << 1) | bits[i + j];
+        codewords.push(b);
+      }
+      let padIdx = 0;
+      while (codewords.length < dataCw) {
+        codewords.push(padIdx % 2 === 0 ? 0xEC : 0x11);
+        padIdx++;
+      }
+
+      const blkSize = Math.floor(dataCw / numBlks);
+      const extraBlks = dataCw % numBlks;
+      const dataBlocks = [];
+      const ecBlocks = [];
+      let offset = 0;
+      for (let b = 0; b < numBlks; b++) {
+        const len = blkSize + (b >= numBlks - extraBlks ? 1 : 0);
+        const blk = codewords.slice(offset, offset + len);
+        offset += len;
+        dataBlocks.push(blk);
+        ecBlocks.push(rsEncode(blk, ecLen));
+      }
+
+      const finalCw = [];
+      const maxDataLen = blkSize + (extraBlks > 0 ? 1 : 0);
+      for (let i = 0; i < maxDataLen; i++) {
+        for (let b = 0; b < numBlks; b++) {
+          if (i < dataBlocks[b].length) finalCw.push(dataBlocks[b][i]);
+        }
+      }
+      for (let i = 0; i < ecLen; i++) {
+        for (let b = 0; b < numBlks; b++) finalCw.push(ecBlocks[b][i]);
+      }
+
+      const size = ver * 4 + 17;
+      const mat = Array.from({ length: size }, () => new Int8Array(size).fill(-1));
+      const isFunc = Array.from({ length: size }, () => new Uint8Array(size));
+
+      const setMod = (r, c, val, func) => {
+        if (r < 0 || r >= size || c < 0 || c >= size) return;
+        mat[r][c] = val ? 1 : 0;
+        if (func) isFunc[r][c] = 1;
+      };
+
+      const drawFinder = (r0, c0) => {
+        for (let dr = -1; dr <= 7; dr++) {
+          for (let dc = -1; dc <= 7; dc++) {
+            const rr = r0 + dr, cc = c0 + dc;
+            if (rr < 0 || rr >= size || cc < 0 || cc >= size) continue;
+            const inOuter = (dr >= 0 && dr <= 6 && (dc === 0 || dc === 6)) || (dc >= 0 && dc <= 6 && (dr === 0 || dr === 6));
+            const inInner = (dr >= 2 && dr <= 4 && dc >= 2 && dc <= 4);
+            setMod(rr, cc, inOuter || inInner, true);
+          }
+        }
+      };
+
+      drawFinder(0, 0);
+      drawFinder(0, size - 7);
+      drawFinder(size - 7, 0);
+
+      for (let i = 8; i < size - 8; i++) {
+        setMod(6, i, i % 2 === 0, true);
+        setMod(i, 6, i % 2 === 0, true);
+      }
+
+      const apos = ALIGN_POS[ver];
+      for (let i = 0; i < apos.length; i++) {
+        for (let j = 0; j < apos.length; j++) {
+          const r = apos[i], c = apos[j];
+          if ((r < 9 && c < 9) || (r < 9 && c > size - 10) || (r > size - 10 && c < 9)) continue;
+          for (let dr = -2; dr <= 2; dr++) {
+            for (let dc = -2; dc <= 2; dc++) {
+              const v = Math.max(Math.abs(dr), Math.abs(dc)) !== 1;
+              setMod(r + dr, c + dc, v, true);
+            }
+          }
+        }
+      }
+
+      setMod(size - 8, 8, 1, true);
+      for (let i = 0; i < 9; i++) {
+        if (i !== 6) {
+          isFunc[8][i] = 1;
+          isFunc[i][8] = 1;
+        }
+      }
+      for (let i = 0; i < 8; i++) {
+        isFunc[8][size - 1 - i] = 1;
+        isFunc[size - 1 - i][8] = 1;
+      }
+
+      if (ver >= 7) {
+        let rem = ver;
+        for (let i = 0; i < 12; i++) rem = (rem << 1) ^ ((rem >>> 11) * 0x1F25);
+        const vbits = (ver << 12) | rem;
+        for (let i = 0; i < 18; i++) {
+          const bit = (vbits >>> i) & 1;
+          const a = size - 11 + (i % 3), b = Math.floor(i / 3);
+          setMod(b, a, bit, true);
+          setMod(a, b, bit, true);
+        }
+      }
+
+      const allBits = [];
+      finalCw.forEach(cw => {
+        for (let i = 7; i >= 0; i--) allBits.push((cw >>> i) & 1);
+      });
+
+      let bitIdx = 0;
+      let up = true;
+      for (let right = size - 1; right >= 1; right -= 2) {
+        if (right === 6) right = 5;
+        for (let vert = 0; vert < size; vert++) {
+          const r = up ? size - 1 - vert : vert;
+          for (let j = 0; j < 2; j++) {
+            const c = right - j;
+            if (!isFunc[r][c]) {
+              const dark = bitIdx < allBits.length ? allBits[bitIdx++] : 0;
+              const mask = (r + c) % 2 === 0;
+              mat[r][c] = dark ^ (mask ? 1 : 0);
+            }
+          }
+        }
+        up = !up;
+      }
+
+      /* Format info for Level L (01) + Mask 0 (000) -> 0x77c4 */
+      const fmtBits = 0x77c4;
+      for (let i = 0; i <= 5; i++) setMod(8, i, (fmtBits >>> i) & 1, true);
+      setMod(8, 7, (fmtBits >>> 6) & 1, true);
+      setMod(8, 8, (fmtBits >>> 7) & 1, true);
+      setMod(7, 8, (fmtBits >>> 8) & 1, true);
+      for (let i = 9; i < 15; i++) setMod(14 - i, 8, (fmtBits >>> i) & 1, true);
+      for (let i = 0; i < 8; i++) setMod(size - 1 - i, 8, (fmtBits >>> i) & 1, true);
+      for (let i = 8; i < 15; i++) setMod(8, size - 15 + i, (fmtBits >>> i) & 1, true);
+
+      return mat;
+    }
+
+    function drawToCanvas(canvas, text) {
+      if (!canvas) return;
+      const mat = encodeMatrix(text);
+      const count = mat.length;
+      const margin = 2;
+      const total = count + margin * 2;
+      const ctx = canvas.getContext("2d");
+      const size = canvas.width;
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, size, size);
+      const cell = size / total;
+      ctx.fillStyle = "#061e47";
+      for (let r = 0; r < count; r++) {
+        for (let c = 0; c < count; c++) {
+          if (mat[r][c]) {
+            ctx.fillRect(Math.floor((c + margin) * cell), Math.floor((r + margin) * cell), Math.ceil(cell), Math.ceil(cell));
+          }
+        }
+      }
+    }
+
+    return { drawToCanvas };
+  })();
+
+  function getCardState() {
+    return {
+      id: (idInput.value || "").trim() || "SC-LAW-001",
+      name: (nameInput.value || "").trim() || "Muhammad Younis Shar",
+      dept: (deptInput.value || "").trim() || "Department of Law",
+      contact: (contactInput.value || "").trim() || "03443482883"
+    };
+  }
+
+  function getQrPayload(st) {
+    return [
+      "SALU Community",
+      "Member ID: " + st.id,
+      "Name: " + st.name,
+      "Department: " + st.dept,
+      "Website: salucommunity.github.io"
+    ].join(String.fromCharCode(10));
+  }
+
+  function renderPreview() {
+    const st = getCardState();
+    cardIdText.textContent = st.id;
+    cardNameText.textContent = st.name;
+    cardDeptText.textContent = st.dept;
+    cardContactText.textContent = st.contact;
+    QR.drawToCanvas(qrCanvas, getQrPayload(st));
+  }
+
+  /* High-Resolution Canvas Card Renderer (1080 x 1680) for PNG/JPG Download */
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  function loadImg(src) {
+    return new Promise(resolve => {
+      if (!src) return resolve(null);
+      const im = new Image();
+      im.crossOrigin = "anonymous";
+      im.onload = () => resolve(im);
+      im.onerror = () => resolve(null);
+      im.src = src;
+    });
+  }
+
+  async function renderExportCanvas() {
+    const st = getCardState();
+    const W = 1080, H = 1680;
+    exportCanvas.width = W;
+    exportCanvas.height = H;
+    const ctx = exportCanvas.getContext("2d");
+
+    // Card background
+    ctx.fillStyle = "#f4f8ff";
+    ctx.fillRect(0, 0, W, H);
+
+    // Header gradient
+    const hdrH = 420;
+    const grad = ctx.createLinearGradient(0, 0, W, hdrH);
+    grad.addColorStop(0, "#061e47");
+    grad.addColorStop(0.58, "#0f3f96");
+    grad.addColorStop(1, "#1d64df");
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, hdrH);
+
+    // Header bottom accent bar
+    ctx.fillStyle = "#60a5fa";
+    ctx.fillRect(0, hdrH - 8, W, 8);
+
+    // Draw Logo in circle
+    const logoIm = await loadImg(cardLogoImg.src);
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(W / 2, 110, 74, 0, Math.PI * 2);
+    ctx.fillStyle = "#ffffff";
+    ctx.fill();
+    ctx.lineWidth = 6;
+    ctx.strokeStyle = "#93c5fd";
+    ctx.stroke();
+    ctx.clip();
+    if (logoIm) ctx.drawImage(logoIm, W / 2 - 66, 110 - 66, 132, 132);
+    ctx.restore();
+
+    // Header Texts
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "800 54px 'Plus Jakarta Sans', sans-serif";
+    ctx.fillText("SALU COMMUNITY", W / 2, 244);
+
+    ctx.fillStyle = "#dbeafe";
+    ctx.font = "700 32px 'Plus Jakarta Sans', sans-serif";
+    ctx.fillText("salucommunity.github.io", W / 2, 290);
+
+    ctx.fillStyle = "#bfdbfe";
+    ctx.font = "700 30px 'Plus Jakarta Sans', sans-serif";
+    ctx.fillText("Contact: 03443482883", W / 2, 334);
+
+    // Badge Pill
+    roundRect(ctx, W / 2 - 230, 354, 460, 44, 22);
+    ctx.fillStyle = "rgba(255,255,255,0.18)";
+    ctx.fill();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = "rgba(255,255,255,0.45)";
+    ctx.stroke();
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "800 23px 'Plus Jakarta Sans', sans-serif";
+    ctx.fillText("COMMUNITY MEMBER CARD", W / 2, 384);
+
+    // Member Photo Frame
+    const photoIm = await loadImg(cardPhotoImg.src);
+    const px = W / 2 - 145, py = 458, pw = 290, ph = 290;
+    ctx.save();
+    roundRect(ctx, px, py, pw, ph, 42);
+    ctx.fillStyle = "#eaf2ff";
+    ctx.fill();
+    ctx.clip();
+    if (photoIm) {
+      const scale = Math.max(pw / photoIm.width, ph / photoIm.height);
+      const dw = photoIm.width * scale, dh = photoIm.height * scale;
+      ctx.drawImage(photoIm, px + (pw - dw) / 2, py + (ph - dh) / 2, dw, dh);
+    }
+    ctx.restore();
+    roundRect(ctx, px, py, pw, ph, 42);
+    ctx.lineWidth = 8;
+    ctx.strokeStyle = "#1552be";
+    ctx.stroke();
+
+    // Member Information Box
+    const ibX = 64, ibY = 785, ibW = W - 128, ibH = 290;
+    roundRect(ctx, ibX, ibY, ibW, ibH, 32);
+    ctx.fillStyle = "#ffffff";
+    ctx.fill();
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = "#c3dafd";
+    ctx.stroke();
+
+    const rows = [
+      ["MEMBER ID:", st.id],
+      ["NAME:", st.name],
+      ["DEPARTMENT:", st.dept],
+      ["CONTACT:", st.contact]
+    ];
+    rows.forEach((r, idx) => {
+      const ry = ibY + 58 + idx * 66;
+      ctx.textAlign = "left";
+      ctx.fillStyle = "#0f3f96";
+      ctx.font = "800 28px 'Plus Jakarta Sans', sans-serif";
+      ctx.fillText(r[0], ibX + 36, ry);
+
+      ctx.textAlign = "right";
+      ctx.fillStyle = "#072252";
+      ctx.font = "700 30px 'Plus Jakarta Sans', sans-serif";
+      let val = r[1];
+      if (val.length > 34) val = val.slice(0, 32) + "…";
+      ctx.fillText(val, ibX + ibW - 36, ry);
+
+      if (idx < 3) {
+        ctx.beginPath();
+        ctx.moveTo(ibX + 32, ry + 22);
+        ctx.lineTo(ibX + ibW - 32, ry + 22);
+        ctx.strokeStyle = "#d9e8ff";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      }
+    });
+
+    // QR Code & Property Box
+    const qbX = 64, qbY = 1105, qbW = W - 128, qbH = 240;
+    roundRect(ctx, qbX, qbY, qbW, qbH, 32);
+    ctx.fillStyle = "#ffffff";
+    ctx.fill();
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = "#c3dafd";
+    ctx.stroke();
+
+    const qrTemp = document.createElement("canvas");
+    qrTemp.width = 200;
+    qrTemp.height = 200;
+    QR.drawToCanvas(qrTemp, getQrPayload(st));
+    ctx.drawImage(qrTemp, qbX + 26, qbY + 20, 200, 200);
+
+    ctx.textAlign = "left";
+    roundRect(ctx, qbX + 252, qbY + 42, 230, 40, 20);
+    ctx.fillStyle = "#1552be";
+    ctx.fill();
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "800 21px 'Plus Jakarta Sans', sans-serif";
+    ctx.fillText("SCAN TO VERIFY", qbX + 276, qbY + 69);
+
+    ctx.fillStyle = "#0a2e6e";
+    ctx.font = "800 30px 'Plus Jakarta Sans', sans-serif";
+    ctx.fillText("This card is property of SALU Community", qbX + 252, qbY + 128);
+
+    ctx.fillStyle = "#1d64df";
+    ctx.font = "700 27px 'Plus Jakarta Sans', sans-serif";
+    ctx.fillText("salucommunity.github.io • 03443482883", qbX + 252, qbY + 174);
+
+    // Signatures Section
+    const sigY = 1380;
+    const fSigIm = await loadImg(founderSigDataUrl);
+    const cfSigIm = await loadImg(cofounderSigDataUrl);
+
+    // Left Signature (Founder)
+    const leftCx = 290;
+    if (fSigIm) {
+      ctx.drawImage(fSigIm, leftCx - 110, sigY, 220, 75);
+    } else {
+      ctx.textAlign = "center";
+      ctx.fillStyle = "#0a2e6e";
+      ctx.font = "italic 700 42px Georgia, serif";
+      ctx.fillText("Ziauddin", leftCx, sigY + 58);
+    }
+    ctx.beginPath();
+    ctx.moveTo(leftCx - 165, sigY + 86);
+    ctx.lineTo(leftCx + 165, sigY + 86);
+    ctx.strokeStyle = "#0f3f96";
+    ctx.lineWidth = 3;
+    ctx.stroke();
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#0a2e6e";
+    ctx.font = "800 27px 'Plus Jakarta Sans', sans-serif";
+    ctx.fillText("Founder", leftCx, sigY + 122);
+    ctx.fillStyle = "#2e4d82";
+    ctx.font = "700 24px 'Plus Jakarta Sans', sans-serif";
+    ctx.fillText("SALU Community", leftCx, sigY + 154);
+
+    // Right Signature (Co-Founder)
+    const rightCx = W - 290;
+    if (cfSigIm) {
+      ctx.drawImage(cfSigIm, rightCx - 110, sigY, 220, 75);
+    } else {
+      ctx.textAlign = "center";
+      ctx.fillStyle = "#0a2e6e";
+      ctx.font = "italic 700 42px Georgia, serif";
+      ctx.fillText("M. Younis", rightCx, sigY + 58);
+    }
+    ctx.beginPath();
+    ctx.moveTo(rightCx - 165, sigY + 86);
+    ctx.lineTo(rightCx + 165, sigY + 86);
+    ctx.strokeStyle = "#0f3f96";
+    ctx.lineWidth = 3;
+    ctx.stroke();
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#0a2e6e";
+    ctx.font = "800 27px 'Plus Jakarta Sans', sans-serif";
+    ctx.fillText("Co-Founder", rightCx, sigY + 122);
+    ctx.fillStyle = "#2e4d82";
+    ctx.font = "700 24px 'Plus Jakarta Sans', sans-serif";
+    ctx.fillText("SALU Community", rightCx, sigY + 154);
+
+    // Bottom Disclaimer Bar
+    const footH = 104;
+    ctx.fillStyle = "#061e47";
+    ctx.fillRect(0, H - footH, W, footH);
+    ctx.fillStyle = "#1552be";
+    ctx.fillRect(0, H - footH, W, 5);
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#dbeafe";
+    ctx.font = "600 23px 'Plus Jakarta Sans', sans-serif";
+    ctx.fillText("Independent student-support platform. Not an official document of Shah Abdul Latif University.", W / 2, H - 44);
+
+    // Outer Border
+    ctx.strokeStyle = "#1552be";
+    ctx.lineWidth = 10;
+    ctx.strokeRect(5, 5, W - 10, H - 10);
+
+    return exportCanvas;
+  }
+
+  /* File Upload Helpers */
+  function bindImageUpload(btn, inputEl, onLoaded) {
+    if (!btn || !inputEl) return;
+    btn.addEventListener("click", () => inputEl.click());
+    inputEl.addEventListener("change", () => {
+      const f = inputEl.files && inputEl.files[0];
+      if (!f) return;
+      const r = new FileReader();
+      r.onload = ev => onLoaded(ev.target.result, f);
+      r.readAsDataURL(f);
+    });
+  }
+
+  bindImageUpload(logoBtn, logoInput, dataUrl => {
+    cardLogoImg.src = dataUrl;
+    if (logoResetBtn) logoResetBtn.hidden = false;
+    renderPreview();
+  });
+  if (logoResetBtn) {
+    logoResetBtn.addEventListener("click", () => {
+      logoInput.value = "";
+      cardLogoImg.src = defaultLogoSrc;
+      logoResetBtn.hidden = true;
+      renderPreview();
+    });
+  }
+
+  bindImageUpload(photoBtn, photoInput, (dataUrl, file) => {
+    cardPhotoImg.src = dataUrl;
+    if (photoStatus) photoStatus.textContent = "Loaded: " + file.name;
+    renderPreview();
+  });
+
+  bindImageUpload(founderSigBtn, founderSigInput, dataUrl => {
+    founderSigDataUrl = dataUrl;
+    founderSigBox.innerHTML = `<img src="${dataUrl}" alt="Founder Signature">`;
+    if (founderSigResetBtn) founderSigResetBtn.hidden = false;
+    renderPreview();
+  });
+  if (founderSigResetBtn) {
+    founderSigResetBtn.addEventListener("click", () => {
+      founderSigInput.value = "";
+      founderSigDataUrl = "";
+      founderSigBox.innerHTML = '<span class="mc-sig-script">Ziauddin</span>';
+      founderSigResetBtn.hidden = true;
+      renderPreview();
+    });
+  }
+
+  bindImageUpload(cofounderSigBtn, cofounderSigInput, dataUrl => {
+    cofounderSigDataUrl = dataUrl;
+    cofounderSigBox.innerHTML = `<img src="${dataUrl}" alt="Co-Founder Signature">`;
+    if (cofounderSigResetBtn) cofounderSigResetBtn.hidden = false;
+    renderPreview();
+  });
+  if (cofounderSigResetBtn) {
+    cofounderSigResetBtn.addEventListener("click", () => {
+      cofounderSigInput.value = "";
+      cofounderSigDataUrl = "";
+      cofounderSigBox.innerHTML = '<span class="mc-sig-script">M. Younis</span>';
+      cofounderSigResetBtn.hidden = true;
+      renderPreview();
+    });
+  }
+
+  /* Live Input Listeners */
+  [idInput, nameInput, deptInput, contactInput].forEach(el => {
+    if (el) el.addEventListener("input", renderPreview);
+  });
+
+  if (autoIdBtn) {
+    let seq = 2;
+    autoIdBtn.addEventListener("click", () => {
+      const deptVal = (deptInput.value || "MEM").toUpperCase();
+      const words = deptVal.replace(/[^A-Z ]/g, "").split(/\s+/).filter(w => !["DEPARTMENT", "INSTITUTE", "OF", "SCHOOL", "AND"].includes(w));
+      const code = (words[0] || "MEM").slice(0, 3);
+      idInput.value = `SC-${code}-${String(seq++).padStart(3, "0")}`;
+      renderPreview();
+    });
+  }
+
+  const resetAllBtn = document.getElementById("mcResetAllBtn");
+  if (resetAllBtn) {
+    resetAllBtn.addEventListener("click", () => {
+      idInput.value = "SC-LAW-001";
+      nameInput.value = "Muhammad Younis Shar";
+      deptInput.value = "Department of Law";
+      contactInput.value = "03443482883";
+      cardLogoImg.src = defaultLogoSrc;
+      cardPhotoImg.src = defaultPhotoSrc;
+      if (photoStatus) photoStatus.textContent = "Upload member portrait photo from gallery.";
+      founderSigDataUrl = "";
+      cofounderSigDataUrl = "";
+      founderSigBox.innerHTML = '<span class="mc-sig-script">Ziauddin</span>';
+      cofounderSigBox.innerHTML = '<span class="mc-sig-script">M. Younis</span>';
+      if (logoResetBtn) logoResetBtn.hidden = true;
+      if (founderSigResetBtn) founderSigResetBtn.hidden = true;
+      if (cofounderSigResetBtn) cofounderSigResetBtn.hidden = true;
+      statusOut.innerHTML = "";
+      renderPreview();
+    });
+  }
+
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    renderPreview();
+    statusOut.innerHTML = '<div class="out"><p style="font-weight:700;color:var(--blue-900)">Member card generated and updated with QR verification code.</p></div>';
+  });
+
+  async function downloadCardAs(mime, ext) {
+    const st = getCardState();
+    const c = await renderExportCanvas();
+    const safeId = st.id.replace(/[^a-zA-Z0-9_-]/g, "_");
+    const link = document.createElement("a");
+    link.download = `SALU-Community-Card-${safeId}.${ext}`;
+    link.href = c.toDataURL(mime, 0.96);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    statusOut.innerHTML = `<div class="out"><p style="font-weight:700;color:var(--blue-900)">Downloaded high-resolution ${ext.toUpperCase()} card for ${st.name} (${st.id}).</p></div>`;
+  }
+
+  const dlPng = document.getElementById("mcDownloadPngBtn");
+  const dlJpg = document.getElementById("mcDownloadJpgBtn");
+  const printBtn = document.getElementById("mcPrintBtn");
+  const waBtn = document.getElementById("mcWhatsappBtn");
+
+  if (dlPng) dlPng.addEventListener("click", () => downloadCardAs("image/png", "png"));
+  if (dlJpg) dlJpg.addEventListener("click", () => downloadCardAs("image/jpeg", "jpg"));
+  if (printBtn) printBtn.addEventListener("click", () => window.print());
+
+  if (waBtn) {
+    waBtn.addEventListener("click", () => {
+      const st = getCardState();
+      const nl = String.fromCharCode(10);
+      const msg = [
+        "🎓 SALU Community Team Member",
+        "",
+        "Name: " + st.name,
+        "Member ID: " + st.id,
+        "Department: " + st.dept,
+        "",
+        "Website: salucommunity.github.io",
+        "Contact: 03443482883"
+      ].join(nl);
+      const waUrl = "https://wa.me/?text=" + encodeURIComponent(msg);
+      const w = window.open(waUrl, "_blank", "noopener,noreferrer");
+      if (!w) window.location.href = waUrl;
+    });
+  }
+
+  renderPreview();
+})();
+
 /* Announcements ticker */
 (function () {
   const v = $("#tickerView"), tr = $("#tickerTrack");
@@ -2659,6 +3679,7 @@ function route() {
   if (raw === "past-papers") raw = "papers";
   if (raw === "mock-tests") raw = "mocktests";
   if (raw === "department-representative" || raw === "join") raw = "representative";
+  if (raw === "member-card" || raw === "card") raw = "membercard";
 
   if (raw.startsWith("salu-") || raw.startsWith("start-salu-")) {
     const startQuiz = raw.startsWith("start-");
@@ -2667,12 +3688,16 @@ function route() {
     raw = "papers";
   }
 
+  if (IS_MULTIPAGE && raw === "membercard") {
+    location.href = "member-card.html";
+    return;
+  }
   if (IS_MULTIPAGE && raw && raw !== INITIAL_PAGE && PAGE_URL[raw]) {
     location.href = PAGE_URL[raw];
     return;
   }
 
-  const ok = VIEWS.some(v => v[0] === raw) ? raw : INITIAL_PAGE;
+  const ok = (VIEWS.some(v => v[0] === raw) || raw === "membercard") ? raw : INITIAL_PAGE;
   document.querySelectorAll(".view").forEach(s => s.classList.toggle("on", s.id === "v-" + ok));
   document.querySelectorAll("#panel a").forEach(a => a.classList.toggle("on", a.dataset.v === ok));
   document.querySelectorAll("[data-top]").forEach(a => a.classList.toggle("on", a.dataset.top === ok));
