@@ -1182,6 +1182,42 @@ textarea {
   gap: 6px 12px;
   margin-top: 6px;
 }
+.rep-photo-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  padding: 20px 16px;
+  background: var(--blue-50);
+  border: 2px dashed var(--blue-500);
+  border-radius: 16px;
+}
+.rep-photo-preview {
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 3px solid var(--blue-600);
+  box-shadow: 0 6px 16px rgba(21, 82, 190, 0.18);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  color: var(--blue-600);
+}
+.rep-photo-preview svg {
+  width: 44px;
+  height: 44px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+}
+.rep-photo-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 </style>
 </head>
 <body data-active-page="representative" data-multipage="1">
@@ -1287,6 +1323,21 @@ textarea {
   </div>
 
   <form class="card stack" id="repRegForm" novalidate>
+    <div class="rep-photo-box" id="repPhotoBox">
+      <div class="rep-photo-preview" id="repPhotoPreview" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      </div>
+      <div>
+        <label for="repPhotoInput" style="font-size:15px;margin-bottom:2px">Upload Your Photo <span style="color:var(--blue-700)">*</span></label>
+        <p style="font-size:13px;color:var(--mute)" id="repPhotoName">Select your photo from gallery to attach with your registration form</p>
+      </div>
+      <input type="file" id="repPhotoInput" accept="image/*" hidden>
+      <div class="btns" style="justify-content:center">
+        <button type="button" class="btn alt" id="repPhotoBtn">Choose Photo from Gallery</button>
+        <button type="button" class="btn alt" id="repPhotoClearBtn" hidden>Remove Photo</button>
+      </div>
+    </div>
+
     <div class="cols">
       <div>
         <label for="repFullName">1. Full Name <span style="color:var(--blue-700)">*</span></label>
@@ -2414,7 +2465,67 @@ $("#faqList").innerHTML = FAQS.map((f, i) => `
   const form = document.getElementById("repRegForm");
   const deptSel = document.getElementById("repDept");
   const out = document.getElementById("repFormOut");
+  const photoInput = document.getElementById("repPhotoInput");
+  const photoBtn = document.getElementById("repPhotoBtn");
+  const photoClearBtn = document.getElementById("repPhotoClearBtn");
+  const photoPreview = document.getElementById("repPhotoPreview");
+  const photoName = document.getElementById("repPhotoName");
   if (!form || !deptSel) return;
+
+  let selectedPhotoFile = null;
+  let selectedPhotoBlob = null;
+  const defaultCameraSvg = '<svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>';
+
+  if (photoBtn && photoInput) {
+    photoBtn.addEventListener("click", () => photoInput.click());
+    photoPreview.addEventListener("click", () => photoInput.click());
+    photoPreview.style.cursor = "pointer";
+
+    photoInput.addEventListener("change", () => {
+      const file = photoInput.files && photoInput.files[0];
+      if (!file) return;
+      selectedPhotoFile = file;
+      const reader = new FileReader();
+      reader.onload = ev => {
+        const dataUrl = ev.target.result;
+        photoPreview.innerHTML = `<img src="${dataUrl}" alt="Selected student photo">`;
+        photoName.textContent = `Selected: ${file.name}`;
+        photoBtn.textContent = "Change Photo";
+        if (photoClearBtn) photoClearBtn.hidden = false;
+
+        const img = new Image();
+        img.onload = () => {
+          try {
+            const c = document.createElement("canvas");
+            const maxDim = 800;
+            let w = img.width, h = img.height;
+            if (w > maxDim || h > maxDim) {
+              if (w > h) { h = Math.round(h * maxDim / w); w = maxDim; }
+              else { w = Math.round(w * maxDim / h); h = maxDim; }
+            }
+            c.width = w;
+            c.height = h;
+            c.getContext("2d").drawImage(img, 0, 0, w, h);
+            c.toBlob(b => { if (b) selectedPhotoBlob = b; }, "image/png");
+          } catch (err) {}
+        };
+        img.src = dataUrl;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  if (photoClearBtn && photoInput) {
+    photoClearBtn.addEventListener("click", () => {
+      photoInput.value = "";
+      selectedPhotoFile = null;
+      selectedPhotoBlob = null;
+      photoPreview.innerHTML = defaultCameraSvg;
+      photoName.textContent = "Select your photo from gallery to attach with your registration form";
+      photoBtn.textContent = "Choose Photo from Gallery";
+      photoClearBtn.hidden = true;
+    });
+  }
 
   if (typeof DEPTS !== "undefined" && Array.isArray(DEPTS) && DEPTS.length) {
     deptSel.innerHTML = '<option value="">— Select your SALU Department / Institute —</option>' +
@@ -2432,7 +2543,7 @@ $("#faqList").innerHTML = FAQS.map((f, i) => `
     });
   });
 
-  form.addEventListener("submit", e => {
+  form.addEventListener("submit", async e => {
     e.preventDefault();
     const fullName = (document.getElementById("repFullName").value || "").trim();
     const studentId = (document.getElementById("repStudentId").value || "").trim();
@@ -2446,14 +2557,23 @@ $("#faqList").innerHTML = FAQS.map((f, i) => `
     const activeEl = form.querySelector('input[name="repActive"]:checked');
     const agreeEl = document.getElementById("repAgree");
 
-    if (!fullName || !studentId || !dept || !semester || !contact || !reason || !contribs.length || !verifiedEl || !activeEl || !agreeEl || !agreeEl.checked) {
-      out.innerHTML = '<div class="out"><div class="bad">Please complete all required fields, select at least one contribution option, and check "I agree" before submitting.</div></div>';
+    if (!selectedPhotoFile || !fullName || !studentId || !dept || !semester || !contact || !reason || !contribs.length || !verifiedEl || !activeEl || !agreeEl || !agreeEl.checked) {
+      out.innerHTML = '<div class="out"><div class="bad">Please upload your photo from gallery, complete all required fields, select at least one contribution option, and check "I agree" before submitting.</div></div>';
       return;
+    }
+
+    let copiedImg = false;
+    if (selectedPhotoBlob && navigator.clipboard && window.ClipboardItem) {
+      try {
+        await navigator.clipboard.write([new ClipboardItem({ "image/png": selectedPhotoBlob })]);
+        copiedImg = true;
+      } catch (err) {}
     }
 
     const lines = [
       "*SALU Community – Department Representative Registration Form 2026–27*",
       "",
+      "*Student Photo:* Attached (" + selectedPhotoFile.name + ")",
       "*1. Full Name:* " + fullName,
       "*2. Student ID / Enrollment No.:* " + studentId,
       "*3. Department / Institute:* " + dept,
@@ -2467,8 +2587,9 @@ $("#faqList").innerHTML = FAQS.map((f, i) => `
       "*11. Agreement:* I agree"
     ];
 
-    const targetUrl = "https://wa.me/923443482883?text=" + encodeURIComponent(lines.join(String.fromCharCode(10)));
-    out.innerHTML = '<div class="out"><p style="font-weight:700;color:var(--blue-900)">Thank you! Your registration form is ready — redirecting to submit your application...</p></div>';
+    const msgText = lines.join(String.fromCharCode(10));
+    const targetUrl = "https://wa.me/923443482883?text=" + encodeURIComponent(msgText);
+    out.innerHTML = `<div class="out"><p style="font-weight:700;color:var(--blue-900)">Opening WhatsApp to submit your form${copiedImg ? " (your photo is also copied to clipboard — paste or attach it in the chat)" : " — please also attach your selected photo in the chat"}...</p></div>`;
     const w = window.open(targetUrl, "_blank", "noopener,noreferrer");
     if (!w) {
       window.location.href = targetUrl;
