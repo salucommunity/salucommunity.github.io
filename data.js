@@ -13,13 +13,13 @@ const SHEET_ID = "";
 const ANNOUNCE = [
   {
     "d": "28 October 2026",
-    "t": "Haj",
-    "b": "Sh"
+    "t": "Member",
+    "b": "Hello"
   },
   {
-    "d": "29 October 2026",
-    "t": "Hah",
-    "b": "Hah"
+    "d": "4",
+    "t": "Member",
+    "b": "Sje"
   },
   {
     "d": "24 October 2026",
