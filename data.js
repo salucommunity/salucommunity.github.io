@@ -12,16 +12,6 @@ const SHEET_ID = "";
 
 const ANNOUNCE = [
   {
-    "d": "28 October 2026",
-    "t": "Member",
-    "b": "Hello"
-  },
-  {
-    "d": "4",
-    "t": "Member",
-    "b": "Sje"
-  },
-  {
     "d": "24 October 2026",
     "t": "1st Merit List (BS Part-I) is now available",
     "b": "The first merit list for BS Part-I (Batch 2027) is published. Download the PDF and check your name. Fee submission window: 23 October to 5 November 2026.",
