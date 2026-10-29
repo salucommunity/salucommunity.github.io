@@ -793,4 +793,9 @@ const FAQS = [
   ]
 ];
 
-const TEXTS = {};
+const TEXTS = {
+  "heroTitle": "Member Joining",
+  "heroText": "SALU Community Want a members",
+  "aboutText": "Salu Community is an independent platform",
+  "footerText": "SALU Community Want"
+};
