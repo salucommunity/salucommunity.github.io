@@ -1475,6 +1475,14 @@ textarea {
   font-size: 13px;
 }
 
+
+.cms-badge{display:inline-block;margin-top:6px;font-size:12.5px;font-weight:700;border-radius:99px;padding:4px 12px;background:#e8eefc;color:#1d4ed8;border:1.5px solid #bcd2ff}
+.cms-badge.ok{background:#e4f7ec;color:#15803d;border-color:#86d9a6}.cms-badge.busy{background:#fff7e0;color:#a15c00;border-color:#f3d27a}
+.cms-badge.err{background:#fde8e8;color:#b42318;border-color:#f3a9a9}.cms-badge.warn{background:#eef0f4;color:#475467;border-color:#cdd3dd}
+.gh-log{max-height:230px;overflow:auto;font-size:13px;display:grid;gap:6px;margin-top:8px}.gh-log div{padding:6px 10px;border-radius:10px;background:#f4f7fe;border:1px solid #dbe7ff}
+.gh-log .err{background:#fde8e8;border-color:#f3a9a9}.gh-log .ok{background:#e4f7ec;border-color:#86d9a6}
+.gh-chk{display:flex;gap:10px;align-items:flex-start;font-weight:600;font-size:14px;margin:8px 0}.gh-chk input{width:auto;margin-top:4px}
+.gh-hist{display:grid;gap:8px;margin-top:8px;max-height:260px;overflow:auto}.gh-hist div{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:8px 12px;border:1.5px solid #dbe7ff;border-radius:12px;font-size:13.5px}
 </style>
 </head>
 <body data-active-page="membercard" data-multipage="1">
@@ -1507,7 +1515,8 @@ textarea {
 <div class="cms-publish-bar">
   <div>
     <h3>⚡ SALU Community WP-Style Admin Control Panel</h3>
-    <p id="cmsGlobalStatus">All edits save automatically to browser preview. Connect your GitHub token in "GitHub Live Auto-Publish" to update the public website live with 1 click.</p>
+    <p id="cmsGlobalStatus">Every change is saved on this device. Connect your GitHub token once and changes publish to the public website automatically.</p>
+    <span class="cms-badge warn" id="cmsStatusBadge" role="status">Not connected</span>
   </div>
   <div class="btns">
     <button type="button" class="btn" id="cmsQuickPublishBtn" style="background:#16a34a;border-color:#15803d;color:#fff">🚀 Publish Live to GitHub</button>
@@ -1794,12 +1803,57 @@ textarea {
       <span class="pill">HOW IT WORKS ON GITHUB PAGES</span>
       <h3>3 Easy Steps (Just Like WordPress wp-admin)</h3>
       <ol style="padding-left:20px;display:grid;gap:10px;margin-top:10px;color:var(--mute);font-size:14px">
-        <li><b>Create a Free GitHub Token (One Time):</b> On GitHub, go to <b>Settings → Developer settings → Personal access tokens → Tokens (classic)</b>, generate a token with the <b><code>repo</code></b> checkbox ticked, and paste it on the left.</li>
+        <li><b>Create a token (one time):</b> On GitHub open <b>Settings, Developer settings, Personal access tokens, Fine-grained tokens, Generate new token</b>. Under Repository access choose <b>Only select repositories</b> and pick your website repository. Under Permissions set <b>Contents</b> to <b>Read and write</b>. Copy the token and paste it on the left.</li>
         <li><b>Edit Anything in This Admin Panel:</b> Add or delete Announcements, Merit Lists (PDF links), Fees, Scholarships, Departments, Seats, or Mock Test Results in the tabs above.</li>
-        <li><b>Click "Publish Live to GitHub":</b> Your Admin Panel pushes the new <code>data.js</code> directly to <code>salucommunity.github.io</code> via the official GitHub API — updating the public website automatically in seconds!</li>
+        <li><b>Publishing is automatic:</b> a few seconds after each change, this panel commits the new <code>data.js</code> to your repository through the official GitHub API. The public website updates within about a minute. You can also press <b>Publish Live</b> at any time.</li>
       </ol>
     </div>
   </div>
+
+  <div class="cols" style="margin-top:16px">
+    <div class="card">
+      <span class="pill solid">PUBLISHING OPTIONS</span>
+      <h3>Auto-publish and safety</h3>
+      <label class="gh-chk"><input type="checkbox" id="cmsGhAuto"> <span>Auto-publish a few seconds after every change</span></label>
+      <label class="gh-chk"><input type="checkbox" id="cmsGhSitemap"> <span>Refresh the dates in <code>sitemap.xml</code> after publishing (helps Google see updates)</span></label>
+      <label class="gh-chk"><input type="checkbox" id="cmsGhRemember"> <span>Remember my token on this device (turn off on shared phones or computers)</span></label>
+      <div class="btns" style="margin-top:12px">
+        <button type="button" class="btn" id="cmsGhTestBtn">Test connection</button>
+        <button type="button" class="btn alt" id="cmsGhLoadBtn">Load latest from website</button>
+        <button type="button" class="btn alt" id="cmsGhDisconnectBtn">Disconnect and forget token</button>
+      </div>
+      <p style="font-size:13px;color:var(--mute);margin-top:10px">Before publishing, the panel checks that <code>data.js</code> is valid and that nobody changed it on GitHub in the meantime, so a mistake cannot break your public website.</p>
+    </div>
+    <div class="card">
+      <span class="pill solid">UPLOAD A PDF</span>
+      <h3>Upload a merit list PDF to your website</h3>
+      <p style="font-size:13.5px;color:var(--mute);margin:6px 0 10px">The file is saved in the <code>pdfs</code> folder of your repository. No Google Drive link or sharing settings are needed.</p>
+      <input type="file" id="cmsPdfFile" accept="application/pdf,.pdf">
+      <div class="btns" style="margin-top:10px"><button type="button" class="btn" id="cmsPdfBtn">Upload PDF</button></div>
+      <div id="cmsPdfOut" aria-live="polite" style="margin-top:10px"></div>
+    </div>
+  </div>
+  <div class="cols" style="margin-top:16px">
+    <div class="card">
+      <span class="pill">SITE LINKS</span>
+      <h3>Website settings</h3>
+      <div class="stack">
+        <div><label for="cmsCfgWa">WhatsApp group link</label><input type="url" id="cmsCfgWa"></div>
+        <div><label for="cmsCfgFb">Facebook page link</label><input type="url" id="cmsCfgFb"></div>
+        <div><label for="cmsCfgForm">Registration form link</label><input type="url" id="cmsCfgForm"></div>
+        <div class="cols"><div><label for="cmsCfgGa">Google Analytics ID</label><input type="text" id="cmsCfgGa" placeholder="G-XXXXXXXXXX"></div><div><label for="cmsCfgSheet">Google Sheet ID (optional)</label><input type="text" id="cmsCfgSheet"></div></div>
+        <div class="btns"><button type="button" class="btn" id="cmsCfgSave">Save website settings</button></div>
+      </div>
+    </div>
+    <div class="card">
+      <span class="pill">BACKUPS</span>
+      <h3>Backups and restore points</h3>
+      <div class="btns"><button type="button" class="btn alt" id="cmsBackupBtn">Download backup</button><label class="btn alt" style="cursor:pointer;margin:0">Import backup<input type="file" id="cmsImportFile" accept="application/json,.json" style="display:none"></label></div>
+      <p style="font-size:13px;color:var(--mute);margin-top:8px">A restore point is saved automatically after each publish. Restoring one puts those entries back and publishes them.</p>
+      <div class="gh-hist" id="cmsGhHistory"></div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px"><span class="pill">ACTIVITY</span><h3>Recent activity</h3><div class="gh-log" id="cmsGhLog"></div></div>
 </section>
 
 
@@ -3019,34 +3073,31 @@ const FAQS = [
       DEPTS: typeof DEPTS !== "undefined" ? DEPTS : [],
       SEATS: typeof SEATS !== "undefined" ? SEATS : [],
       QS: typeof QS !== "undefined" ? QS : [],
-      FAQS: typeof FAQS !== "undefined" ? FAQS : []
+      FAQS: typeof FAQS !== "undefined" ? FAQS : [],
+      CFG: CFG
     };
   }
 
+  const KEYS = ["ANNOUNCE", "MERITS", "FEES", "SCHOLARSHIPS", "PAPERS", "RESULTS", "DEPTS", "SEATS", "QS", "FAQS"];
+  const TARGETS = { ANNOUNCE, MERITS, FEES, SCHOLARSHIPS, PAPERS, RESULTS, DEPTS, SEATS, QS, FAQS };
+  let CFG = { WHATSAPP, FACEBOOK, FORM_URL, GA_ID, SHEET_ID };
+  let dirty = false;
+  function applyState(obj) {
+    KEYS.forEach(k => { if (obj && Array.isArray(obj[k])) { TARGETS[k].length = 0; obj[k].forEach(x => TARGETS[k].push(x)); } });
+    if (obj && obj.CFG && typeof obj.CFG === "object") Object.keys(CFG).forEach(k => { if (typeof obj.CFG[k] === "string") CFG[k] = obj.CFG[k]; });
+  }
   try {
     const saved = localStorage.getItem("SALU_CMS_OVERRIDE");
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      if (Array.isArray(parsed.ANNOUNCE)) { ANNOUNCE.length = 0; parsed.ANNOUNCE.forEach(x => ANNOUNCE.push(x)); }
-      if (Array.isArray(parsed.MERITS)) { MERITS.length = 0; parsed.MERITS.forEach(x => MERITS.push(x)); }
-      if (Array.isArray(parsed.FEES)) { FEES.length = 0; parsed.FEES.forEach(x => FEES.push(x)); }
-      if (Array.isArray(parsed.SCHOLARSHIPS)) { SCHOLARSHIPS.length = 0; parsed.SCHOLARSHIPS.forEach(x => SCHOLARSHIPS.push(x)); }
-      if (Array.isArray(parsed.RESULTS)) { RESULTS.length = 0; parsed.RESULTS.forEach(x => RESULTS.push(x)); }
-      if (Array.isArray(parsed.DEPTS)) { DEPTS.length = 0; parsed.DEPTS.forEach(x => DEPTS.push(x)); }
-      if (Array.isArray(parsed.SEATS)) { SEATS.length = 0; parsed.SEATS.forEach(x => SEATS.push(x)); }
-      if (Array.isArray(parsed.FAQS)) { FAQS.length = 0; parsed.FAQS.forEach(x => FAQS.push(x)); }
-    }
+    if (saved && localStorage.getItem("SALU_CMS_DIRTY") !== "0") { applyState(JSON.parse(saved)); dirty = true; localStorage.setItem("SALU_CMS_DIRTY", "1"); }
   } catch (e) {}
 
   const statusEl = document.getElementById("cmsGlobalStatus");
   function saveCmsState(msg) {
-    try {
-      localStorage.setItem("SALU_CMS_OVERRIDE", JSON.stringify(getCmsState()));
-    } catch (e) {}
-    if (statusEl && msg) {
-      statusEl.textContent = "✓ " + msg + " (Saved to browser preview — click 'Publish Live to GitHub' to update public website)";
-    }
+    try { localStorage.setItem("SALU_CMS_OVERRIDE", JSON.stringify(getCmsState())); } catch (e) {}
+    setDirty(true);
     renderAllCmsLists();
+    if (msg) log(msg, "info");
+    scheduleAutoPublish();
   }
 
   function escHtml(s) {
@@ -3312,12 +3363,12 @@ const FAQS = [
   function generateDataJsSource() {
     const nl = String.fromCharCode(10);
     return [
-      "/* SALU COMMUNITY - LIVE CMS CONTENT FILE (data.js) */",
-      "const WHATSAPP = " + JSON.stringify(WHATSAPP) + ";",
-      "const FACEBOOK = " + JSON.stringify(FACEBOOK) + ";",
-      "const FORM_URL = " + JSON.stringify(FORM_URL) + ";",
-      "const GA_ID = " + JSON.stringify(GA_ID) + ";",
-      "const SHEET_ID = " + JSON.stringify(SHEET_ID) + ";",
+      "/* SALU COMMUNITY - CONTENT FILE (data.js). Written by the Admin Panel. Edit content through the Admin Panel. */",
+      "const WHATSAPP = " + JSON.stringify(CFG.WHATSAPP) + ";",
+      "const FACEBOOK = " + JSON.stringify(CFG.FACEBOOK) + ";",
+      "const FORM_URL = " + JSON.stringify(CFG.FORM_URL) + ";",
+      "const GA_ID = " + JSON.stringify(CFG.GA_ID) + ";",
+      "const SHEET_ID = " + JSON.stringify(CFG.SHEET_ID) + ";",
       "const ANNOUNCE = " + JSON.stringify(ANNOUNCE, null, 2) + ";",
       "const MERITS = " + JSON.stringify(MERITS, null, 2) + ";",
       "const FEES = " + JSON.stringify(FEES, null, 2) + ";",
@@ -3345,105 +3396,250 @@ const FAQS = [
     });
   }
 
-  // GitHub API Live Push
-  const ghRepoInput = document.getElementById("cmsGhRepo");
-  const ghBranchInput = document.getElementById("cmsGhBranch");
-  const ghTokenInput = document.getElementById("cmsGhToken");
-  const ghOut = document.getElementById("cmsGhOut");
+// ===== GitHub publishing =====
+  const gid = id => document.getElementById(id);
+  const ghRepoInput = gid("cmsGhRepo"), ghBranchInput = gid("cmsGhBranch"), ghTokenInput = gid("cmsGhToken"), ghOut = gid("cmsGhOut");
+  const ghAuto = gid("cmsGhAuto"), ghRemember = gid("cmsGhRemember"), ghSitemap = gid("cmsGhSitemap"), badge = gid("cmsStatusBadge");
+  const store = (st) => ({ get(k) { try { return st.getItem(k); } catch (e) { return null; } }, set(k, v) { try { st.setItem(k, v); } catch (e) {} }, del(k) { try { st.removeItem(k); } catch (e) {} } });
+  const ls = store(localStorage), ss = store(sessionStorage);
+  const API = "https://api.github.com", DATA_PATH = "data.js";
+  let baseSha = ls.get("SALU_GH_SHA") || "", publishing = false, again = false, autoTimer = null, synced = false;
 
-  try {
-    if (localStorage.getItem("SALU_GH_REPO")) ghRepoInput.value = localStorage.getItem("SALU_GH_REPO");
-    if (localStorage.getItem("SALU_GH_BRANCH")) ghBranchInput.value = localStorage.getItem("SALU_GH_BRANCH");
-    if (localStorage.getItem("SALU_GH_TOKEN")) ghTokenInput.value = localStorage.getItem("SALU_GH_TOKEN");
-  } catch (e) {}
+  function getToken() { return (ghTokenInput.value || "").trim() || ls.get("SALU_GH_TOKEN") || ss.get("SALU_GH_TOKEN") || ""; }
+  function conn() { return { repo: (ghRepoInput.value || "").trim() || "salucommunity/salucommunity.github.io", branch: (ghBranchInput.value || "").trim() || "main", token: getToken() }; }
+  function saveConn() {
+    const c = conn();
+    ls.set("SALU_GH_REPO", c.repo); ls.set("SALU_GH_BRANCH", c.branch);
+    if (ghRemember.checked) { ls.set("SALU_GH_TOKEN", c.token); ss.del("SALU_GH_TOKEN"); } else { ss.set("SALU_GH_TOKEN", c.token); ls.del("SALU_GH_TOKEN"); }
+  }
+  function setDirty(v) { dirty = v; ls.set("SALU_CMS_DIRTY", v ? "1" : "0"); }
+  function setStatus(kind, text) {
+    if (badge) { badge.textContent = text; badge.className = "cms-badge " + kind; }
+    if (statusEl) statusEl.textContent = text;
+  }
+  function showOut(kind, html) {
+    if (!ghOut) return;
+    const col = kind === "ok" ? "#15803d" : kind === "err" ? "#b42318" : "#0b2a6f";
+    ghOut.innerHTML = '<div class="out"><p style="font-weight:700;color:' + col + '">' + html + '</p></div>';
+  }
+  function openGhTab() { const b = document.querySelector('.wp-tab-btn[data-wptab="cms-github"]'); if (b) b.click(); }
 
-  async function publishToGitHub() {
-    const repo = (ghRepoInput.value || "salucommunity/salucommunity.github.io").trim();
-    const branch = (ghBranchInput.value || "main").trim();
-    const token = (ghTokenInput.value || "").trim();
+  // activity log
+  let logItems = []; try { logItems = JSON.parse(ls.get("SALU_GH_LOG") || "[]"); } catch (e) {}
+  function renderLog() { const el = gid("cmsGhLog"); if (el) el.innerHTML = logItems.map(x => '<div class="' + x.k + '"><b>' + escHtml(x.t) + '</b> ' + escHtml(x.m) + '</div>').join("") || "<div>No activity yet.</div>"; }
+  function log(m, k) { logItems.unshift({ t: new Date().toLocaleTimeString(), m: String(m), k: k || "info" }); logItems = logItems.slice(0, 25); ls.set("SALU_GH_LOG", JSON.stringify(logItems)); renderLog(); }
 
-    if (!token) {
-      // Switch to GitHub tab so user can enter token
-      document.querySelector('.wp-tab-btn[data-wptab="cms-github"]').click();
-      ghOut.innerHTML = '<div class="out"><div class="bad">Please paste your GitHub Personal Access Token above once to enable 1-click live publishing to GitHub Pages. (Your changes are already saved in local browser preview!)</div></div>';
-      return;
-    }
+  // encoding helpers
+  function bytesToB64(bytes) { let s = ""; for (let i = 0; i < bytes.length; i += 0x8000) s += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000)); return btoa(s); }
+  const utf8ToB64 = str => bytesToB64(new TextEncoder().encode(str));
+  const b64ToUtf8 = b64 => new TextDecoder().decode(Uint8Array.from(atob(String(b64).replace(/\s/g, "")), c => c.charCodeAt(0)));
 
+  // GitHub API helpers
+  async function gh(path, c, opts) {
+    return fetch(API + "/repos/" + c.repo + path, Object.assign({}, opts, { headers: Object.assign({ "Authorization": "Bearer " + c.token, "Accept": "application/vnd.github+json" }, (opts && opts.headers) || {}) }));
+  }
+  async function ghErr(res) {
+    let m = ""; try { m = (await res.json()).message || ""; } catch (e) {}
+    if (res.status === 401) return "The token is invalid or expired. Create a new token and paste it in the GitHub tab.";
+    if (res.status === 403) return "GitHub refused the request. The token needs Contents read and write permission, or the rate limit was reached. " + m;
+    if (res.status === 404) return "The repository, branch or file was not found, or the token has no access to this repository.";
+    if (res.status === 409 || res.status === 422) return "The file changed on GitHub while publishing. Please try again. " + m;
+    return m || ("HTTP " + res.status);
+  }
+  async function getFile(c, path) {
+    const res = await gh("/contents/" + path + "?ref=" + encodeURIComponent(c.branch), c);
+    if (res.status === 404) return null;
+    if (!res.ok) throw new Error(await ghErr(res));
+    return res.json();
+  }
+  async function putFile(c, path, b64, message, sha) {
+    const body = { message: message, content: b64, branch: c.branch }; if (sha) body.sha = sha;
+    const res = await gh("/contents/" + path, c, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    if (!res.ok) throw new Error(await ghErr(res));
+    return res.json();
+  }
+  function siteBase(c) { const p = c.repo.split("/"); const name = p[1] || ""; return /\.github\.io$/i.test(name) ? "https://" + name + "/" : "https://" + p[0] + ".github.io/" + name + "/"; }
+
+  // data.js parsing and validation
+  function parseDataJs(src) {
+    const body = KEYS.map(k => k + ": typeof " + k + " !== 'undefined' ? " + k + " : null").join(", ");
+    const cfg = ["WHATSAPP", "FACEBOOK", "FORM_URL", "GA_ID", "SHEET_ID"].map(k => k + ": typeof " + k + " !== 'undefined' ? " + k + " : ''").join(", ");
+    return new Function(src + "\n;return { " + body + ", CFG: { " + cfg + " } };")();
+  }
+  function validateSource(src) { const o = parseDataJs(src); KEYS.forEach(k => { if (!Array.isArray(o[k])) throw new Error("the list " + k + " is missing"); }); return o; }
+
+  // restore points
+  const HKEY = "SALU_CMS_HISTORY";
+  function readHist() { try { return JSON.parse(ls.get(HKEY) || "[]"); } catch (e) { return []; } }
+  function writeHist(h) { while (h.length) { try { localStorage.setItem(HKEY, JSON.stringify(h)); return; } catch (e) { h.pop(); } } }
+  function snapshot(label) {
+    const h = readHist(), cur = JSON.stringify(getCmsState());
+    if (h[0] && JSON.stringify(h[0].state) === cur) return;
+    h.unshift({ t: new Date().toISOString(), label: label, state: JSON.parse(cur) }); writeHist(h.slice(0, 12)); renderHist();
+  }
+  function renderHist() {
+    const el = gid("cmsGhHistory"); if (!el) return; const h = readHist();
+    el.innerHTML = h.map((x, i) => '<div><span><b>' + escHtml(new Date(x.t).toLocaleString()) + '</b><br>' + escHtml(x.label) + '</span><button type="button" class="btn alt" data-restore="' + i + '" style="padding:6px 12px">Restore</button></div>').join("") || '<div>No restore points yet.</div>';
+  }
+
+  // load latest from GitHub
+  async function loadLatest(silent) {
+    const c = conn();
+    if (!c.token) { if (!silent) { openGhTab(); showOut("err", "Paste your GitHub token first."); } return false; }
     try {
-      localStorage.setItem("SALU_GH_REPO", repo);
-      localStorage.setItem("SALU_GH_BRANCH", branch);
-      localStorage.setItem("SALU_GH_TOKEN", token);
-    } catch (e) {}
-
-    ghOut.innerHTML = '<div class="out"><p style="font-weight:700;color:var(--blue-900)">Publishing updated data.js live to GitHub (' + escHtml(repo) + ')...</p></div>';
-    if (statusEl) statusEl.textContent = "⏳ Publishing live to GitHub Pages (" + repo + ")...";
-
-    try {
-      const apiUrl = "https://api.github.com/repos/" + repo + "/contents/data.js";
-      let sha = "";
-      const getRes = await fetch(apiUrl + "?ref=" + encodeURIComponent(branch), {
-        headers: {
-          "Authorization": "Bearer " + token,
-          "Accept": "application/vnd.github+json"
-        }
-      });
-      if (getRes.ok) {
-        const fileMeta = await getRes.json();
-        sha = fileMeta.sha || "";
-      }
-
-      const contentStr = generateDataJsSource();
-      const base64Content = btoa(unescape(encodeURIComponent(contentStr)));
-      const bodyPayload = {
-        message: "Update website content via SALU Community Admin Panel",
-        content: base64Content,
-        branch: branch
-      };
-      if (sha) bodyPayload.sha = sha;
-
-      const putRes = await fetch(apiUrl, {
-        method: "PUT",
-        headers: {
-          "Authorization": "Bearer " + token,
-          "Accept": "application/vnd.github+json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(bodyPayload)
-      });
-
-      if (putRes.ok) {
-        const msg = "Published live to GitHub (" + repo + ")! Public website will reflect changes within 30–60 seconds.";
-        ghOut.innerHTML = '<div class="out"><p style="font-weight:700;color:#15803d">✓ ' + escHtml(msg) + '</p></div>';
-        if (statusEl) statusEl.textContent = "✓ " + msg;
-      } else {
-        const errData = await putRes.json().catch(() => ({}));
-        throw new Error(errData.message || ("HTTP " + putRes.status));
-      }
-    } catch (err) {
-      ghOut.innerHTML = '<div class="out"><div class="bad">GitHub API error: ' + escHtml(err.message) + '. Check that your repo name and token (with repo/Contents write permission) are correct.</div></div>';
+      setStatus("busy", "Loading the latest website data...");
+      const remote = await getFile(c, DATA_PATH);
+      if (!remote) throw new Error("data.js was not found in this repository.");
+      const st = validateSource(b64ToUtf8(remote.content));
+      if (dirty) snapshot("Before loading latest from website");
+      applyState(st); baseSha = remote.sha; ls.set("SALU_GH_SHA", baseSha); synced = true; setDirty(false);
+      ls.set("SALU_CMS_OVERRIDE", JSON.stringify(getCmsState()));
+      renderAllCmsLists(); fillCfg(); setStatus("ok", "Up to date with the website");
+      log("Loaded the latest data.js from GitHub", "ok"); if (!silent) showOut("ok", "Loaded the latest data from your website.");
+      return true;
+    } catch (e) {
+      setStatus("err", "Could not load latest: " + e.message.slice(0, 70)); log("Load failed: " + e.message, "err"); if (!silent) showOut("err", escHtml(e.message));
+      return false;
     }
   }
 
-  const ghForm = document.getElementById("cmsGhForm");
-  if (ghForm) {
-    ghForm.addEventListener("submit", e => {
-      e.preventDefault();
-      publishToGitHub();
-    });
+  async function touchSitemap(c) {
+    const f = await getFile(c, "sitemap.xml"); if (!f) return;
+    const today = new Date().toISOString().slice(0, 10), txt = b64ToUtf8(f.content);
+    const out = txt.replace(/<lastmod>[^<]*<\/lastmod>/g, "<lastmod>" + today + "</lastmod>");
+    if (out === txt) return;
+    await putFile(c, "sitemap.xml", utf8ToB64(out), "Admin panel: refresh sitemap dates", f.sha); log("Sitemap dates refreshed", "ok");
   }
 
-  const quickPubBtn = document.getElementById("cmsQuickPublishBtn");
-  if (quickPubBtn) {
-    quickPubBtn.addEventListener("click", publishToGitHub);
+  // publish
+  async function publish(manual) {
+    clearTimeout(autoTimer);
+    if (publishing) { again = true; return; }
+    const c = conn();
+    if (!c.token) { setStatus("warn", "Not connected: saved on this device only"); if (manual) { openGhTab(); showOut("err", "Paste your GitHub token once to enable publishing. Your changes are already saved on this device."); } return; }
+    saveConn();
+    let src; try { src = generateDataJsSource(); validateSource(src); } catch (e) { setStatus("err", "Publish blocked: data check failed"); showOut("err", "Blocked to protect your website: " + escHtml(e.message)); log("Blocked: " + e.message, "err"); return; }
+    if (!synced && !baseSha) {
+      if (!manual) { setStatus("warn", "Auto-publish paused: tap Load latest from website first"); return; }
+      if (!confirm("This panel has not loaded the live website data yet. Publishing now could overwrite newer content.\n\nOK = publish anyway\nCancel = stop")) { setStatus("warn", "Publish cancelled"); return; }
+    }
+    publishing = true; setStatus("busy", "Publishing to GitHub...");
+    try {
+      const remote = await getFile(c, DATA_PATH), remoteSha = remote ? remote.sha : "";
+      if (remote && baseSha && remoteSha !== baseSha) {
+        if (!manual) { setStatus("err", "Website changed on GitHub: tap Publish Live to choose"); log("Auto-publish paused: data.js changed on GitHub after you loaded it", "err"); return; }
+        if (!confirm("data.js on GitHub was changed after this panel loaded it.\n\nOK = overwrite it with your version\nCancel = stop (use Load latest from website to get theirs)")) { setStatus("warn", "Publish cancelled"); return; }
+      }
+      if (remote && b64ToUtf8(remote.content) === src) { baseSha = remoteSha; ls.set("SALU_GH_SHA", baseSha); synced = true; setDirty(false); setStatus("ok", "Already live: nothing new to publish"); showOut("ok", "The website already has these changes."); return; }
+      const res = await putFile(c, DATA_PATH, utf8ToB64(src), "Admin panel: update website content", remoteSha);
+      baseSha = res.content.sha; ls.set("SALU_GH_SHA", baseSha); synced = true; setDirty(false); snapshot("Published to website");
+      if (ghSitemap.checked) { try { await touchSitemap(c); } catch (e) { log("Sitemap not updated: " + e.message, "err"); } }
+      const link = res.commit && res.commit.html_url ? ' <a href="' + escHtml(res.commit.html_url) + '" target="_blank" rel="noopener">View commit</a>' : "";
+      setStatus("ok", "Live on GitHub at " + new Date().toLocaleTimeString());
+      showOut("ok", "Published. The public website updates within about a minute." + link); log("Published data.js (" + src.length + " characters)", "ok");
+    } catch (e) {
+      setStatus("err", "Publish failed: " + e.message.slice(0, 80)); showOut("err", escHtml(e.message)); log("Publish failed: " + e.message, "err");
+      if (!manual && ghAuto.checked) autoTimer = setTimeout(() => publish(false), 30000);
+    } finally { publishing = false; if (again) { again = false; scheduleAutoPublish(); } }
+  }
+  function scheduleAutoPublish() {
+    clearTimeout(autoTimer);
+    if (!getToken()) { setStatus("warn", "Saved on this device. Connect GitHub to publish."); return; }
+    if (!ghAuto.checked) { setStatus("warn", "Saved. Not published yet: tap Publish Live"); return; }
+    setStatus("busy", "Changes saved. Publishing in 5 seconds...");
+    autoTimer = setTimeout(() => publish(false), 5000);
   }
 
-  const resetDefBtn = document.getElementById("cmsResetDefaultDataBtn");
-  if (resetDefBtn) {
-    resetDefBtn.addEventListener("click", () => {
-      localStorage.removeItem("SALU_CMS_OVERRIDE");
-      location.reload();
-    });
+  // test connection
+  async function testConn() {
+    const c = conn(); if (!c.token) { showOut("err", "Paste your GitHub token first."); return; }
+    try {
+      setStatus("busy", "Testing connection...");
+      const r = await gh("", c); if (!r.ok) throw new Error(await ghErr(r));
+      const info = await r.json(), canPush = !info.permissions || info.permissions.push !== false;
+      const f = await getFile(c, DATA_PATH);
+      if (!canPush) throw new Error("The token can read this repository but cannot write. Set Contents to Read and write.");
+      setStatus("ok", "Connected to " + c.repo); showOut("ok", "Connected to " + escHtml(c.repo) + ". Write access OK. " + (f ? "data.js found." : "data.js will be created on first publish."));
+      log("Connection test passed", "ok");
+    } catch (e) { setStatus("err", "Connection failed"); showOut("err", escHtml(e.message)); log("Connection test failed: " + e.message, "err"); }
   }
+
+  // PDF upload
+  async function uploadPdf() {
+    const out = gid("cmsPdfOut"), file = gid("cmsPdfFile").files[0], c = conn();
+    if (!c.token) { out.innerHTML = '<span style="color:#b42318;font-weight:700">Connect your GitHub token first.</span>'; return; }
+    if (!file) { out.innerHTML = '<span style="color:#b42318;font-weight:700">Choose a PDF file first.</span>'; return; }
+    if (!/\.pdf$/i.test(file.name)) { out.innerHTML = '<span style="color:#b42318;font-weight:700">Only PDF files can be uploaded.</span>'; return; }
+    if (file.size > 25 * 1024 * 1024) { out.innerHTML = '<span style="color:#b42318;font-weight:700">The file is larger than 25 MB.</span>'; return; }
+    const safe = file.name.toLowerCase().replace(/[^a-z0-9._-]+/g, "-").replace(/-+/g, "-").replace(/^-|-(?=\.pdf$)/g, ""), path = "pdfs/" + safe;
+    try {
+      out.textContent = "Uploading " + safe + "...";
+      const b64 = bytesToB64(new Uint8Array(await file.arrayBuffer())), existing = await getFile(c, path);
+      await putFile(c, path, b64, "Admin panel: upload " + safe, existing && existing.sha);
+      const url = siteBase(c) + path;
+      out.innerHTML = '<p style="font-weight:700;color:#15803d">Uploaded. The link works in about a minute.</p><p style="word-break:break-all;font-size:13px">' + escHtml(url) + '</p><div class="btns" style="margin-top:8px"><button type="button" class="btn alt" data-pdfuse="cmsMeritPdf" data-url="' + escHtml(url) + '">Use for a Merit List</button><button type="button" class="btn alt" data-pdfuse="cmsAnnPdf" data-url="' + escHtml(url) + '">Use for an Announcement</button><button type="button" class="btn alt" data-pdfcopy="' + escHtml(url) + '">Copy link</button></div>';
+      log("Uploaded " + path, "ok");
+    } catch (e) { out.innerHTML = '<span style="color:#b42318;font-weight:700">' + escHtml(e.message) + '</span>'; log("PDF upload failed: " + e.message, "err"); }
+  }
+
+  // Google Drive links become direct download links
+  function driveToDirect(u) {
+    u = String(u || "").trim(); if (!u) return u;
+    const m = u.match(/drive\.google\.com\/(?:file\/d\/|open\?id=)([\w-]{10,})/) || u.match(/drive\.google\.com\/[^\s]*[?&]id=([\w-]{10,})/);
+    return m ? "https://drive.google.com/uc?export=download&id=" + m[1] : u;
+  }
+  ["cmsAnnPdf", "cmsMeritPdf"].forEach(id => { const el = gid(id); if (el) { el.addEventListener("change", () => { el.value = driveToDirect(el.value); }); } });
+  ["cmsAnnForm", "cmsMeritForm"].forEach(id => { const f = gid(id); if (f) f.addEventListener("submit", () => { f.querySelectorAll('input[id$="Pdf"]').forEach(el => { el.value = driveToDirect(el.value); }); }, true); });
+
+  // site settings
+  function fillCfg() { [["cmsCfgWa", "WHATSAPP"], ["cmsCfgFb", "FACEBOOK"], ["cmsCfgForm", "FORM_URL"], ["cmsCfgGa", "GA_ID"], ["cmsCfgSheet", "SHEET_ID"]].forEach(p => { const el = gid(p[0]); if (el) el.value = CFG[p[1]] || ""; }); }
+  gid("cmsCfgSave").addEventListener("click", () => {
+    [["cmsCfgWa", "WHATSAPP"], ["cmsCfgFb", "FACEBOOK"], ["cmsCfgForm", "FORM_URL"], ["cmsCfgGa", "GA_ID"], ["cmsCfgSheet", "SHEET_ID"]].forEach(p => { CFG[p[1]] = (gid(p[0]).value || "").trim(); });
+    saveCmsState("Website settings updated");
+  });
+
+  // backups
+  gid("cmsBackupBtn").addEventListener("click", () => {
+    const blob = new Blob([JSON.stringify(getCmsState(), null, 2)], { type: "application/json" }), a = document.createElement("a");
+    a.href = URL.createObjectURL(blob); a.download = "salu-backup-" + new Date().toISOString().slice(0, 10) + ".json"; document.body.appendChild(a); a.click(); a.remove(); log("Backup downloaded", "ok");
+  });
+  gid("cmsImportFile").addEventListener("change", async e => {
+    const f = e.target.files[0]; if (!f) return;
+    try { const o = JSON.parse(await f.text()); if (!KEYS.some(k => Array.isArray(o[k]))) throw new Error("This file is not a SALU backup."); snapshot("Before importing a backup"); applyState(o); saveCmsState("Backup imported"); }
+    catch (err) { showOut("err", "Import failed: " + escHtml(err.message)); log("Import failed: " + err.message, "err"); }
+    e.target.value = "";
+  });
+  gid("cmsGhHistory").addEventListener("click", e => {
+    const b = e.target.closest("[data-restore]"); if (!b) return;
+    const h = readHist()[+b.dataset.restore]; if (!h || !confirm("Restore this version from " + new Date(h.t).toLocaleString() + "? Your current entries will be replaced.")) return;
+    snapshot("Before restoring an older version"); applyState(h.state); fillCfg(); saveCmsState("Restored a previous version");
+  });
+  gid("cmsPdfOut").addEventListener("click", e => {
+    const u = e.target.closest("[data-pdfuse]"), cp = e.target.closest("[data-pdfcopy]");
+    if (u) { const t = u.dataset.pdfuse, tab = t === "cmsMeritPdf" ? "cms-merit" : "cms-ann"; const b = document.querySelector('.wp-tab-btn[data-wptab="' + tab + '"]'); if (b) b.click(); gid(t).value = u.dataset.url; gid(t).focus(); }
+    if (cp && navigator.clipboard) { navigator.clipboard.writeText(cp.dataset.pdfcopy).then(() => { cp.textContent = "Copied"; }); }
+  });
+
+  // wiring
+  const ghForm = gid("cmsGhForm");
+  if (ghForm) ghForm.addEventListener("submit", async e => { e.preventDefault(); saveConn(); if (!dirty && !synced) { if (await loadLatest(false)) showOut("ok", "Connected and loaded the latest website data. Auto-publish is " + (ghAuto.checked ? "ON" : "OFF") + "."); } else publish(true); });
+  const quickPubBtn = gid("cmsQuickPublishBtn"); if (quickPubBtn) quickPubBtn.addEventListener("click", () => publish(true));
+  gid("cmsGhTestBtn").addEventListener("click", testConn);
+  gid("cmsGhLoadBtn").addEventListener("click", () => { if (dirty && !confirm("You have changes that are not published yet. Loading the latest data will replace them (a restore point is saved first). Continue?")) return; saveConn(); loadLatest(false); });
+  gid("cmsGhDisconnectBtn").addEventListener("click", () => { ls.del("SALU_GH_TOKEN"); ss.del("SALU_GH_TOKEN"); ghTokenInput.value = ""; synced = false; setStatus("warn", "Disconnected: saved on this device only"); showOut("ok", "Token removed from this device."); log("Disconnected", "info"); });
+  [[ghAuto, "SALU_GH_AUTO"], [ghRemember, "SALU_GH_REMEMBER"], [ghSitemap, "SALU_GH_SITEMAP"]].forEach(p => p[0].addEventListener("change", () => { ls.set(p[1], p[0].checked ? "1" : "0"); if (p[0] === ghAuto) { if (ghAuto.checked && dirty) scheduleAutoPublish(); else if (!ghAuto.checked) { clearTimeout(autoTimer); setStatus("warn", "Auto-publish is off: tap Publish Live"); } } if (p[0] === ghRemember) saveConn(); }));
+  gid("cmsPdfBtn").addEventListener("click", uploadPdf);
+  const resetDefBtn = gid("cmsResetDefaultDataBtn");
+  if (resetDefBtn) resetDefBtn.addEventListener("click", () => { if (!confirm("Reset the panel to the built-in default data on this device? (It does not change your live website until you publish.)")) return; snapshot("Before reset to default"); localStorage.removeItem("SALU_CMS_OVERRIDE"); localStorage.setItem("SALU_CMS_DIRTY", "0"); location.reload(); });
+  addEventListener("beforeunload", e => { if (dirty && getToken()) { e.preventDefault(); e.returnValue = ""; } });
+
+  // start-up
+  ghRepoInput.value = ls.get("SALU_GH_REPO") || ghRepoInput.value; ghBranchInput.value = ls.get("SALU_GH_BRANCH") || ghBranchInput.value;
+  ghTokenInput.value = ls.get("SALU_GH_TOKEN") || ss.get("SALU_GH_TOKEN") || "";
+  ghAuto.checked = ls.get("SALU_GH_AUTO") !== "0"; ghSitemap.checked = ls.get("SALU_GH_SITEMAP") !== "0"; ghRemember.checked = ls.get("SALU_GH_REMEMBER") !== "0";
+  renderHist(); renderLog(); fillCfg();
+  if (getToken()) { if (!dirty) loadLatest(true); else { synced = !!baseSha; setStatus("warn", "You have unpublished changes"); scheduleAutoPublish(); } }
+  else setStatus("warn", "Not connected: saved on this device only");
 
   renderAllCmsLists();
 })();
