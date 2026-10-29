@@ -12,6 +12,11 @@ const SHEET_ID = "";
 
 const ANNOUNCE = [
   {
+    "d": "28 October 2026",
+    "t": "Haj",
+    "b": "Sh"
+  },
+  {
     "d": "29 October 2026",
     "t": "Hah",
     "b": "Hah"
