@@ -792,3 +792,5 @@ const FAQS = [
     "Yes, SALU has 5 Boys Hostels and 3 Girls Hostels (Rs. 14,000/- per year), grants 10% tuition freeships and 2.5% bursaries, and facilitates HEC Need-Based, Ehsaas, SEEF, and Zakat scholarships."
   ]
 ];
+
+const TEXTS = {};
