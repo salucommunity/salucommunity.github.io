@@ -1,4 +1,4 @@
-/* SALU COMMUNITY - LIVE CMS CONTENT FILE (data.js) */
+/* SALU COMMUNITY - CONTENT FILE (data.js). Written by the Admin Panel. Edit content through the Admin Panel. */
 
 const WHATSAPP = "https://chat.whatsapp.com/E7LRPS1suwKEVCOdEUGzYA?s=cl&p=a&mlu=4&ilr=4";
 
@@ -11,6 +11,11 @@ const GA_ID = "G-M9S2H2V00W";
 const SHEET_ID = "";
 
 const ANNOUNCE = [
+  {
+    "d": "29 October 2026",
+    "t": "Hah",
+    "b": "Hah"
+  },
   {
     "d": "24 October 2026",
     "t": "1st Merit List (BS Part-I) is now available",
