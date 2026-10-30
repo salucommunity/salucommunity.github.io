@@ -1,6 +1,6 @@
-/* SALU Community: network-first pages; immutable, content-hashed assets are shared across pages. */
-const CACHE = "salu-community-seo-6f38fc3d5277";
-const CORE = ["./", "about.html", "admissions.html", "aggregate-calculator.html", "announcements.html", "contact.html", "department-seats.html", "departments.html", "entry-test-preparation.html", "faqs.html", "fee-structure.html", "index.html", "merit-list.html", "mock-tests.html", "past-papers.html", "results.html", "scholarships.html", "data.js", "pwa.js", "manifest.webmanifest", "icon-192.png", "icon-512.png", "apple-touch-icon.png", "assets/muhammad-younis-salu-community-cofounder.jpg", "assets/past-papers-data.f56b51b08004.js", "assets/salu-community-emblem.webp", "assets/salu-community-favicon.webp", "assets/shah-abdul-latif-university-khairpur-main-gate.jpg", "assets/site.24555be2036e.css", "assets/site.3fdfee3dbe9f.js", "assets/ziauddin-salu-community-founder.jpg"];
+/* SALU Community: network-first HTML pages with embedded styling, images and application code. */
+const CACHE = "salu-community-inline-5614bf1006f2";
+const CORE = ["./", "about.html", "admissions.html", "aggregate-calculator.html", "announcements.html", "contact.html", "department-seats.html", "departments.html", "entry-test-preparation.html", "faqs.html", "fee-structure.html", "index.html", "merit-list.html", "mock-tests.html", "past-papers.html", "results.html", "scholarships.html", "data.js", "pwa.js", "manifest.webmanifest", "icon-192.png", "icon-512.png", "apple-touch-icon.png"];
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE).then(cache => Promise.allSettled(CORE.map(url => cache.add(url)))).then(() => self.skipWaiting()));
 });
@@ -12,10 +12,6 @@ self.addEventListener("fetch", event => {
   const url = new URL(request.url);
   if (request.method !== "GET" || url.origin !== self.location.origin) return;
   event.respondWith((async () => {
-    if (/\.[a-f0-9]{12}\.(?:js|css)$/.test(url.pathname)) {
-      const cached = await caches.match(request);
-      if (cached) return cached;
-    }
     try {
       const response = await fetch(request, {cache:"no-cache"});
       if (response.ok) {

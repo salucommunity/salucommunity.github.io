@@ -1,59 +1,66 @@
 {
   "date": "2026-10-30",
-  "deployment": "not_deployed",
-  "search_console_submission": "pending_owner_account",
+  "release": "upload repair with embedded visual and application resources",
+  "live_diagnosis": {
+    "home_status": 200,
+    "stylesheet_status": 404,
+    "emblem_status": 404,
+    "repaired_release_deployed": false
+  },
   "automated_audit": {
     "status": "PASS",
-    "checks": 1352,
+    "checks": 1308,
     "pages": 16,
     "sitemap_urls": 16,
-    "past_papers": 12,
+    "papers": 12,
     "questions": 555
   },
-  "browser_comparison": {
+  "browser_design_comparison": {
     "pages": 16,
-    "same_visible_text": true,
-    "same_heading_styles": true,
-    "same_measured_component_layouts": true
+    "content_preserved": true,
+    "heading_styles_preserved": true,
+    "measured_layout_preserved": true
+  },
+  "missing_folder_test": {
+    "runtime_file_set": "original supplied root filenames only",
+    "asset_folder_present": false,
+    "rendered_correctly": true,
+    "logo_loaded": true,
+    "max_header_svg_width_px": 19
   },
   "mobile_comparison": {
     "home_frame_width": 390,
     "admissions_frame_width": 320,
-    "same_layouts": true,
+    "layouts_match_original": true,
     "physical_device_tested": false
   },
-  "calculator_examples": {
-    "bs1": "80.00%",
-    "usat": "80.00%",
-    "bs3": "80.00%",
-    "failed_entry_rejected": true,
-    "marks_above_total_rejected": true
-  },
-  "features": {
-    "search_results_computer_science": 5,
-    "department_matches": 1,
+  "functional_tests": {
+    "calculator_bs1": "80.00%",
+    "calculator_usat": "80.00%",
+    "calculator_bs3": "80.00%",
+    "search_computer_science_results": 5,
     "category_links": 16,
-    "paper_quiz_correct_answer": "1 / 50",
-    "mock_correct_answer": "1 / 15",
-    "quiz_resets": true,
-    "app_banner_dismissed": true,
-    "legacy_paper_link_forwarded": true
+    "past_paper_quiz": "1 / 50",
+    "past_paper_reset": true,
+    "mock_test": "1 / 15",
+    "mock_reset": true,
+    "legacy_deep_link_preserved": true,
+    "observed_application_errors": 0
   },
   "service_worker": {
     "adapter_tests": "PASS",
-    "offline_page_cases": 16,
-    "physical_install_tested": false
+    "offline_pages": 16,
+    "embedded_styles_images_application_code": true,
+    "fresh_online_navigation": true,
+    "unrelated_cache_preserved": true
   },
-  "html_bytes": {
-    "before": 6585849,
-    "after": 394801,
-    "reduction_percent": 94.01
-  },
+  "maintenance_refresh_round_trip": "PASS",
+  "embedded_original_image_bytes_preserved": true,
+  "html_bytes": 5211284,
   "limits": [
-    "Not deployed to the live website",
-    "No Search Console account operations",
-    "No Google Rich Results Test or field Core Web Vitals measurement",
-    "No verification of external PDF availability",
-    "Offline behaviour tested with deterministic adapters"
+    "Corrected files still need uploading to GitHub Pages",
+    "Search Console ownership and sitemap submission require owner account",
+    "No Google indexing or rankings verified",
+    "Physical device installation and external PDF downloads not verified"
   ]
 }

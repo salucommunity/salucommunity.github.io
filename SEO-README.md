@@ -1,12 +1,18 @@
-# SALU Community — SEO update
+# SALU Community — SEO update and upload repair
 
 Prepared 30 October 2026 for https://salucommunity.github.io/.
+
+## Fix for the broken uploaded design
+
+The published home page was reachable, but its stylesheet and emblem paths under `assets/` returned HTTP 404. This stripped the layout and left SVG icons at their browser default sizes. This repaired release embeds its stylesheet, visual images, application code and question archive directly in each HTML page. It does not depend on an `assets` folder. The existing root files, including `data.js`, `pwa.js`, `sw.js`, manifest and icons, remain in the package. All extracted files are at one level for easier phone uploads.
+
+Replace the old uploaded version with the extracted files from this ZIP. Wait for GitHub Pages to finish deployment, then reload. If your installed app still shows the old page, close and reopen it after deployment; the updated service worker refreshes its cache. The repaired version has been tested using only the original runtime filenames, without any asset folder.
 
 The existing design, colours, text, layout, photos and interactive tools are preserved. This is an update to the supplied website package, ready to upload to its existing GitHub Pages site. It has not been deployed, and no Google Search Console account was connected or changed.
 
 ## Upload and indexing
 
-1. Extract this ZIP and upload its **contents** to the existing GitHub Pages publishing folder. Keep the `assets` folder and all HTML, JavaScript, icons, manifest, sitemap and verification files together. Uploading the ZIP itself will not update the website.
+1. Extract this ZIP and upload **all extracted files** to the same GitHub Pages publishing folder as your current `index.html`, replacing the existing versions. Include all 16 HTML pages, `data.js`, `pwa.js`, `sw.js`, manifest, icons, sitemap, robots and verification file. Uploading the ZIP itself will not update the website. No `assets` folder is needed.
 2. Allow the existing GitHub Pages deployment to finish. Open the home, admissions, merit-list, past-papers and calculator pages on the public website. Confirm that the stylesheet, photos and tools load, and that `robots.txt` and `sitemap.xml` are publicly accessible.
 3. Open [Google Search Console](https://search.google.com/search-console/) with the account that owns the website. Select or add the URL-prefix property `https://salucommunity.github.io/`. The supplied Google verification meta tag and HTML verification file are preserved exactly. Complete ownership verification in that account if required.
 4. In **Sitemaps**, enter `sitemap.xml` and submit it. It contains all 16 canonical page URLs.
@@ -30,9 +36,9 @@ Account verification, sitemap submission and index requests remain pending. Goog
 - Each page has one H1 in its visible main content. CSS preserves the previous heading appearance.
 - Navigation, resource cards and relevant content lists are available in the HTML before JavaScript runs. The past-papers page also includes the default paper's 50 solved questions and 12 year buttons before scripts run.
 - JSON-LD identifies SALU Community as an independent organization, with WebSite, page-specific WebPage types and breadcrumb markup. The FAQs page includes questions and answers matching its content. The calculator is described as a free educational web application. The non-functional search action and unrelated, site-wide FAQ markup were removed.
-- Existing photos and logos retain their exact original bytes and descriptive alt text. Image files now have descriptive names, explicit dimensions, asynchronous decoding and suitable loading priorities. Founder portraits load lazily; the home banner gets high priority.
-- Shared CSS, application JavaScript and the past-paper archive are separate, cacheable assets. Content hashes allow changed code to receive a fresh URL.
-- The service worker uses the actual page paths, supports all 16 pages offline after successful precaching, fetches fresh pages online and reuses immutable assets. Existing install-banner behaviour is preserved.
+- Existing photos and logos retain their exact original bytes and descriptive alt text. They are embedded in the HTML, with explicit dimensions and decoding/loading hints. Social previews use the existing root `icon-512.png` file.
+- Styling, application JavaScript and the past-paper archive are embedded in each page, so a missing upload folder cannot remove the design or these scripts.
+- The service worker uses the actual page paths, supports all 16 pages offline after successful precaching and fetches fresh pages online. Its cache version changes for this repair. Existing install-banner behaviour is preserved.
 - Past-paper links preserve the selected paper when a legacy home-page hash is forwarded to the dedicated past-papers page.
 
 Google's [JavaScript SEO guidance](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics), [crawlable link guidance](https://developers.google.com/search/docs/crawling-indexing/links-crawlable) and [canonical URL guidance](https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls) informed these changes.
@@ -55,7 +61,7 @@ Existing admissions dates, fees, formulas, PDF links and academic content were r
 | --- | --- |
 | Desktop comparison of all 16 pages | Same visible text, heading styles and measured component layouts as the original |
 | Mobile comparison | Home in 390px frames and admissions in 320px frames matched the originals; these are browser layout checks, not physical-phone tests |
-| Automated SEO/asset audit | Passed: unique metadata, one relevant H1, page-specific content, canonical/schema consistency, sitemap, robots rules, internal targets, image attributes, content hashes and JavaScript syntax |
+| Automated SEO/asset audit | Passed: unique metadata, one relevant H1, page-specific content, canonical/schema consistency, sitemap, robots rules, internal targets, embedded styling/images/scripts, image attributes and JavaScript syntax |
 | Past-paper preservation | All 12 papers and 555 questions retained |
 | Content without JavaScript | Past-paper cards, 12 year buttons and 50 default solved questions present and styled |
 | Calculator | BS-I, USAT and BS-III examples each returned 80.00%; failed-entry-test and invalid-mark validation checked |
@@ -63,11 +69,12 @@ Existing admissions dates, fees, formulas, PDF links and academic content were r
 | Past-paper quiz | Year selection, direct paper/quiz links, scoring and reset passed; one correct 2015 answer returned 1/50 |
 | Mock test | Scoring and reset passed; one correct answer returned 1/15 |
 | Navigation and app banner | All 16 category links present; navigation and banner dismissal passed |
-| Offline service-worker tests | Deterministic cache/network tests passed for 16 pages, app tracking URLs, fresh online navigation, cached immutable assets and missing-asset handling |
+| Offline service-worker tests | Deterministic cache/network tests passed for 16 pages, app tracking URLs, fresh online navigation, embedded page resources and missing-asset handling |
 | Browser application errors | None observed during the completed functional checks |
-| Original image preservation | All five extracted image files matched the original embedded bytes |
+| Original image preservation | The embedded images matched the original image bytes |
+| Upload failure reproduction | Repaired pages rendered and worked using only the original runtime filenames, with no asset folder |
 
-Total page HTML fell from **6,585,849 bytes to 394,801 bytes**, a **94.0% reduction**. This measures raw HTML size, not total first-visit network transfer, a Lighthouse score or a claim that the website is 94% faster. Shared assets still need to load on a first visit.
+The repaired pages contain **5,211,284 bytes of HTML** in total. This release embeds its styling, visual assets and application scripts to make uploads reliable. The earlier 94% HTML reduction applied to the separate-asset build and does not apply to this repaired version. Page-specific content, metadata, canonical URLs, structured data and the sitemap remain optimized.
 
 Live deployment, Google indexing, Rich Results Test eligibility, field Core Web Vitals, physical-device installation and external PDF availability were not verified from this local package. The offline checks use test adapters; actual installation should be checked on the deployed HTTPS website.
 
@@ -76,9 +83,9 @@ Live deployment, Google indexing, Rich Results Test eligibility, field Core Web 
 For announcements, merit links, fees, scholarships and other lists in `data.js`, edit that file and then run:
 
 ```sh
-node tools/refresh-content.mjs
-python3 tools/check-seo.py
-node tools/check-service-worker.mjs
+node refresh-content.mjs
+python3 check-seo.py
+node check-service-worker.mjs
 ```
 
 The refresh command updates the corresponding static HTML and FAQ schema, updates sitemap dates for changed pages and refreshes the offline cache version. It needs Node.js 18 or newer; the SEO audit also needs Python 3.9 or newer. Upload the complete resulting folder after editing. The `seo-pages.json` file is a validation map; editing it alone does not rewrite page metadata.

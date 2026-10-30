@@ -5,13 +5,12 @@ import vm from 'node:vm';
 import crypto from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 
-const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const root=path.dirname(fileURLToPath(import.meta.url));
 const read=f=>fs.readFileSync(path.join(root,f),'utf8');
 const write=(f,s)=>fs.writeFileSync(path.join(root,f),s);
 const meta=JSON.parse(read('seo-pages.json'));
 const data=vm.runInNewContext(read('data.js')+';({ANNOUNCE,MERITS,FEES,SCHOLARSHIPS,PAPERS,RESULTS,DEPTS,SEATS,FAQS})');
-const appPath=read('index.html').match(/src="(assets\/site\.[a-f0-9]+\.js)"/)[1];
-const app=read(appPath);
+const app=read('index.html').match(/<script id="salu-app">([\s\S]*?)<\/script>/)[1];
 const block=name=>app.match(new RegExp('const '+name+' = ([\\s\\S]*?);\\n'))[0];
 const config=vm.runInNewContext(['ICONS','VIEWS','GROUPS','TILES','TC'].map(block).join('\n')+';({ICONS,VIEWS,GROUPS,TILES,TC})');
 const names=Object.fromEntries(config.VIEWS);
@@ -63,7 +62,7 @@ for(const [key,m] of Object.entries(meta)){
 }
 write('sitemap.xml',sitemap);
 // Refresh the service worker version when source content or application assets change.
-const digest=crypto.createHash('sha256').update(read('data.js')+read('manifest.webmanifest')+read(appPath)).digest('hex').slice(0,12);
-const worker=read('sw.js').replace(/salu-community-seo-[a-f0-9]{12}/,'salu-community-seo-'+digest);
+const digest=crypto.createHash('sha256').update(read('data.js')+read('manifest.webmanifest')+app).digest('hex').slice(0,12);
+const worker=read('sw.js').replace(/salu-community-inline-[a-f0-9]{12}/,'salu-community-inline-'+digest);
 write('sw.js',worker);
 console.log(`Refreshed static content in ${changed} pages. Upload the complete folder, including data.js and sw.js.`);

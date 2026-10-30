@@ -1,7 +1,7 @@
 /* =====================================================================
    SALU COMMUNITY - CONTENT FILE (data.js)
    Edit this file to update the data-driven content lists.
-   Then run: node tools/refresh-content.mjs
+   Then run: node refresh-content.mjs
    This keeps crawlable HTML, FAQ schema and the offline cache in sync.
    Rules: keep every comma, quote and bracket. Each item is one line.
    To ADD an item: copy a line from the same list, paste it right below,

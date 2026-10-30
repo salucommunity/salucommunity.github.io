@@ -4,7 +4,7 @@ import path from 'node:path';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
 import {fileURLToPath} from 'node:url';
-const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const root=path.dirname(fileURLToPath(import.meta.url));
 const base='https://salucommunity.github.io/';
 const handlers={},stores=new Map([['unrelated-app',new Map()],['salu-community-v3',new Map()]]);
 const key=request=>new URL(typeof request==='string'?request:request.url,base).href;
@@ -42,11 +42,13 @@ for(const m of Object.values(metadata)){
 }
 const tracked=await dispatch('fetch',request('./?source=app'));assert.equal(tracked.status,200);
 const absent=await dispatch('fetch',request('not-cached.png','cors'));assert.equal(absent.status,503);
-const immutable=fs.readdirSync(path.join(root,'assets')).find(x=>/^site\.[a-f0-9]{12}\.css$/.test(x));
-const countBefore=networkCalls;
-const cached=await dispatch('fetch',request('assets/'+immutable,'cors'));assert.equal(cached.status,200);assert.equal(networkCalls,countBefore);
+const inlinePage=await dispatch('fetch',request('admissions.html'));
+const inlineHtml=await inlinePage.text();
+assert.ok(inlineHtml.includes('<style id="salu-styles">'));
+assert.ok(inlineHtml.includes('<script id="salu-app">'));
+assert.ok(inlineHtml.includes('data:image/webp;base64,'));
 offline=false;
 const fresh=await dispatch('fetch',request('admissions.html'));assert.equal(await fresh.text(),'fresh:/admissions.html');
 assert.equal(await dispatch('fetch',request('data.js','cors','POST')),undefined);
 assert.equal(await dispatch('fetch',{url:'https://example.com/file.js',method:'GET',mode:'cors'}),undefined);
-console.log(JSON.stringify({status:'PASS',offline_pages:16,app_tracking_url:true,immutable_asset_cache:true,fresh_online_navigation:true,missing_offline_asset_status:503,unrelated_cache_preserved:true},null,2));
+console.log(JSON.stringify({status:'PASS',offline_pages:16,app_tracking_url:true,embedded_visuals_and_application_code:true,fresh_online_navigation:true,missing_offline_asset_status:503,unrelated_cache_preserved:true},null,2));
