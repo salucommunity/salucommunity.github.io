@@ -1,0 +1,82 @@
+{
+  "home": {
+    "title": "SALU Community | Admissions 2027, Merit Lists & Past Papers",
+    "desc": "Student guidance for Shah Abdul Latif University, Khairpur: SALU admission 2027, merit list PDFs, past papers, CPN calculator, fees and free mock tests.",
+    "canonical": "https://salucommunity.github.io/"
+  },
+  "announcements": {
+    "title": "SALU Admission & Merit Updates 2027 | SALU Community",
+    "desc": "Follow SALU admission 2027 updates, merit list announcements, entry test dates and fee submission schedules for Shah Abdul Latif University, Khairpur.",
+    "canonical": "https://salucommunity.github.io/announcements.html"
+  },
+  "admissions": {
+    "title": "SALU Admission 2027: Process & Eligibility | SALU Community",
+    "desc": "Explore Shah Abdul Latif University admission 2027 guidance: application process, eligibility, required documents, campus options and admission schedule.",
+    "canonical": "https://salucommunity.github.io/admissions.html"
+  },
+  "merit": {
+    "title": "SALU First Merit List 2027 & PDF Downloads | SALU Community",
+    "desc": "Find SALU first merit list 2027 PDFs for BS Part-I and BS-III Bridging, plus second, third and fourth list schedules and fee submission windows.",
+    "canonical": "https://salucommunity.github.io/merit-list.html"
+  },
+  "departments": {
+    "title": "SALU Departments & Faculties | SALU Community",
+    "desc": "Explore departments and institutes at Shah Abdul Latif University, Khairpur. Search by program or faculty to plan your SALU admission choices.",
+    "canonical": "https://salucommunity.github.io/departments.html"
+  },
+  "seats": {
+    "title": "SALU Department Seats & Quotas | SALU Community",
+    "desc": "Check SALU department seat allocations for BS Part-I and BS-III Bridging, including morning merit, self-finance and program-wise seat information.",
+    "canonical": "https://salucommunity.github.io/department-seats.html"
+  },
+  "fees": {
+    "title": "SALU Fee Structure 2026–2027 | SALU Community",
+    "desc": "Compare SALU fee information for BS, Pharm-D, LLB and BS-III Bridging programs, with merit, self-finance, hostel and application processing fees.",
+    "canonical": "https://salucommunity.github.io/fee-structure.html"
+  },
+  "scholarships": {
+    "title": "SALU Scholarships & Financial Aid | SALU Community",
+    "desc": "Explore scholarships and financial aid listed for SALU students, including HEC need-based support, SEEF, tuition freeships, bursaries and other aid.",
+    "canonical": "https://salucommunity.github.io/scholarships.html"
+  },
+  "calculator": {
+    "title": "SALU Aggregate Calculator (CPN) | SALU Community",
+    "desc": "Use the SALU aggregate calculator to estimate your CPN for admission. Enter entry test or USAT and academic marks for BS-I or BS-III Bridging.",
+    "canonical": "https://salucommunity.github.io/aggregate-calculator.html"
+  },
+  "entry": {
+    "title": "SALU Entry Test Preparation & Pattern | SALU Community",
+    "desc": "Prepare for the SALU entry test with guidance on the 50-MCQ pattern, subject coverage, passing criteria and OMR rules, plus past papers and mock tests.",
+    "canonical": "https://salucommunity.github.io/entry-test-preparation.html"
+  },
+  "papers": {
+    "title": "SALU Past Papers PDF & Solved MCQs | SALU Community",
+    "desc": "Download SALU entry test past papers PDF, review solved MCQs from the available archive and practise with interactive quizzes and a 2027 preparation paper.",
+    "canonical": "https://salucommunity.github.io/past-papers.html"
+  },
+  "mocktests": {
+    "title": "SALU Free Mock Tests & MCQ Practice | SALU Community",
+    "desc": "Practise SALU entry test MCQs with free mock tests, instant scoring and answer feedback. Find community registration information for live practice tests.",
+    "canonical": "https://salucommunity.github.io/mock-tests.html"
+  },
+  "results": {
+    "title": "SALU Community Mock Test Results | Practice Scores",
+    "desc": "Check SALU Community mock test results and practice scores when published. These community test scores are separate from official university results.",
+    "canonical": "https://salucommunity.github.io/results.html"
+  },
+  "guidance": {
+    "title": "SALU Admission FAQs & Student Guidance | SALU Community",
+    "desc": "Read SALU student FAQs about admissions, entry tests, aggregate calculation, USAT, LAT, BS-III Bridging, campus programs, hostels and scholarships.",
+    "canonical": "https://salucommunity.github.io/faqs.html"
+  },
+  "about": {
+    "title": "About SALU Community | Independent Student Guidance",
+    "desc": "Meet the SALU Community team and learn about this independent student initiative supporting Shah Abdul Latif University, Khairpur applicants and students.",
+    "canonical": "https://salucommunity.github.io/about.html"
+  },
+  "contact": {
+    "title": "Contact SALU Community | Student Guidance & Support",
+    "desc": "Contact SALU Community for student guidance through its listed WhatsApp, phone, email and Facebook channels. Independent support for SALU students.",
+    "canonical": "https://salucommunity.github.io/contact.html"
+  }
+}

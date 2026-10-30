@@ -1,20 +1,32 @@
-/* SALU Community service worker: always loads the newest files when online,
-   and falls back to the saved copy when the internet is off. */
-const CACHE = "salu-community-v3";
-const CORE = ["./", "index.html", "data.js", "pwa.js", "manifest.webmanifest", "icon-192.png", "merit-list", "announcements", "fee-structure", "department-seats", "aggregate-calculator", "past-papers"];
-
-self.addEventListener("install", e => {
-  e.waitUntil(caches.open(CACHE).then(c => Promise.allSettled(CORE.map(u => c.add(u)))).then(() => self.skipWaiting()));
+/* SALU Community: network-first pages; immutable, content-hashed assets are shared across pages. */
+const CACHE = "salu-community-seo-6f38fc3d5277";
+const CORE = ["./", "about.html", "admissions.html", "aggregate-calculator.html", "announcements.html", "contact.html", "department-seats.html", "departments.html", "entry-test-preparation.html", "faqs.html", "fee-structure.html", "index.html", "merit-list.html", "mock-tests.html", "past-papers.html", "results.html", "scholarships.html", "data.js", "pwa.js", "manifest.webmanifest", "icon-192.png", "icon-512.png", "apple-touch-icon.png", "assets/muhammad-younis-salu-community-cofounder.jpg", "assets/past-papers-data.f56b51b08004.js", "assets/salu-community-emblem.webp", "assets/salu-community-favicon.webp", "assets/shah-abdul-latif-university-khairpur-main-gate.jpg", "assets/site.24555be2036e.css", "assets/site.3fdfee3dbe9f.js", "assets/ziauddin-salu-community-founder.jpg"];
+self.addEventListener("install", event => {
+  event.waitUntil(caches.open(CACHE).then(cache => Promise.allSettled(CORE.map(url => cache.add(url)))).then(() => self.skipWaiting()));
 });
-self.addEventListener("activate", e => {
-  e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim()));
+self.addEventListener("activate", event => {
+  event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key.startsWith("salu-community-") && key !== CACHE).map(key => caches.delete(key)))).then(() => self.clients.claim()));
 });
-self.addEventListener("fetch", e => {
-  const r = e.request;
-  if (r.method !== "GET" || new URL(r.url).origin !== location.origin) return;
-  e.respondWith(
-    fetch(r, { cache: "no-cache" })
-      .then(res => { if (res.ok) { const copy = res.clone(); caches.open(CACHE).then(c => c.put(r, copy)); } return res; })
-      .catch(() => caches.match(r, { ignoreSearch: true }).then(hit => hit || (r.mode === "navigate" ? caches.match("index.html") : undefined)))
-  );
+self.addEventListener("fetch", event => {
+  const request = event.request;
+  const url = new URL(request.url);
+  if (request.method !== "GET" || url.origin !== self.location.origin) return;
+  event.respondWith((async () => {
+    if (/\.[a-f0-9]{12}\.(?:js|css)$/.test(url.pathname)) {
+      const cached = await caches.match(request);
+      if (cached) return cached;
+    }
+    try {
+      const response = await fetch(request, {cache:"no-cache"});
+      if (response.ok) {
+        const copy = response.clone();
+        event.waitUntil(caches.open(CACHE).then(cache => cache.put(request, copy)).catch(() => {}));
+      }
+      return response;
+    } catch (error) {
+      return (await caches.match(request, {ignoreSearch:true})) ||
+        (request.mode === "navigate" ? await caches.match(new URL("index.html", self.registration.scope).href) : null) ||
+        new Response("Content unavailable offline", {status:503, headers:{"Content-Type":"text/plain; charset=utf-8"}});
+    }
+  })());
 });

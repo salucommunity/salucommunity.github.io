@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /tools/
 
 Sitemap: https://salucommunity.github.io/sitemap.xml
