@@ -1,0 +1,36 @@
+{
+  "status": "PASS",
+  "checks": 85,
+  "originalPhotoBytes": 10109128,
+  "storedPhotoBytes": 70246,
+  "photoPixels": [
+    524,
+    720
+  ],
+  "memberStorage": "Existing private results-service R2; no separate repository",
+  "network": "In-memory R2/GitHub adapters; no production applicant data read or written",
+  "finalDesignPreserved": true,
+  "oneClickCardVerified": true,
+  "existingResultServiceChecks": 32,
+  "browserQA": {
+    "representativeForm": "Validated required fields; layout inspected",
+    "savedMembers": "Controls and layout inspected with a local QA-only sign-in fixture",
+    "productionHealth": {
+      "ok": true,
+      "storage": true
+    },
+    "productionApplicantDataUsed": false
+  },
+  "deployment": {
+    "project_id": "appgprj_6ae5b9ae1fb0819197fa4ac904ffb145",
+    "version": 3,
+    "commit": "c19945dd63cdb420bd24164d67cf04b9d8633d04",
+    "deployment_id": "appgdep_6ae5f6ed7420819199bb1ff9487a7117",
+    "status": "succeeded"
+  },
+  "existingPublicFilesChanged": [
+    "sw.js",
+    "sitemap.xml"
+  ],
+  "jobsAndMockPagesUnchanged": true
+}
