@@ -5885,6 +5885,7 @@ window.SALU_ADMIN_DRAFT_READY=new Promise(resolve=>{window.SALU_RESOLVE_DRAFT_RE
   const API='https://api.github.com';
   const b64=s=>{const a=new TextEncoder().encode(s);let out='';for(let i=0;i<a.length;i+=32768)out+=String.fromCharCode(...a.subarray(i,i+32768));return btoa(out);};
   const unb64=s=>new TextDecoder().decode(Uint8Array.from(atob(String(s).replace(/\s/g,'')),c=>c.charCodeAt(0)));
+  async function gitSha(text){const bytes=new TextEncoder().encode(text),prefix=new TextEncoder().encode('blob '+bytes.length+'\0'),input=new Uint8Array(prefix.length+bytes.length);input.set(prefix);input.set(bytes,prefix.length);return Array.from(new Uint8Array(await crypto.subtle.digest('SHA-1',input)),x=>x.toString(16).padStart(2,'0')).join('');}
   const path=s=>String(s).split('/').map(encodeURIComponent).join('/');
   function connection(c){
     if(!c||!/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(c.repo||''))throw new Error('Enter a repository as owner/repository.');
@@ -5896,16 +5897,20 @@ window.SALU_ADMIN_DRAFT_READY=new Promise(resolve=>{window.SALU_RESOLVE_DRAFT_RE
     connection(c);const opts=Object.assign({},options||{});
     opts.headers=Object.assign({'Authorization':'Bearer '+c.token,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2026-03-10'},opts.headers||{});
     if(opts.body&&typeof opts.body!=='string'){opts.headers['Content-Type']='application/json';opts.body=JSON.stringify(opts.body);}
-    const r=await fetch(API+'/repos/'+c.repo+endpoint,opts);
-    if(r.status===404&&opts.allow404)return null;
-    let data;try{data=await r.json();}catch{data={};}
-    if(!r.ok){const e=new Error(r.status===401?'GitHub token is invalid or expired.':r.status===403?'GitHub access was refused. Check repository access and Contents write permission.':r.status===404?'Repository, branch or file was not found.':r.status===409||r.status===422?'The repository changed. Load the latest version and retry.':data.message||'GitHub request failed ('+r.status+').');e.status=r.status;throw e;}
-    return data;
+    const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),45000);if(!opts.signal)opts.signal=controller.signal;
+    try{
+      const r=await fetch(API+'/repos/'+c.repo+endpoint,opts);
+      if(r.status===404&&opts.allow404)return null;
+      let data;try{data=await r.json();}catch{if(r.ok)throw new Error('The GitHub response was interrupted. Retry publishing; your draft has been kept.');data={};}
+      if(!r.ok){const e=new Error(r.status===401?'GitHub token is invalid or expired.':r.status===403?'GitHub access was refused. Check repository access and Contents write permission.':r.status===404?'Repository, branch or file was not found.':r.status===409||r.status===422?'The repository changed. Load the latest version and retry.':data.message||'GitHub request failed ('+r.status+').');e.status=r.status;throw e;}
+      return data;
+    }catch(e){if(e.name==='AbortError')throw new Error('GitHub timed out. Retry publishing; your draft has been kept.');throw e;}finally{clearTimeout(timer);}
   }
   async function file(c,name,ref){
     const f=await request(c,'/contents/'+path(name)+'?ref='+encodeURIComponent(ref||c.branch),{allow404:true});
     if(!f)return null;
-    if(f.type!=='file')throw new Error(name+' is not a file.');
+    if(Array.isArray(f)||f.type==='dir')throw new Error(name+' is a folder in the repository. Restore the supplied file at this path.');
+    if(!f.sha||!['file','blob',undefined].includes(f.type)||f.submodule_git_url)throw new Error('GitHub returned incomplete file details for '+name+'. Retry; your draft has been kept.');
     if(f.content&&f.encoding==='base64')return {sha:f.sha,text:unb64(f.content)};
     const blob=await request(c,'/git/blobs/'+f.sha);
     if(blob.encoding!=='base64')throw new Error('Unsupported repository file encoding.');
@@ -5931,19 +5936,26 @@ window.SALU_ADMIN_DRAFT_READY=new Promise(resolve=>{window.SALU_RESOLVE_DRAFT_RE
     if(!data)throw new Error('Upload the supplied public website files once before publishing.');
     if(!expectedSha)throw new Error('Use Load latest from website before the first publish. Your draft has been kept.');
     if(data.sha!==expectedSha)throw new Error('The live website changed after you loaded it. Load its latest data before publishing; your draft has been kept.');
-    if(global.SaluQuizAdmin){tell('Preparing central test result storage…');await global.SaluQuizAdmin.syncPublished(c,state);}
+    let previous=null;try{previous=global.SaluAdminBridge?.parseSource(data.text)||null;}catch{}
+    const testConfig=st=>({bank:global.SaluTests?.fromState(st),backend:global.SaluQuiz?.settings(st.EDITOR).backendUrl,origin:new URL(global.SaluCMS.metaFor(global.SaluCMS.editorState(st.EDITOR),'home',catalog.meta).canonical).origin});
+    if(global.SaluQuizAdmin&&(!previous||JSON.stringify(testConfig(previous))!==JSON.stringify(testConfig(state)))){tell('Saving changed tests to result storage…');await global.SaluQuizAdmin.syncPublished(c,state);}
     const source=dataSource(state),entries=[{path:'data.js',mode:'100644',type:'blob',content:source}];
     let changed=source!==data.text;
-    // Publish the matching quiz/PDF tools with the content, including upgrades of already-installed pages.
-    for(const [name,content] of Object.entries(global.SALU_TEST_ASSETS||{})){
-      const current=await file(c,name,head);
-      if(!current||current.text!==content){entries.push({path:name,mode:'100644',type:'blob',content});changed=true;}
-    }
+    // Compare small Git tree metadata, rather than downloading unchanged PDF/quiz bundles.
+    tell('Checking changed website files…');
+    const listing=await request(c,'/git/trees/'+commit.tree.sha+'?recursive=1');
+    if(!Array.isArray(listing.tree)||listing.truncated)throw new Error('The complete website file list could not be read. Retry; your draft has been kept.');
+    const files=new Map(listing.tree.map(f=>[f.path,f])),assets=Object.entries(global.SALU_TEST_ASSETS||{}),hashes=await Promise.all(assets.map(async([name,content])=>[name,await gitSha(content)])),assetHash=new Map(hashes);
+    let assetsChanged=false;
+    for(const [name,content] of assets){const current=files.get(name);if(current?.type==='tree')throw new Error(name+' is a folder in the repository. Restore the supplied file at this path.');if(current?.sha!==assetHash.get(name)||current?.type!=='blob'){entries.push({path:name,mode:'100644',type:'blob',content});changed=true;assetsChanged=true;}}
+    const withoutPopup=st=>{const copy=JSON.parse(JSON.stringify(st));copy.EDITOR=global.SaluCMS.editorState(copy.EDITOR);copy.EDITOR.sitePopup=null;return dataSource(copy);};
+    const popupOnly=!!previous&&!assetsChanged&&Object.values(catalog.pages).every(p=>files.get(p.file)?.type==='blob')&&files.get('jobs-preparation.html')?.type==='blob'&&withoutPopup(previous)===withoutPopup(state);
     const items=Object.entries(catalog.pages);
     const resolved=Object.fromEntries(items.map(([key])=>[key,global.SaluCMS.metaFor(global.SaluCMS.editorState(state.EDITOR),key,catalog.meta)]));
     const modified=new Set();
     // Bounded groups avoid exhausting a phone's memory while preparing large HTML pages.
-    for(let start=0;start<items.length;start+=3){
+    if(popupOnly)tell('Publishing popup settings…');
+    for(let start=0;!popupOnly&&start<items.length;start+=3){
       const batch=await Promise.all(items.slice(start,start+3).map(async([key,p])=>{
         const remote=await file(c,p.file,head);let input=remote?.text;
         if(!remote&&key==='jobs'&&global.SaluTests?.makeJobsDocument){const legacy=await file(c,'jobs-preparation.html',head),template=legacy?.text.includes('id="v-jobs"')?legacy:await file(c,'mock-tests.html',head);if(!template)throw new Error('The mock-tests page template was not found.');input=global.SaluTests.makeJobsDocument(template.text,state,catalog.meta);}
@@ -5959,8 +5971,8 @@ window.SALU_ADMIN_DRAFT_READY=new Promise(resolve=>{window.SALU_RESOLVE_DRAFT_RE
       for(const entry of batch.flat())if(entry){entries.push(entry);changed=true;}
       tell('Prepared '+Math.min(start+3,items.length)+' of '+items.length+' pages…');
     }
-    const map=JSON.stringify(resolved,null,2)+'\n';entries.push({path:'seo-pages.json',mode:'100644',type:'blob',content:map});
-    if(options.updateSitemap){
+    if(!popupOnly){const map=JSON.stringify(resolved,null,2)+'\n';entries.push({path:'seo-pages.json',mode:'100644',type:'blob',content:map});}
+    if(!popupOnly&&options.updateSitemap){
       const old=await file(c,'sitemap.xml',head),today=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Karachi',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
       const parser=old?new DOMParser().parseFromString(old.text,'application/xml'):null;
       const oldDates={};if(parser)for(const node of parser.getElementsByTagName('url'))oldDates[node.getElementsByTagName('loc')[0]?.textContent]=node.getElementsByTagName('lastmod')[0]?.textContent;
@@ -5969,7 +5981,7 @@ window.SALU_ADMIN_DRAFT_READY=new Promise(resolve=>{window.SALU_RESOLVE_DRAFT_RE
     }
     const worker=await file(c,'sw.js',head);
     if(worker){
-      const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(source+Object.values(global.SALU_TEST_ASSETS||{}).join(''))))).map(n=>n.toString(16).padStart(2,'0')).join('').slice(0,12);
+      const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(source+JSON.stringify(hashes))))).map(n=>n.toString(16).padStart(2,'0')).join('').slice(0,12);
       let script=worker.text.replace(/salu-community-(?:inline|cms)-[a-f0-9]{12}/,'salu-community-cms-'+digest);
       const core=script.match(/const CORE = (\[[^\n]+\]);/);if(core){const names=JSON.parse(core[1]);for(const name of [...Object.keys(global.SALU_TEST_ASSETS||{}),...items.map(([,p])=>p.file),'jobs-preparation.html'])if(!names.includes(name))names.push(name);script=script.replace(core[0],'const CORE = '+JSON.stringify(names)+';');}
       entries.push({path:'sw.js',mode:'100644',type:'blob',content:script});
@@ -5980,8 +5992,7 @@ window.SALU_ADMIN_DRAFT_READY=new Promise(resolve=>{window.SALU_RESOLVE_DRAFT_RE
     const next=await request(c,'/git/commits',{method:'POST',body:{message:'Admin panel: publish website content and landing cards',tree:tree.sha,parents:[head]}});
     // force:false rejects a race instead of overwriting somebody else's commit.
     await request(c,'/git/refs/heads/'+path(c.branch),{method:'PATCH',body:{sha:next.sha,force:false}});
-    const updated=await file(c,'data.js',next.sha);
-    return {unchanged:false,dataSha:updated.sha,commit:next.sha,url:next.html_url||''};
+    return {unchanged:false,dataSha:await gitSha(source),commit:next.sha,url:next.html_url||'',popupOnly};
   }
   function normalizeRecord(input){
     if(!input||typeof input!=='object')throw new Error('Invalid member record.');
