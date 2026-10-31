@@ -32,6 +32,6 @@ const FAQS = [["How is the SALU merit aggregate calculated?","The official merit
 
 const TEXTS = {};
 
-const SITE_EDITOR = {"version":2,"texts":{},"links":{},"images":{},"pageMeta":{},"navigation":null,"homeCards":[],"paperArchive":null,"mockBank":null,"jobsPage":{"showOnHome":true},"quizSettings":null,"jobHub":null,"sitePopup":{"image":"site-popup/1000151438-22e76de07fac.webp","alt":"App online","link":"","oncePerVisit":true,"visible":true,"updatedAt":"2026-10-31T16:47:17.818Z"},"siteUrl":""};
+const SITE_EDITOR = {"version":2,"texts":{},"links":{},"images":{},"pageMeta":{},"navigation":null,"homeCards":[],"paperArchive":null,"mockBank":null,"jobsPage":{"showOnHome":true},"quizSettings":null,"jobHub":null,"sitePopup":{"image":"site-popup/1000151438-22e76de07fac.webp","alt":"","link":"","oncePerVisit":true,"visible":true,"updatedAt":"2026-10-31T16:49:26.821Z"},"siteUrl":""};
 
 if (typeof window !== "undefined" && SITE_EDITOR.paperArchive) window.SALU_PAPERS = SITE_EDITOR.paperArchive;
