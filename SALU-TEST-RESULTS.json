@@ -1,0 +1,54 @@
+{
+  "status": "PASS",
+  "checks": 43,
+  "publicPages": 16,
+  "qrCasesPrepared": 3,
+  "network": "in-memory test adapters; no live GitHub writes",
+  "browser": "Earlier admin workflow checks completed; no additional browser session available after reconnect.",
+  "qrRoundTrips": 6,
+  "qrCoverage": "normal, Unicode and long fields, decoded at native size and card-export size",
+  "seo": {
+    "status": "PASS",
+    "checks": 1308,
+    "pages": 16,
+    "questions": 555
+  },
+  "adminInlineScripts": {
+    "status": "PASS",
+    "scripts": 9
+  },
+  "defaultPublicStructure": {
+    "status": "PASS",
+    "pages": 16,
+    "comparison": "CMS wrappers, markers and hidden landing-card slots removed for baseline comparison"
+  },
+  "earlierInteractiveChecks": [
+    "Card fields and date order",
+    "Member save and reload",
+    "Public repository rejected for member storage",
+    "Private repository sync through a test adapter",
+    "Member revision and QR history",
+    "Landing card and content drafts",
+    "Atomic public publication through a test adapter"
+  ],
+  "limits": [
+    "No live GitHub account connected or changed",
+    "No deployment or Search Console submission",
+    "Image upload interaction and automatic reconnect not rechecked in a fresh browser",
+    "The compact card was inspected through its actual canvas export; a fresh browser check of the CSS preview was unavailable."
+  ],
+  "memberCardLayout": {
+    "status": "PASS",
+    "signatureBoxCssHeightBefore": 100,
+    "signatureBoxCssHeightAfter": 64,
+    "detailsCssHeightBefore": 110,
+    "detailsCssHeightAfter": 147,
+    "exportWidth": 1620,
+    "exportHeight": 1020,
+    "export": "Actual canvas exporter rendered with original font and visually inspected",
+    "qr": "Decoded from the final full card PNG, including semester and valid-till date",
+    "signatures": "Original embedded signature artwork retained",
+    "adminSyntax": "All 9 inline scripts passed",
+    "browserPreview": "No fresh browser session available"
+  }
+}
