@@ -1,7 +1,9 @@
-# SALU Community - Jobs Preparation
+# Jobs Hub and preparation
 
-The latest update changes the test-taking and result-saving flow. Start with **SALU-TEST-EXPERIENCE-GUIDE.md**.
+The main Jobs address is now **jobshub.html**. It combines job notices, advertisements and preparation tests. Old jobs-preparation.html links redirect to it.
 
-Jobs Preparation still has its own public page and dedicated admin controls for category headings, descriptions, complete question imports and uploaded preparation material. Students now register with name, optional contact and city, answer one question at a time and see their result after submission. Result records and PDFs are saved centrally for the administrator. The public preparation portals no longer offer PDF download buttons; free and premium WhatsApp links appear below submitted results.
+Use **Jobs Hub & Popup** for job titles, descriptions, total vacancies, last dates, apply links, advertisement images, header details and the optional website popup. Use **Jobs Preparation** for test categories, metadata, questions and preparation material. Use **Test Results & Groups** for the separate candidate tables and complete result PDF for each test.
 
-The existing main website and member-card register remain separate from the preparation portals. Use the admin-only upgrade instructions to preserve your working live content.
+The header uses the existing SALU emblem and name, with search, WhatsApp and menu icons. Advertisement images are compressed while retaining readable text; visitors can enlarge and zoom them. With no popup image uploaded, no popup is shown.
+
+Read **SALU-JOBSHUB-GUIDE.md** for the full installation and usage instructions.

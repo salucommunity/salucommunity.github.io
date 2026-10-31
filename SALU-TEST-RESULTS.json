@@ -4,18 +4,18 @@
   "publicPages": 17,
   "qrCasesPrepared": 3,
   "network": "in-memory test adapters; no live GitHub writes",
-  "browser": "Deployed service health and protected admin boundary verified in a cloud browser. Full preparation flows tested through DOM/API adapters; no production student attempt or owner GitHub token used.",
+  "browser": "Jobs Hub preview reviewed in a cloud browser. Backend remains the existing deployed private results service; no real notices or candidate records were published during this update.",
   "qrRoundTrips": 6,
   "qrCoverage": "normal, Unicode and long fields, decoded at native size and card-export size",
   "seo": {
     "status": "PASS",
-    "checks": 1361,
+    "checks": 1379,
     "pages": 17,
     "questions": 555
   },
   "adminInlineScripts": {
     "status": "PASS",
-    "scripts": 20
+    "scripts": 23
   },
   "earlierInteractiveChecks": [
     "Card fields and date order",
@@ -27,10 +27,10 @@
     "Atomic public publication through a test adapter"
   ],
   "limits": [
-    "The new admin and public pages must be installed/published on the existing GitHub Pages website.",
-    "Central test definitions are synchronised when the owner publishes or chooses Sync current tests.",
-    "Full test flows used local R2, DOM and GitHub adapters; no actual owner token or real student submissions were used.",
-    "Refresh/close warning wording and availability are controlled by the browser."
+    "Install the updated admin and Publish Live to update your GitHub Pages website.",
+    "Complex advert images may remain larger to keep document text readable.",
+    "Complete reports require all result pages to load; a failed page aborts the download.",
+    "Upload and publication tests used local adapters; preview notices and candidates were not added to the live website."
   ],
   "memberCardLayout": {
     "status": "PASS",
@@ -57,17 +57,10 @@
   },
   "publicStructure": {
     "status": "PASS",
-    "pages": 17,
-    "focusedPreparationPages": [
-      "jobs-preparation.html",
-      "mock-tests.html"
-    ],
-    "mainSitePagesRetained": 15,
-    "publicPreparationPdfDownloads": false,
-    "originalPaperArchive": {
-      "papers": 12,
-      "questions": 555
-    }
+    "canonicalPages": 17,
+    "compatibilityRedirect": "jobs-preparation.html -> jobshub.html",
+    "jobsHub": "Job notices and preparation on one page",
+    "memberRegister": "Unchanged"
   },
   "offline": {
     "status": "PASS",
@@ -150,5 +143,41 @@
     "pages": 1,
     "mixedEnglishUrdu": true,
     "review": "Rendered actual generated PDF and inspected alignment, legibility, optional contact and footer"
+  },
+  "jobsHub": {
+    "status": "PASS",
+    "checks": 71,
+    "jobHub": "jobshub.html",
+    "allCandidatePagesLoaded": 3,
+    "candidatesLoaded": 66,
+    "candidatesInSelectedReport": 59,
+    "advertOriginalBytes": 1379177,
+    "advertOptimisedBytes": 635178,
+    "advertPixels": [
+      2800,
+      3900
+    ],
+    "popupConditional": true,
+    "completePdfPagination": true,
+    "network": "In-memory R2 and GitHub adapters; no real notices or candidate data published",
+    "browserPreview": {
+      "status": "PASS",
+      "checked": [
+        "Logo/name header",
+        "Popup appearance and close",
+        "Search filtering",
+        "Menu links",
+        "Job details table",
+        "Existing test registration"
+      ],
+      "data": "Clearly labelled preview fixtures only; no production write"
+    },
+    "pdfVisualInspection": {
+      "status": "PASS",
+      "candidateReportPages": 4,
+      "testPaperPages": 3,
+      "candidateCount": 59,
+      "review": "Every page rendered and inspected; Urdu names, long names, contact, Jobs Hub URL and pagination checked"
+    }
   }
 }
