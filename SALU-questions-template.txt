@@ -1,0 +1,22 @@
+Test: Practice Set 1
+Category: General practice
+Description: A complete practice paper.
+Duration: 20
+
+[General Knowledge]
+1. Which planet is called the Red Planet?
+A. Earth
+B. Mars
+C. Venus
+D. Jupiter
+Answer: B
+Explanation: Mars has a reddish surface.
+
+[Mathematics]
+2. What is 8 × 7?
+A. 48
+B. 54
+C. 56
+D. 64
+Answer: C
+Explanation: Eight multiplied by seven is fifty-six.

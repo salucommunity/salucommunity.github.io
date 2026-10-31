@@ -7,11 +7,13 @@ This package contains the upgraded admin panel and its matching public website. 
 ## Files
 
 - SALU-Community-Admin.html: self-contained admin panel. Your supplied login settings, logos and signatures are retained.
-- SALU-Community-Managed-Website.zip: public website files for the existing GitHub Pages publishing folder.
+- SALU-Community-Managed-Website.zip: public website files for a new installation or recovery. Its data.js is starter content; preserve your working live data when upgrading.
 - SALU-TEST-RESULTS.json: completed checks and their limits.
 - QR-LICENSE.txt: licence for the embedded QR generator.
 
-## First upload
+## Installation
+
+**Already using the working admin and website?** Start with **SALU-JOBS-PREPARATION-GUIDE.md**. This update adds a separate Jobs Preparation page, its admin tab, bulk question imports and preparation downloads. Back up your draft, replace the hosted admin HTML, load the latest website data and publish. The new admin creates the Jobs page and publishes its homepage/menu links and matching test/PDF tools automatically.
 
 1. Back up the current website repository.
 2. Extract SALU-Community-Managed-Website.zip.
@@ -31,6 +33,8 @@ Save edits, then select Publish Live. The panel commits public content, page HTM
 - Landing cards: add, edit, position, reorder, hide or remove cards, including their text, links and images. Edit, reorder or hide existing category cards.
 - Page content & images: informational text and links across all 16 pages, shared header/footer, page images, SEO titles and descriptions.
 - Past-paper archive: papers, years, PDF links, questions, answers and explanations.
+- Mock Test Library: category headings/descriptions, separate tests, related tests, bulk question imports, timed practice and generated question/solved PDFs.
+- Uploads & compression: automatic image/PDF optimisation with before/after sizes, downloads and website uploads. Existing upload controls use the same optimiser.
 - Existing managers: announcements, merit lists, fees, scholarships, departments, seats, resources, mock-test questions, results, FAQs and shared contact links.
 
 Saved edits are drafts until published. Publishing updates static HTML as well as runtime data, so published text and cards are available before JavaScript runs.
@@ -63,7 +67,7 @@ This package is not connected to your real GitHub repositories. That one-time co
 
 Page-specific metadata, canonical links, structured data, crawlable content, robots.txt, the 16-page sitemap and your supplied Google verification files are retained. Search Console verification, sitemap submission and indexing requests still require your owner account. Google determines indexing and rankings.
 
-Completed checks: 1,308-check SEO/asset audit; admin script syntax; original public structure across 16 pages; content/card/archive rendering; separation of private records; concurrent-update handling; six QR decode round trips with normal, Unicode and long details. Earlier interactive tests covered saving/reloading records, private-repository refusal, cloud sync through test adapters, history and publication.
+Completed checks: 1,460-check SEO/asset audit; admin script syntax; 17 public pages, including the new Jobs page; content/card/archive rendering; separation of private records; concurrent-update handling; six QR decode round trips with normal, Unicode and long details. Earlier interactive tests covered saving/reloading records, private-repository refusal, cloud sync through test adapters, history and publication.
 
 Cloud tests used test adapters, not your account. The updated 1620 x 1020 member-card export has been rendered using the original card font, visually inspected and QR-decoded. Its signature area is now smaller and its member details have more height and larger text. A fresh browser session was unavailable for the admin preview; image upload interaction and automatic reconnect were not rechecked in a fresh browser. Review a sample printed card and the deployed website after setup. Details are in SALU-TEST-RESULTS.json.
 

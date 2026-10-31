@@ -78,5 +78,10 @@
     "title": "Contact SALU Community | Student Guidance & Support",
     "desc": "Contact SALU Community for student guidance through its listed WhatsApp, phone, email and Facebook channels. Independent support for SALU students.",
     "canonical": "https://salucommunity.github.io/contact.html"
+  },
+  "jobs": {
+    "title": "Jobs Preparation | Mock Tests, Past Papers & PDFs | SALU Community",
+    "desc": "Prepare for job exams with SALU Community: category-wise mock tests, solved past papers, study material and downloadable PDFs.",
+    "canonical": "https://salucommunity.github.io/jobs-preparation.html"
   }
 }

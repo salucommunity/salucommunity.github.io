@@ -1,7 +1,7 @@
 {
   "name": "SALU Community",
   "short_name": "SALU Community",
-  "description": "Admissions, merit lists, fee structure, seats, past papers and free mock tests for Shah Abdul Latif University, Khairpur students.",
+  "description": "SALU admissions guidance, past papers, mock tests and category-wise jobs preparation material.",
   "id": "./",
   "start_url": "./?source=app",
   "scope": "./",
@@ -43,6 +43,10 @@
     {
       "name": "Announcements",
       "url": "./announcements.html"
+    },
+    {
+      "name": "Jobs Preparation",
+      "url": "./jobs-preparation.html"
     }
   ],
   "prefer_related_applications": false,

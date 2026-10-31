@@ -1,0 +1,37 @@
+{
+  "schema": "salu-test-bulk-v1",
+  "tests": [
+    {
+      "title": "Practice Set 1",
+      "category": "General practice",
+      "description": "A complete practice paper.",
+      "duration": 20,
+      "questions": [
+        {
+          "text": "Which planet is called the Red Planet?",
+          "options": [
+            "Earth",
+            "Mars",
+            "Venus",
+            "Jupiter"
+          ],
+          "subject": "General Knowledge",
+          "explanation": "Mars has a reddish surface.",
+          "answerIndex": 1
+        },
+        {
+          "text": "What is 8 × 7?",
+          "options": [
+            "48",
+            "54",
+            "56",
+            "64"
+          ],
+          "subject": "Mathematics",
+          "explanation": "Eight multiplied by seven is fifty-six.",
+          "answerIndex": 2
+        }
+      ]
+    }
+  ]
+}

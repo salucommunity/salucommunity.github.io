@@ -1,6 +1,11 @@
 {
   "status": "PASS",
-  "checks": 1308,
-  "pages": 16,
-  "questions": 555
+  "checks": 1460,
+  "pages": 17,
+  "internal_link_occurrences": 759,
+  "referenced_assets": 22,
+  "sitemap_urls": 17,
+  "past_papers": 12,
+  "past_paper_questions": 555,
+  "issues": []
 }
