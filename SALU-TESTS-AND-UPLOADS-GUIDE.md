@@ -1,3 +1,7 @@
+# Latest update
+
+Use **SALU-TEST-EXPERIENCE-GUIDE.md** first. Student PDF-download buttons have been removed from Jobs Preparation and Mock Tests. Result PDFs now save automatically for admin access; free/premium group links appear below results. The bulk-import and compression reference below remains useful. Older references to student PDF downloads describe the previous release.
+
 # SALU Community: bulk tests and smaller uploads
 
 Updated 31 October 2026.

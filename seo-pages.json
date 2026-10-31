@@ -55,8 +55,8 @@
     "canonical": "https://salucommunity.github.io/past-papers.html"
   },
   "mocktests": {
-    "title": "SALU Free Mock Tests & MCQ Practice | SALU Community",
-    "desc": "Practise SALU entry test MCQs with free mock tests, instant scoring and answer feedback. Find community registration information for live practice tests.",
+    "title": "Mock Tests | Online Practice & Results",
+    "desc": "Take category-wise online mock tests, review your result and continue preparing with free and premium study groups.",
     "canonical": "https://salucommunity.github.io/mock-tests.html"
   },
   "results": {
@@ -80,8 +80,8 @@
     "canonical": "https://salucommunity.github.io/contact.html"
   },
   "jobs": {
-    "title": "Jobs Preparation | Mock Tests, Past Papers & PDFs | SALU Community",
-    "desc": "Prepare for job exams with SALU Community: category-wise mock tests, solved past papers, study material and downloadable PDFs.",
+    "title": "Jobs Preparation | Online Practice Tests",
+    "desc": "Prepare for recruitment exams with category-wise practice tests, past-paper questions and study materials.",
     "canonical": "https://salucommunity.github.io/jobs-preparation.html"
   }
 }

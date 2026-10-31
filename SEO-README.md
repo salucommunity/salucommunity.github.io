@@ -2,7 +2,7 @@
 
 Prepared 31 October 2026 for https://salucommunity.github.io/.
 
-This is the matching public website for SALU-Community-Admin.html. For a new installation, extract this ZIP into the GitHub Pages publishing folder. For an existing working site, use the admin-only upgrade in SALU-JOBS-PREPARATION-GUIDE.md instead; this ZIP contains starter data.js and must not overwrite your current content. Upload the extracted files, not the ZIP. All runtime files stay at one level. Styling, visual images, application code and the question archive are embedded in each HTML page, avoiding dependence on an assets folder.
+This is the matching public website for SALU-Community-Admin.html. For a new installation, extract this ZIP into the GitHub Pages publishing folder. For an existing working site, use the admin-only upgrade in SALU-TEST-EXPERIENCE-GUIDE.md instead; this ZIP contains starter data.js and must not overwrite your current content. Upload the extracted files, not the ZIP. All runtime files stay at one level. Styling, visual images, application code and the question archive are embedded in each HTML page, avoiding dependence on an assets folder.
 
 The existing public design, colours, layout, features, photos and academic content are retained by default. Content markers and a renderer let the admin edit public text, links, images, metadata, landing cards and the archive. New card areas stay hidden until you add visible cards.
 
@@ -29,7 +29,7 @@ Existing notices, dates, fees, formulas and PDF links were retained from your fi
 
 ## Checks
 
-The release passed the 1,460-check SEO/asset audit and admin script syntax checks. The original 16-page content was retained and a separate Jobs Preparation page was added. Renderer tests cover text, cards, metadata, categories and archive edits. Earlier browser tests covered the original design/tools and upgraded admin workflows through test adapters.
+The release passed the 1,361-check SEO/asset audit and admin script syntax checks. The original 16-page content was retained and a separate Jobs Preparation page was added. Renderer tests cover text, cards, metadata, categories and archive edits. Earlier browser tests covered the original design/tools and upgraded admin workflows through test adapters.
 
 No fresh browser session was available after reconnect. Real-account cloud setup, live Pages deployment, physical-device installation, field performance and Google indexing remain to be checked after upload. See SALU-START-HERE.md and SALU-TEST-RESULTS.json in the complete package.
 
@@ -43,4 +43,4 @@ The root files salu-tests.js, salu-pdf.min.js and salu-test-licenses.txt belong 
 
 ## Jobs Preparation
 
-The new jobs-preparation.html page has category-wise mock tests, past papers, material downloads and branded question/solved PDF actions. Manage it in the new Jobs Preparation admin tab, including whole-paper imports and multiple file uploads with image/PDF optimisation. The starter Jobs category is empty until you add your material.
+Jobs Preparation and Mock Tests now have focused preparation pages, participant registration, one-question navigation and centrally saved results. Public PDF-download options are removed from those two pages; result PDFs are saved privately for the admin, with free/premium WhatsApp links shown below student results. Manage it in the new Jobs Preparation admin tab, including whole-paper imports and multiple file uploads with image/PDF optimisation. The starter Jobs category is empty until you add your material.

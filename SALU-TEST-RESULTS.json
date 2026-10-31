@@ -4,18 +4,18 @@
   "publicPages": 17,
   "qrCasesPrepared": 3,
   "network": "in-memory test adapters; no live GitHub writes",
-  "browser": "DOM, native canvas and deterministic API checks; no fresh browser or live-account deployment.",
+  "browser": "Deployed service health and protected admin boundary verified in a cloud browser. Full preparation flows tested through DOM/API adapters; no production student attempt or owner GitHub token used.",
   "qrRoundTrips": 6,
   "qrCoverage": "normal, Unicode and long fields, decoded at native size and card-export size",
   "seo": {
     "status": "PASS",
-    "checks": 1460,
+    "checks": 1361,
     "pages": 17,
     "questions": 555
   },
   "adminInlineScripts": {
     "status": "PASS",
-    "scripts": 18
+    "scripts": 20
   },
   "earlierInteractiveChecks": [
     "Card fields and date order",
@@ -27,9 +27,10 @@
     "Atomic public publication through a test adapter"
   ],
   "limits": [
-    "New features tested with local DOM/API adapters and actual encoders; no fresh live-browser or real-account deployment check.",
-    "Scanned question PDFs need OCR before question import.",
-    "Some source files are already compact; size reduction varies."
+    "The new admin and public pages must be installed/published on the existing GitHub Pages website.",
+    "Central test definitions are synchronised when the owner publishes or chooses Sync current tests.",
+    "Full test flows used local R2, DOM and GitHub adapters; no actual owner token or real student submissions were used.",
+    "Refresh/close warning wording and availability are controlled by the browser."
   ],
   "memberCardLayout": {
     "status": "PASS",
@@ -45,7 +46,45 @@
     "adminSyntax": "All 9 inline scripts passed",
     "browserPreview": "No fresh browser session available"
   },
-  "bulkTestsAndCompression": {
+  "publishingRegression": {
+    "status": "PASS",
+    "checks": 44
+  },
+  "earlierDefaultPublicStructure": {
+    "status": "PASS",
+    "pages": 16,
+    "comparison": "CMS wrappers, markers and hidden landing-card slots removed for baseline comparison"
+  },
+  "publicStructure": {
+    "status": "PASS",
+    "pages": 17,
+    "focusedPreparationPages": [
+      "jobs-preparation.html",
+      "mock-tests.html"
+    ],
+    "mainSitePagesRetained": 15,
+    "publicPreparationPdfDownloads": false,
+    "originalPaperArchive": {
+      "papers": 12,
+      "questions": 555
+    }
+  },
+  "offline": {
+    "status": "PASS",
+    "pages": 17,
+    "unrelatedCachesPreserved": true
+  },
+  "earlierJobsPreparation": {
+    "status": "PASS",
+    "checks": 66,
+    "publicPages": 17,
+    "bulkQuestionImport": 500,
+    "multiFileUpload": 3,
+    "network": "Deterministic GitHub adapters; no live publishing",
+    "browser": "DOM and native canvas tests; no browser available",
+    "jobsPage": "jobs-preparation.html"
+  },
+  "earlierBulkTestsAndCompression": {
     "status": "PASS",
     "checks": 54,
     "bulkQuestions": 500,
@@ -74,38 +113,42 @@
       "Arabic and Sindhi PDF lines use high-resolution text images to preserve correct joining and direction."
     ]
   },
-  "publishingRegression": {
+  "preparationExperience": {
     "status": "PASS",
-    "checks": 44
-  },
-  "earlierDefaultPublicStructure": {
-    "status": "PASS",
-    "pages": 16,
-    "comparison": "CMS wrappers, markers and hidden landing-card slots removed for baseline comparison"
-  },
-  "publicStructure": {
-    "status": "PASS",
-    "pages": 17,
-    "originalPaperArchive": {
-      "papers": 12,
-      "questions": 555
-    },
-    "existingHomepageCards": "Original order and colour positions retained",
-    "jobsStartup": "Complete public application and new Jobs runtime tested together"
-  },
-  "jobsPreparation": {
-    "status": "PASS",
-    "checks": 66,
+    "checks": 63,
     "publicPages": 17,
-    "bulkQuestionImport": 500,
-    "multiFileUpload": 3,
-    "network": "Deterministic GitHub adapters; no live publishing",
-    "browser": "DOM and native canvas tests; no browser available",
-    "jobsPage": "jobs-preparation.html"
+    "singleQuestionNavigation": true,
+    "optionalPhone": true,
+    "centralResultAndPdf": true,
+    "leaveConfirmation": true,
+    "separateWhatsAppGroups": true,
+    "recoveryAndRetry": true,
+    "network": "Local R2, GitHub, native canvas and DOM adapters; no real student records",
+    "browser": "No fresh browser session"
   },
-  "offline": {
+  "resultsService": {
     "status": "PASS",
-    "pages": 17,
-    "unrelatedCachesPreserved": true
+    "checks": 32,
+    "storage": "Private R2 records and PDFs; deterministic R2/GitHub adapters",
+    "serverGrading": true,
+    "automaticResultPdf": true,
+    "anonymousReadsBlocked": true,
+    "idempotentSubmission": true,
+    "deployment": {
+      "status": "succeeded",
+      "url": "https://salu-test-results.nimblebee34.chatgpt.site",
+      "projectId": "appgprj_6ae5b9ae1fb0819197fa4ac904ffb145",
+      "versionId": "appgprj_6ae5b9ae1fb0819197fa4ac904ffb145~appgver_3a87ab53d7748191a84ebbc2f7159a98",
+      "commit": "445dee0a4b8dedbc7c8b2eea519de233c6ca40ac",
+      "browserHealth": "Anonymous health returned ok=true and storage=true",
+      "browserAccessBoundary": "Anonymous admin results request rejected",
+      "productionData": "No real student records or test bank seeded"
+    }
+  },
+  "resultPdfVisualCheck": {
+    "status": "PASS",
+    "pages": 1,
+    "mixedEnglishUrdu": true,
+    "review": "Rendered actual generated PDF and inspected alignment, legibility, optional contact and footer"
   }
 }

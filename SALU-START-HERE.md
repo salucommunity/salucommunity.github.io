@@ -2,7 +2,7 @@
 
 Prepared 31 October 2026.
 
-This package contains the upgraded admin panel and its matching public website. The public website keeps its existing colours, layout, photos and tools. Styling, visual images and the main application remain embedded in each HTML page to avoid the missing-assets problem seen after upload.
+This package contains the upgraded admin panel and its matching public website. The main website keeps its existing colours, layout, photos and tools. Jobs Preparation and Mock Tests now use a focused preparation layout. Styling, visual images and the main application remain embedded in each HTML page to avoid the missing-assets problem seen after upload.
 
 ## Files
 
@@ -13,7 +13,7 @@ This package contains the upgraded admin panel and its matching public website. 
 
 ## Installation
 
-**Already using the working admin and website?** Start with **SALU-JOBS-PREPARATION-GUIDE.md**. This update adds a separate Jobs Preparation page, its admin tab, bulk question imports and preparation downloads. Back up your draft, replace the hosted admin HTML, load the latest website data and publish. The new admin creates the Jobs page and publishes its homepage/menu links and matching test/PDF tools automatically.
+**Already using the working admin and website?** Start with **SALU-TEST-EXPERIENCE-GUIDE.md**. This update adds participant registration, one-question navigation, central results and saved result PDFs, and admin-controlled free/premium WhatsApp groups. Back up your draft, replace the hosted admin HTML, load the latest website data and publish. The new admin synchronises the authoritative test bank and publishes the focused preparation portals automatically.
 
 1. Back up the current website repository.
 2. Extract SALU-Community-Managed-Website.zip.
@@ -67,7 +67,7 @@ This package is not connected to your real GitHub repositories. That one-time co
 
 Page-specific metadata, canonical links, structured data, crawlable content, robots.txt, the 16-page sitemap and your supplied Google verification files are retained. Search Console verification, sitemap submission and indexing requests still require your owner account. Google determines indexing and rankings.
 
-Completed checks: 1,460-check SEO/asset audit; admin script syntax; 17 public pages, including the new Jobs page; content/card/archive rendering; separation of private records; concurrent-update handling; six QR decode round trips with normal, Unicode and long details. Earlier interactive tests covered saving/reloading records, private-repository refusal, cloud sync through test adapters, history and publication.
+Completed checks: 1,361-check SEO/asset audit; admin script syntax; 17 public pages, including the new Jobs page; content/card/archive rendering; separation of private records; concurrent-update handling; six QR decode round trips with normal, Unicode and long details. Earlier interactive tests covered saving/reloading records, private-repository refusal, cloud sync through test adapters, history and publication.
 
 Cloud tests used test adapters, not your account. The updated 1620 x 1020 member-card export has been rendered using the original card font, visually inspected and QR-decoded. Its signature area is now smaller and its member details have more height and larger text. A fresh browser session was unavailable for the admin preview; image upload interaction and automatic reconnect were not rechecked in a fresh browser. Review a sample printed card and the deployed website after setup. Details are in SALU-TEST-RESULTS.json.
 
