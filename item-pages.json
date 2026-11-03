@@ -1,24 +1,6 @@
 {
-  "version": 1,
+  "version": 2,
   "pages": [
-    {
-      "file": "job-uep.html",
-      "type": "job",
-      "title": "Uep",
-      "url": "https://salucommunity.github.io/job-uep.html"
-    },
-    {
-      "file": "job-vacancies-available-at-head-office-education-experience-member-of.html",
-      "type": "job",
-      "title": "Vacancies available at: Head Office Education & Experience: Member of ACCA / ICMA with at least 03 years of relevant post-qualification experience. Or CA Finalist Or BS(16-years) / MBA / M.A or BS (Ac",
-      "url": "https://salucommunity.github.io/job-vacancies-available-at-head-office-education-experience-member-of.html"
-    },
-    {
-      "file": "job-field-trainee.html",
-      "type": "job",
-      "title": "Field Trainee",
-      "url": "https://salucommunity.github.io/job-field-trainee.html"
-    },
     {
       "file": "mock-test-community-practice.html",
       "type": "mock",
