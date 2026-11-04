@@ -178,16 +178,52 @@ body[data-open-test] .mock-filterbar,body[data-open-test] #mockCatalogue{display
 
 /* WhatsApp lives in a floating button, not in the header */
 .bar [data-link="wa"],.site-header [data-link="wa"],.hub-header [data-link="wa"],.top-actions [data-link="wa"],.hub-header .hub-wa{display:none!important}
-.sp-wa{position:fixed;right:18px;bottom:calc(22px + env(safe-area-inset-bottom,0px));z-index:180;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;color:#fff;text-decoration:none;
+.sp-wa{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:180;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;color:#fff;text-decoration:none;
  background:linear-gradient(145deg,#34d36b,#16a34a);border:2px solid rgba(255,255,255,.7);box-shadow:0 10px 28px rgba(22,163,74,.45),0 0 0 6px rgba(34,197,94,.16),inset 0 1px 0 rgba(255,255,255,.5);transition:transform .18s}
 .sp-wa svg{width:30px;height:30px}
 .sp-wa:hover{transform:translateY(-3px) scale(1.05)}
 .sp-wa:focus-visible{outline:3px solid #86efac;outline-offset:3px}
-@media(max-width:640px){.sp-wa{right:14px;bottom:calc(86px + env(safe-area-inset-bottom,0px));width:54px;height:54px}}
+@media(max-width:640px){.sp-wa{right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));width:52px;height:52px;z-index:300}}
 @media(max-width:480px){.bar{gap:6px;padding:8px 8px 8px 10px}.brand{font-size:16px;min-width:0;gap:7px}.mark{width:42px!important;height:42px!important}.ib{width:40px;height:40px}.menubtn{padding:10px 14px!important;flex-shrink:0;min-width:0}}
 
-/* Secure test mode: while a test is running only the header and the questions are shown */
-body.sp-secure .ticker,body.sp-secure .crumb-nav,body.sp-secure .jp-test-hero,body.sp-secure .mock-filterbar,body.sp-secure .mock-related,body.sp-secure .sp-wa,body.sp-secure .pwa-bar,body.sp-secure #saluSitePopup,body.sp-secure .sp-pop,body.sp-secure footer,body.sp-secure .footer,body.sp-secure .hub-tabs,body.sp-secure .gsearch,body.sp-secure #saluJobsShortcut,body.sp-secure .top-nav,body.sp-secure .menubtn,body.sp-secure #panel,body.sp-secure .hdr-sbtn{display:none!important}
+/* Secure test mode: full screen, only the header and the question card */
+body.sp-secure .ticker,body.sp-secure .crumb-nav,body.sp-secure .jp-test-hero,body.sp-secure .mock-filterbar,body.sp-secure .mock-related,body.sp-secure .sp-wa,body.sp-secure .pwa-bar,body.sp-secure #saluSitePopup,body.sp-secure .sp-pop,body.sp-secure footer,body.sp-secure .footer,body.sp-secure .hub-tabs,body.sp-secure .gsearch,body.sp-secure #saluJobsShortcut,body.sp-secure .top-nav,body.sp-secure .menubtn,body.sp-secure #panel,body.sp-secure .hdr-sbtn,body.sp-secure #hubSearchToggle,body.sp-secure #hubMenuToggle,body.sp-secure .mock-detail>.pill,body.sp-secure .mock-detail>h2,body.sp-secure .mock-detail>.sub,body.sp-secure .mock-detail>.mock-meta,body.sp-secure #mockResult,body.sp-secure #quizGroups,body.sp-secure #mockCatalogue{display:none!important}
+html:has(body.sp-secure),body.sp-secure{overflow:hidden!important;height:100dvh}
+body.sp-secure #v-mocktests{position:fixed;left:0;right:0;bottom:0;top:var(--sp-hh,90px);margin:0;padding:6px 10px calc(10px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;max-width:none}
+body.sp-secure #saluMockLibrary{flex:1;min-height:0;display:flex;flex-direction:column;width:100%;max-width:780px;margin:0 auto}
+body.sp-secure #mockActive{flex:1;min-height:0;display:flex}
+body.sp-secure .mock-detail{flex:1;min-height:0;width:100%;margin:0;padding:12px 14px;display:flex;flex-direction:column;overflow:hidden;border-radius:26px}
+body.sp-secure #mockAttempt{order:1;flex:1;min-height:0;display:flex;flex-direction:column;gap:8px}
+body.sp-secure #quizStatus{order:2;margin:8px 0 0;text-align:center;font-weight:800;color:var(--blue-700)}
+body.sp-secure #quizStatus:empty{display:none}
+body.sp-secure .mock-attempt-bar{margin:0;padding:10px 14px;border-radius:16px;font-size:15px}
+body.sp-secure .quiz-question-index{margin:0;font-size:13px}
+body.sp-secure #quizQuestionSlot{flex:1;min-height:0;overflow:auto;-webkit-overflow-scrolling:touch}
+body.sp-secure .quiz-question{margin:0;padding:0;border:0;min-width:0}
+body.sp-secure .quiz-question legend{font-size:clamp(15px,2.3vh + 7px,19px);line-height:1.4;padding:0 0 8px;font-weight:800}
+body.sp-secure .quiz-question .opt{margin:6px 0;padding:9px 12px;font-size:clamp(14px,1.9vh + 6px,16px);line-height:1.35;border-radius:14px}
+body.sp-secure .quiz-nav{margin:0;display:flex;gap:10px;flex:none}
+body.sp-secure .quiz-nav .btn{flex:1;padding:12px 10px}
+body.sp-secure #quizSaveError{flex:none}
+.sp-papers{display:grid;gap:14px;margin:6px 0 22px}
+.sp-paper{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;align-items:center;padding:16px 18px;border-radius:24px;background:linear-gradient(155deg,rgba(255,255,255,.82),rgba(240,244,255,.55));border:1px solid rgba(255,255,255,.8);box-shadow:0 10px 30px rgba(26,52,176,.1),inset 0 1px 0 #fff}
+.sp-paper-year{font:800 26px/1 var(--font-head,inherit);color:#fff;background:var(--sp-grad,linear-gradient(135deg,#2447e0,#6d4cff));border-radius:18px;padding:16px 14px;min-width:84px;text-align:center;box-shadow:0 8px 20px rgba(36,71,224,.3)}
+.sp-paper-body h3{margin:0 0 4px;font-size:17px;line-height:1.3;color:var(--blue-900,#0f1f5c)}
+.sp-paper-body p{margin:0 0 4px;font-size:13.5px;color:var(--mute,#4a5a85)}
+.sp-paper-body small{font-size:12.5px;color:var(--mute,#4a5a85);font-weight:700}
+.sp-paper-actions{grid-column:1/-1;display:flex;gap:10px}
+.sp-paper-actions .btn{flex:1;text-align:center;justify-content:center}
+@media(min-width:760px){.sp-paper{grid-template-columns:auto 1fr auto}.sp-paper-actions{grid-column:auto;flex-direction:column;min-width:150px}}
+body[data-active-page="papers"] #paperList,body[data-active-page="papers"] #interactivePaperPortal{display:none!important}
+.quiz-result-pdf{margin:12px 0}
 .jp-actions .btn{margin:0 8px 8px 0}
 
 @media(max-width:480px){.hub-brand{font-size:19px!important;gap:8px!important;min-width:0}.hub-brand img{width:42px!important;height:42px!important}.hub-header-inner{gap:8px}}
+@media(max-width:640px){.pwa-bar{left:12px!important;right:76px!important;transform:none!important;width:auto!important;max-width:none!important}}
+.mock-attempt-bar{position:static!important;top:auto!important}
+body.sp-secure .mock-detail{padding:10px 12px}
+body.sp-secure .quiz-question legend{font-size:clamp(14.5px,2vh + 6px,17.5px);line-height:1.38;padding:0 0 6px}
+body.sp-secure .quiz-question legend .pill{display:inline-block;margin:0 8px 6px 0;font-size:10.5px;padding:3px 10px}
+body.sp-secure .quiz-question .opt{margin:5px 0;padding:8px 11px;font-size:clamp(13.5px,1.7vh + 5px,15.5px);line-height:1.3}
+body.sp-secure .mock-attempt-bar{padding:8px 12px;font-size:14px}
+#mockResult{scroll-margin-top:96px}

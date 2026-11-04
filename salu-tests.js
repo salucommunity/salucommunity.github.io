@@ -302,6 +302,19 @@ window.SALU_HUB_NAV=[{"id":"admissions","title":"Admissions","url":"admissions.h
   try{ed.mockBank=T.bank(bank,Array.isArray(copy.QS)?copy.QS:[]);}catch{return state;}
   return copy;
  }
+
+ /* ---------- Past Papers page: one card per year, newest first, with only Start Test and Download ---------- */
+ function papersPage(doc){
+  if(!doc.body||doc.body.dataset.activePage!=='papers')return;
+  const data=doc.getElementById('salu-papers-data');if(!data)return;
+  let list=[];try{const m=/window\.SALU_PAPERS\s*=\s*([\s\S]*?);?\s*$/.exec(data.textContent||'');const v=m&&JSON.parse(m[1]);if(Array.isArray(v))list=v.filter(p=>p&&p.id);}catch{}if(!list.length)return;
+  list.sort((a,b)=>(Number(b.y)||0)-(Number(a.y)||0));
+  const old=doc.getElementById('spPapers');if(old)old.remove();
+  const host=doc.getElementById('paperList');if(!host)return;
+  const cards=list.map(p=>{const page='past-paper-'+String(p.id).replace(/[^a-z0-9-]/gi,'-').toLowerCase()+'.html',n=Array.isArray(p.q)?p.q.length:0,meta=[n?n+' questions':'',Number(p.m)?Number(p.m)+' minutes':'',p.d?plain(p.d):''].filter(Boolean).join(' · ');
+   return `<article class="sp-paper"><div class="sp-paper-year">${E(p.y)}</div><div class="sp-paper-body"><h3>${E(plain(p.t)||('SALU Past Paper '+p.y))}</h3>${p.s?`<p>${E(plain(p.s))}</p>`:''}<small>${E(meta)}</small></div><div class="sp-paper-actions"><a class="btn" href="${E(page)}">Start Test</a>${p.pdf?`<a class="btn alt" href="${E(p.pdf)}" target="_blank" rel="noopener noreferrer">Download</a>`:''}</div></article>`;}).join('');
+  const box=doc.createElement('div');box.id='spPapers';box.className='sp-papers';box.innerHTML=cards;host.parentNode.insertBefore(box,host);
+ }
  /* ---------- static per-test pages (mock tests) ---------- */
  const cut=(s,n)=>{s=String(s||'').replace(/\s+/g,' ').trim();return s.length>n?s.slice(0,n-1).trimEnd()+'…':s;};
  function prepareDoc(html,o){
@@ -321,7 +334,7 @@ window.SALU_HUB_NAV=[{"id":"admissions","title":"Admissions","url":"admissions.h
  const crumbHTML=trail=>`<nav class="crumb-nav jp-crumb" aria-label="Breadcrumb">${trail.map((c,i)=>i===trail.length-1?`<span class="crumb-cur" aria-current="page">${E(c[0])}</span>`:`<a href="${E(c[1])}">${E(c[0])}</a><span class="crumb-sep" aria-hidden="true">›</span>`).join('')}</nav>`;
  function testMain(t,bank,url){const cat=bank.categories.find(x=>x.id===t.categoryId),paper=t.kind==='past-paper',key=String(t.id).replace(/^paper-/,'');
   const pdf=t.pdfUrl?`<a class="btn" href="${E(t.pdfUrl)}" target="_blank" rel="noopener noreferrer">Download PDF</a> `:'';
-  const links=paper?`${pdf}<a class="btn alt" href="past-papers.html#${E(key)}">Solved answer key</a> <a class="btn alt" href="past-papers.html">← All past papers</a>`:`<a class="btn alt" href="mock-tests.html">← All mock tests</a>`;
+  const links=paper?`${pdf}<a class="btn alt" href="past-papers.html">← All past papers</a>`:`<a class="btn alt" href="mock-tests.html">← All mock tests</a>`;
   return `<section id="v-mocktests" class="view on">${crumbHTML([['Home','./'],paper?['Past Papers','past-papers.html']:['Mock Tests','mock-tests.html'],[t.title,url]])}<div class="quiz-hero jp-test-hero"><span class="pill">${E((cat&&cat.title)||'Practice test').toUpperCase()}</span><h1>${E(t.title)}</h1>${t.description?`<p class="sub">${E(t.description)}</p>`:''}<ul class="jp-chips-static"><li>${t.questions.length} questions</li><li>${t.duration?t.duration+' minutes':'Untimed practice'}</li><li>${paper?'Past paper':'Mock test'}</li><li>Instant score &amp; answer review</li></ul><p class="jp-actions">${links}</p></div><div id="saluMockLibrary">${T.staticHTML(bank,'main')}</div></section>`;}
  /* Returns every separate mock-test page: [{path,type,title,url,html}]. */
  function build(state,rendered,baseUrl){
@@ -333,7 +346,7 @@ window.SALU_HUB_NAV=[{"id":"admissions","title":"Admissions","url":"admissions.h
   return pages;
  }
  function headerSearch(page,value,event){if(page!=='mockitem')return false;if(event&&event.key!=='Enter')return false;if(event)event.preventDefault();const q=String(value||'').trim();location.href='mock-tests.html'+(q?'?q='+encodeURIComponent(q):'');return true;}
- const before=T.prepareDocument;T.prepareDocument=function(doc,state){before(doc,state);retire(doc);premium(doc);};
+ const before=T.prepareDocument;T.prepareDocument=function(doc,state){before(doc,state);retire(doc);premium(doc);papersPage(doc);};
  g.SaluPages={withPapers,parsePapers,VERSION,PREFIX,RETIRED,file,fileSlug,testFile,retire,premium,build,headerSearch,mountJobs(){},mountDetail(){},setQuery(){}};
 })(typeof window!=='undefined'?window:globalThis);
 
@@ -375,23 +388,23 @@ window.SALU_HUB_NAV=[{"id":"admissions","title":"Admissions","url":"admissions.h
    $('quizPrevious').addEventListener('click',()=>navigate(-1));$('quizNext').addEventListener('click',()=>navigate(1));$('quizSubmit').addEventListener('click',()=>finish(false));
    renderQuestion();clearInterval(tick);if(!finished&&attempt.endsAt&&!pendingSubmission){updateTimer();tick=setInterval(updateTimer,1000);}else updateTimer();
   }
-  function renderQuestion(){document.body.classList.toggle('sp-secure',!finished);const q=current.questions[index],review=finished?result.review?.[index]:null,locked=finished||saving||!!pendingSubmission,selected=answers[index];
+  function renderQuestion(){document.body.classList.toggle('sp-secure',!finished);if(window.spFit)window.spFit();const q=current.questions[index],review=finished?result.review?.[index]:null,locked=finished||saving||!!pendingSubmission,selected=answers[index];
    $('quizQuestionIndex').textContent='Question '+(index+1)+' of '+current.questions.length;$('quizAnsweredCount').textContent=answers.filter(Number.isInteger).length+' answered';$('mockProgress').textContent=answers.filter(Number.isInteger).length+' / '+answers.length+' answered';$('quizProgressBar').style.width=((index+1)/current.questions.length*100)+'%';
    $('quizQuestionSlot').innerHTML=`<fieldset class="q mock-question quiz-question"${q.rtl?' dir="rtl"':''}><legend><span class="pill">${E(q.subject||'General')}</span><span>${index+1}. ${E(q.text)}</span></legend>${q.options.map((option,i)=>`<label class="opt${selected===i?' sel':''}${review&&review.answer===i?' ok':''}${review&&selected===i&&i!==review.answer?' no':''}"><input type="radio" name="quizAnswer" value="${i}" ${selected===i?'checked':''} ${locked?'disabled':''}><span><b>${String.fromCharCode(65+i)}.</b> ${E(option)}</span></label>`).join('')}${review?`<div class="quiz-review-status${selected!==review.answer?' wrong':''}"><b>Correct answer: ${String.fromCharCode(65+review.answer)}.</b> ${E(review.options[review.answer])}${review.explanation?'<p>'+E(review.explanation)+'</p>':''}</div>`:''}</fieldset>`;
    $('quizQuestionSlot').querySelectorAll('input').forEach(r=>r.addEventListener('change',()=>{if(locked)return;answers[index]=Number(r.value);persist();renderQuestion();}));
    $('quizPrevious').disabled=index===0||saving;$('quizNext').hidden=index===current.questions.length-1;$('quizNext').disabled=saving;$('quizSubmit').hidden=finished||index!==current.questions.length-1;$('quizSubmit').disabled=saving||!!pendingSubmission;
   }
-  function navigate(step){if(!current||saving)return;const next=index+step;if(next<0||next>=current.questions.length)return;index=next;persist();renderQuestion();$('quizQuestionSlot').scrollIntoView?.({behavior:'smooth',block:'start'});}
+  function navigate(step){if(!current||saving)return;const next=index+step;if(next<0||next>=current.questions.length)return;index=next;persist();renderQuestion();{const sl=$('quizQuestionSlot');if(sl)sl.scrollTop=0;}}
   function updateTimer(){if(!$('mockTimer'))return;if(finished){$('mockTimer').textContent='Test complete';return;}if(!attempt.endsAt){$('mockTimer').textContent='Untimed practice';return;}const n=Math.max(0,Math.ceil((Date.parse(attempt.endsAt)-Date.now())/1000));$('mockTimer').textContent='Time left: '+Math.floor(n/60)+':'+String(n%60).padStart(2,'0');if(!n&&!saving&&!pendingSubmission)finish(true);}
   async function finish(expired=false){
    if(!attempt||finished||saving)return;if(!pendingSubmission&&!expired){const unanswered=answers.filter(x=>!Number.isInteger(x)).length;if(unanswered&&!confirm(unanswered+' question(s) are unanswered. Submit your test now?'))return;}
-   if(!pendingSubmission)pendingSubmission={answers:answers.slice()};persist();saving=true;clearInterval(tick);status('Submitting and saving your result…');renderQuestion();$('quizSaveError').innerHTML='';
+   if(!pendingSubmission)pendingSubmission={answers:answers.slice()};persist();saving=true;clearInterval(tick);status('Please wait, your test is being submitted…');renderQuestion();$('quizSaveError').innerHTML='';
    try{const data=await request('/api/attempts/'+attempt.id+'/submit',{method:'POST',headers:{authorization:'Bearer '+attempt.token},body:JSON.stringify(pendingSubmission)});if(!data.result?.score)throw new Error('The result was not confirmed. Please retry.');displayResult(data.result);}
    catch(err){saving=false;status('Your result has not been confirmed yet.',true);$('quizSaveError').innerHTML=`<div class="quiz-save-error"><p>${E(err.message)}</p><button class="btn" type="button" id="quizRetrySave">Retry saving result</button></div>`;$('quizRetrySave').addEventListener('click',()=>finish(true));renderQuestion();}
   }
   function displayResult(saved){result=saved;finished=true;started=false;saving=false;starting=false;pendingSubmission=null;answers=saved.review.map(q=>q.selectedAnswer);current.questions=saved.review;clearSaved();disarm();renderQuestion();updateTimer();status('Your result and result PDF have been saved for the administrator.');
-   const score=saved.score;$('mockResult').innerHTML=`<section class="quiz-result"><span class="pill">${saved.timedOut?'TIME LIMIT REACHED':'TEST SUBMITTED'}</span><h2>Your result</h2><p class="quiz-result-person"><b>${E(saved.participant.name)}</b> · ${E(saved.participant.city)}</p><div class="quiz-score">${E(score.percentage)}%</div><p><b>${E(score.correct)} / ${E(score.total)}</b> correct answers</p><dl><div><dt>Correct</dt><dd>${E(score.correct)}</dd></div><div><dt>Incorrect</dt><dd>${E(score.answered-score.correct)}</dd></div><div><dt>Unanswered</dt><dd>${E(score.unanswered)}</dd></div></dl><p class="quiz-status">Reference: ${E(saved.id)}</p><p class="quiz-status">Use Previous and Next above to review your answers.</p><button class="btn alt" type="button" id="quizReturn">Return to tests</button></section>`;
-   $('quizGroups').innerHTML=Q.groupsHTML(e,area);$('quizReturn').addEventListener('click',()=>{current=null;attempt=null;finished=false;$('mockActive').hidden=true;$('mockCatalogue').hidden=false;host.querySelector('.mock-filterbar').hidden=false;history.replaceState(null,'',location.pathname+location.search);});$('mockResult').scrollIntoView?.({behavior:'smooth',block:'start'});
+   const score=saved.score;$('mockResult').innerHTML=`<section class="quiz-result"><span class="pill">${saved.timedOut?'TIME LIMIT REACHED':'TEST SUBMITTED'}</span><h2>Your result</h2><p class="quiz-result-person"><b>${E(saved.participant.name)}</b> · ${E(saved.participant.city)}</p><div class="quiz-score">${E(score.percentage)}%</div><p><b>${E(score.correct)} / ${E(score.total)}</b> correct answers</p><dl><div><dt>Correct</dt><dd>${E(score.correct)}</dd></div><div><dt>Incorrect</dt><dd>${E(score.answered-score.correct)}</dd></div><div><dt>Unanswered</dt><dd>${E(score.unanswered)}</dd></div></dl><p class="quiz-status">Reference: ${E(saved.id)}</p><p class="quiz-status">Use Previous and Next above to review your answers.</p>${current.pdfUrl?`<p class="quiz-result-pdf"><a class="btn" href="${E(current.pdfUrl)}" target="_blank" rel="noopener noreferrer">Download question paper PDF</a></p>`:''}<button class="btn alt" type="button" id="quizReturn">Return to tests</button></section>`;
+   $('quizGroups').innerHTML=Q.groupsHTML(e,area);$('quizReturn').addEventListener('click',()=>{current=null;attempt=null;finished=false;$('mockActive').hidden=true;$('mockCatalogue').hidden=false;host.querySelector('.mock-filterbar').hidden=false;history.replaceState(null,'',location.pathname+location.search);});setTimeout(()=>{const r=$('mockResult');if(r){const y=r.getBoundingClientRect().top+window.scrollY-100;window.scrollTo({top:Math.max(0,y),behavior:'auto'});}},80);
   }
   async function restore(){let saved;try{saved=JSON.parse(sessionStorage.getItem(storageKey)||'null');}catch{return;}if(!saved?.attempt?.id||!saved.attempt.token)return;
    try{const remote=await request('/api/attempts/'+saved.attempt.id,{headers:{authorization:'Bearer '+saved.attempt.token}});const meta=tests.find(t=>t.id===remote.session.testId);if(!meta){clearSaved();return;}show(meta.id);attempt={...remote.session,token:saved.attempt.token};current.questions=attempt.questions;current.title=attempt.testTitle;current.duration=attempt.duration;answers=Array.from({length:current.questions.length},(_,i)=>Number.isInteger(saved.answers?.[i])?saved.answers[i]:null);index=Math.min(current.questions.length-1,Math.max(0,Number(saved.index)||0));pendingSubmission=saved.pendingSubmission||null;started=true;renderAttempt();if(remote.result)displayResult(remote.result);else{arm();if(pendingSubmission)finish(true);}}

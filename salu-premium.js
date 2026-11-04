@@ -61,6 +61,10 @@
   a.innerHTML='<svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg><span>Department Representative</span>';
   box.appendChild(a);
  }
+
+ /* ---- secure test mode: size the full-screen test area under the header ---- */
+ window.spFit=function(){var h=document.querySelector('.hub-header,.site-header,header');var b=h?Math.round(h.getBoundingClientRect().bottom):80;document.documentElement.style.setProperty('--sp-hh',Math.max(60,b+6)+'px');};
+ window.addEventListener('resize',function(){if(document.body.classList.contains('sp-secure'))window.spFit();});
  /* ---- remove the retired Jobs Hub widget from cached pages ---- */
  function cleanup(){var j=document.getElementById('saluJobsShortcut');if(j)j.remove();}
  function init(){
