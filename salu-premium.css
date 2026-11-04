@@ -175,3 +175,13 @@ body[data-open-test] .mock-filterbar,body[data-open-test] #mockCatalogue{display
 @media(prefers-reduced-motion:reduce){
  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
 }
+
+/* WhatsApp lives in a floating button, not in the header */
+.bar [data-link="wa"],.site-header [data-link="wa"],.hub-header [data-link="wa"],.top-actions [data-link="wa"]{display:none!important}
+.sp-wa{position:fixed;right:18px;bottom:calc(22px + env(safe-area-inset-bottom,0px));z-index:180;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;color:#fff;text-decoration:none;
+ background:linear-gradient(145deg,#34d36b,#16a34a);border:2px solid rgba(255,255,255,.7);box-shadow:0 10px 28px rgba(22,163,74,.45),0 0 0 6px rgba(34,197,94,.16),inset 0 1px 0 rgba(255,255,255,.5);transition:transform .18s}
+.sp-wa svg{width:30px;height:30px}
+.sp-wa:hover{transform:translateY(-3px) scale(1.05)}
+.sp-wa:focus-visible{outline:3px solid #86efac;outline-offset:3px}
+@media(max-width:640px){.sp-wa{right:14px;bottom:calc(86px + env(safe-area-inset-bottom,0px));width:54px;height:54px}}
+@media(max-width:480px){.bar{gap:6px;padding:8px 8px 8px 10px}.brand{font-size:16px;min-width:0;gap:7px}.mark{width:42px!important;height:42px!important}.ib{width:40px;height:40px}.menubtn{padding:10px 14px!important;flex-shrink:0;min-width:0}}
