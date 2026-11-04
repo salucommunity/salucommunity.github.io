@@ -246,7 +246,7 @@ window.SALU_HUB_NAV=[{"id":"admissions","title":"Admissions","url":"admissions.h
 
 /* Separate pages for every mock test, retirement of the Jobs Hub, and the shared premium theme injection. */
 (function(g){
- 'use strict';const T=g.SaluTests,H=g.SaluHub,E=T.esc,VERSION=2;
+ 'use strict';const T=g.SaluTests,H=g.SaluHub,E=T.esc,VERSION=3;
  const PREFIX={mock:'mock-test-',prep:'preparation-',study:'study-',job:'job-'};
  const fileSlug=id=>{const s=T.slug(id);return s===String(id)?s:s+'-'+T.hash(String(id)).slice(0,4);};
  const file=(kind,id)=>PREFIX[kind]+fileSlug(id)+'.html';
