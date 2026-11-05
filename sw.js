@@ -1,5 +1,5 @@
 /* SALU Community: network-first HTML pages with embedded styling, images and application code. */
-const CACHE = "salu-community-cms-b9a821189f0e";
+const CACHE = "salu-community-cms-1805aadbf25e";
 const CORE = ["./","about.html","admissions.html","aggregate-calculator.html","announcements.html","contact.html","department-seats.html","departments.html","entry-test-preparation.html","faqs.html","fee-structure.html","index.html","merit-list.html","mock-tests.html","past-papers.html","results.html","scholarships.html","data.js","pwa.js","manifest.webmanifest","icon-192.png","icon-512.png","apple-touch-icon.png","salu-pdf.min.js","salu-tests.js","salu-test-licenses.txt","department-representative.html","salu-member-photos.js","salu-home-install.js","salu-premium.css","salu-premium.js","salu-team.js","our-team.html"];
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE).then(cache => Promise.allSettled(CORE.map(url => cache.add(url)))).then(() => self.skipWaiting()));

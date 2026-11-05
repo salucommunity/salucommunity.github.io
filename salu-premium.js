@@ -52,6 +52,8 @@
    var members=Array.isArray(t.members)?t.members:[],n=members.length||Number(t.count)||0;
    var bg=box.querySelector('.sp-team-bg');
    if(members.length){var rows=members.slice(0,40).map(function(m){return '<span>'+esc(m.n)+(m.d?' · '+esc(m.d):'')+'</span>';}).join('');bg.innerHTML='<div class="sp-team-roll">'+rows+rows+'</div>';}
+   var card=box.querySelector('.sp-stat-team'),hideT=null;
+   card.addEventListener('click',function(ev){ev.preventDefault();card.classList.add('show');clearTimeout(hideT);hideT=setTimeout(function(){card.classList.remove('show');},2600);});
    var seen=false;
    function go(){if(seen)return;seen=true;countUp(document.getElementById('spTeamNum'),n,1600);
     countUp(document.getElementById('spVisNum'),VISITORS,2400,function(){var el=document.getElementById('spVisNum'),v=VISITORS;(function tick(){setTimeout(function(){if(!document.hidden){v++;el.textContent=v.toLocaleString('en-US');}tick();},3500+Math.random()*4500);})();});}
@@ -104,6 +106,7 @@
   var a=document.createElement('a');a.href='department-representative.html';
   a.innerHTML='<svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg><span>Department Representative</span>';
   box.appendChild(a);
+  if(!panel.querySelector('a[href="our-team.html"]')){var t=document.createElement('a');t.href='our-team.html';t.innerHTML=a.innerHTML.replace('Department Representative','Our Team');box.appendChild(t);}
  }
 
  /* ---- secure test mode: size the full-screen test area under the header ---- */
