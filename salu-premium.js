@@ -46,7 +46,7 @@
   var browse=document.querySelector('.browse');if(!browse)return;
   var box=document.createElement('section');box.id='spStats';box.className='sp-stats';box.setAttribute('aria-label','SALU Community in numbers');
   box.innerHTML='<a class="sp-stat sp-stat-team" href="our-team.html" aria-label="Our team. Click to view our team"><div class="sp-team-bg" aria-hidden="true"></div><div class="sp-stat-in"><b class="sp-num" id="spTeamNum">0</b><span class="sp-lab">Our Team</span><span class="sp-more">Click to view our team <i aria-hidden="true">›</i></span></div></a>'
-   +'<div class="sp-stat sp-stat-vis"><div class="sp-stat-in"><b class="sp-num" id="spVisNum">0</b><span class="sp-lab">Monthly Visitors</span><span class="sp-live"><i></i>Live</span></div></div>';
+   +'<div class="sp-stat sp-stat-vis"><div class="sp-stat-in"><b class="sp-num" id="spVisNum">0</b><span class="sp-lab">Total Viewers</span><span class="sp-live"><i></i>Live</span></div></div>';
   var sec=document.querySelector('h2.sec'),anchor=(sec&&sec.nextElementSibling===browse)?sec:browse;anchor.parentNode.insertBefore(box,anchor);
   loadTeam(function(t){
    var members=Array.isArray(t.members)?t.members:[],n=members.length||Number(t.count)||0;
@@ -114,11 +114,12 @@
 
  /* ---- Aggregate calculator: Main / 1st / 2nd / 3rd department choice with expected admission chance ---- */
  var CALC_DEPTS=[["BS Archaeology", 49.99], ["BS Biochemistry", 54.66], ["BS Botany", 57.55], ["BBA", 57.02], ["BS Accounting & Finance", 55.99], ["BS Chemistry", 58.46], ["BS Computer Science", 62.69], ["BS Information Technology", 60.23], ["BS Software Engineering", 57.62], ["BS Economics", 48.02], ["BS English Language & Literature", 60.34], ["BS Geography", 48.02], ["BS Banking & Finance", 47.48], ["BS Commerce", 50.51], ["BS International Relations", 48.13], ["BS Peace & Conflict Studies", 53.86], ["BS Islamic Studies", 51.21], ["BS Mathematics", 51.74], ["BS Media & Communication Studies", 48.56], ["BS Microbiology", 56.06], ["BS Pakistan Studies", 56.21], ["Pharm D", 64.05], ["BS Physics", 54.39], ["BS Political Science", 43.54], ["BS Public Administration", 46.22], ["BS Sindhi", 52.19], ["BS Sociology", 48.67], ["BS Special Education", 47.82], ["BS Statistics", 54.0], ["BA-LLB", 57.27], ["B.Ed (Hons) Elementary", 56.11], ["BS Urdu", 51.13], ["BS Zoology", 60.1]];
- var CALC_LABELS=['Main choice','1st choice','2nd choice','3rd choice'];
+ var CALC_LABELS=['1st choice (Main choice)','2nd choice','3rd choice','4th choice'];
  function chanceOf(agg,close){var z=(agg-close+0.8)/1.7,p=100/(1+Math.exp(-z));return Math.max(1,Math.min(99,Math.round(p)));}
  function chanceLevel(p){return p>=85?['Very high','vh']:p>=65?['High','h']:p>=40?['Moderate','m']:p>=15?['Low','l']:['Very low','vl'];}
  function calcChoices(){
   if(document.body.dataset.activePage!=='calculator'||document.getElementById('spChoices'))return;
+  var usat=document.querySelector('#modeSeg button[data-m="usat"]');if(usat)usat.remove();
   var btn=document.getElementById('calcBtn'),seg=document.getElementById('modeSeg'),out=document.getElementById('calcOut');if(!btn||!out||!btn.parentNode)return;
   var opts='<option value="">Select department</option>'+CALC_DEPTS.map(function(d,i){return '<option value="'+i+'">'+esc(d[0])+'</option>';}).join('');
   var box=document.createElement('div');box.id='spChoices';box.className='sp-choices';
@@ -145,7 +146,7 @@
    if(!rows.length)return;
    var wrap=document.createElement('div');wrap.id='spChanceOut';wrap.className='sp-chance';
    wrap.innerHTML='<h3 class="sp-ch-title">Your chances by department</h3>'+rows.join('')
-    +'<p class="sp-ch-note"><b>Disclaimer:</b> This is the closing percentage of batch 2026 and is only an expected percentage. It will change depending on the difficulty of the entry test and is not a guarantee of admission.</p>';
+    +'<details class="sp-ch-all"><summary>View closing percentages of all departments (Batch 2026)</summary><ul>'+CALC_DEPTS.slice().sort(function(a,b){return b[1]-a[1];}).map(function(d){return '<li><span>'+esc(d[0])+'</span><b>'+d[1].toFixed(2)+'%</b></li>';}).join('')+'</ul></details>'+'<p class="sp-ch-note"><b>Disclaimer:</b> This is the closing percentage of batch 2026 and is only an expected percentage. It will change depending on the difficulty of the entry test and is not a guarantee of admission.</p>';
    out.appendChild(wrap);
   },0);});
  }
