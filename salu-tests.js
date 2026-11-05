@@ -336,6 +336,14 @@ window.SALU_HUB_NAV=[{"id":"admissions","title":"Admissions","url":"admissions.h
   const pdf=t.pdfUrl?`<a class="btn" href="${E(t.pdfUrl)}" target="_blank" rel="noopener noreferrer">Download PDF</a> `:'';
   const links=paper?`${pdf}<a class="btn alt" href="past-papers.html">← All past papers</a>`:`<a class="btn alt" href="mock-tests.html">← All mock tests</a>`;
   return `<section id="v-mocktests" class="view on">${crumbHTML([['Home','./'],paper?['Past Papers','past-papers.html']:['Mock Tests','mock-tests.html'],[t.title,url]])}<div class="quiz-hero jp-test-hero"><span class="pill">${E((cat&&cat.title)||'Practice test').toUpperCase()}</span><h1>${E(t.title)}</h1>${t.description?`<p class="sub">${E(t.description)}</p>`:''}<ul class="jp-chips-static"><li>${t.questions.length} questions</li><li>${t.duration?t.duration+' minutes':'Untimed practice'}</li><li>${paper?'Past paper':'Mock test'}</li><li>Instant score &amp; answer review</li></ul><p class="jp-actions">${links}</p></div><div id="saluMockLibrary">${T.staticHTML(bank,'main')}</div></section>`;}
+
+ /* ---------- public team page (list is read from salu-team.js in the browser) ---------- */
+ function teamPage(rendered,base){
+  if(!rendered.mock)return null;
+  const path='our-team.html',url=base+path,title='Our Team | SALU Community',desc='Meet the SALU Community team: department representatives and volunteers helping SALU students with admissions, merit lists and test preparation.';
+  const main=`<section id="v-team" class="view on">${crumbHTML([['Home','./'],['Our Team',url]])}<div class="quiz-hero jp-test-hero"><span class="pill">OUR TEAM</span><h1>SALU Community Team</h1><p class="sub">Department representatives and volunteers who help SALU students.</p><p class="sp-team-count"><b id="spTeamTotal">0</b> members</p></div><div class="sp-team-tools"><input id="spTeamSearch" type="search" placeholder="Search by name or department" aria-label="Search team members"></div><div id="spTeamGrid" class="sp-team-grid" aria-live="polite"></div><p class="sp-team-join"><a class="btn" href="department-representative.html">Join our team</a></p><noscript><p>Enable JavaScript to see the team list.</p></noscript></section>`;
+  return {path,type:'team',title:'Our Team',url,html:prepareDoc(rendered.mock,{title,desc,url,hubPage:'team',openTest:'',main,crumbs:[['Home',base],['Our Team',url]],searchLabel:['Search team','Search the website']})};
+ }
  /* Returns every separate mock-test page: [{path,type,title,url,html}]. */
  function build(state,rendered,baseUrl){
   const bank=T.fromState(state),base=String(baseUrl).replace(/[^\/]*$/,''),pages=[],seen=new Set();
@@ -343,6 +351,7 @@ window.SALU_HUB_NAV=[{"id":"admissions","title":"Admissions","url":"admissions.h
   for(const t of T.visible(bank,'main')){const path=testFile(t,'main'),url=base+path;if(seen.has(path))throw new Error('Two tests would use the same page name ('+path+'). Rename one of them.');seen.add(path);
    const paper=t.kind==='past-paper',title=cut(t.title+(paper?' | Past Papers | SALU Community':' | Mock Tests | SALU Community'),90),desc=cut(t.description,155)||cut('Practise '+t.title+' online: '+t.questions.length+' questions'+(t.duration?' in '+t.duration+' minutes':'')+' with instant score and answer review.',155);
    pages.push({path,type:'mock',title:t.title,url,html:prepareDoc(rendered.mock,{title,desc,url,hubPage:'mockitem',openTest:t.id,main:testMain(t,bank,url),crumbs:[['Home',base],paper?['Past Papers',base+'past-papers.html']:['Mock Tests',base+'mock-tests.html'],[t.title,url]],searchLabel:['Search mock tests','Search to see matching tests']})});}
+  const team=teamPage(rendered,base);if(team)pages.push(team);
   return pages;
  }
  function headerSearch(page,value,event){if(page!=='mockitem')return false;if(event&&event.key!=='Enter')return false;if(event)event.preventDefault();const q=String(value||'').trim();location.href='mock-tests.html'+(q?'?q='+encodeURIComponent(q):'');return true;}

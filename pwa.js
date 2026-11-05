@@ -25,12 +25,12 @@
   var ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
   var deferred = window.__bip || null, bar = null, steps = false, installed = false;
 
-  var css = ".pwa-bar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:200;max-width:560px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:18px;color:#fff;background:linear-gradient(135deg,#061e47,#0f3f96 60%,#1d64df);border:1.5px solid rgba(255,255,255,.28);box-shadow:0 16px 40px rgba(6,30,71,.35);animation:pwaUp .5s cubic-bezier(.22,1,.36,1) both}" +
+  var css = ".pwa-bar{position:fixed;left:12px;right:auto;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:200;width:min(350px,calc(100vw - 92px));max-width:none;margin:0;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:18px;color:#fff;background:linear-gradient(135deg,#061e47,#0f3f96 60%,#1d64df);border:1.5px solid rgba(255,255,255,.28);box-shadow:0 16px 40px rgba(6,30,71,.35);animation:pwaUp .5s cubic-bezier(.22,1,.36,1) both}" +
     ".pwa-bar img{width:46px;height:46px;border-radius:12px;flex-shrink:0;background:#fff}" +
     ".pwa-txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}.pwa-txt b{font-size:15px}.pwa-txt span{font-size:12.5px;line-height:1.4;opacity:.9}" +
     ".pwa-act{display:flex;flex-direction:column;gap:6px;flex-shrink:0}.pwa-act button{font:inherit;font-weight:700;font-size:13px;border-radius:10px;padding:8px 14px;cursor:pointer;border:1.5px solid rgba(255,255,255,.45);background:transparent;color:#fff}" +
     ".pwa-act .pwa-go{background:#fff;color:#0f3f96;border-color:#fff}.pwa-act .pwa-go[hidden]{display:none}" +
-    "body.pwa-pad{padding-bottom:110px}.pwa-bar.out{animation:pwaDown .3s ease both}" +
+    "body.pwa-pad{padding-bottom:0}.pwa-bar.out{animation:pwaDown .3s ease both}" +
     "@keyframes pwaUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}@keyframes pwaDown{to{opacity:0;transform:translateY(24px)}}" +
     "@media(prefers-reduced-motion:reduce){.pwa-bar,.pwa-bar.out{animation:none}}";
 
@@ -56,6 +56,7 @@
     setTimeout(function () { b.remove(); }, 320);
   }
   function build() {
+    try { var no = Number(localStorage.getItem("SALU_PWA_NO") || 0); if (no && Date.now() - no < 864e5) return; } catch (e) {}
     var st = document.createElement("style"); st.textContent = css; document.head.appendChild(st);
     bar = document.createElement("div");
     bar.className = "pwa-bar"; bar.setAttribute("role", "dialog"); bar.setAttribute("aria-label", "Install SALU Community app");
@@ -64,7 +65,7 @@
     document.body.appendChild(bar);
     track("pwa_banner_shown");
     document.body.classList.add("pwa-pad");
-    bar.querySelector(".pwa-no").addEventListener("click", hide);
+    bar.querySelector(".pwa-no").addEventListener("click", function () { try { localStorage.setItem("SALU_PWA_NO", String(Date.now())); } catch (e) {} hide(); });
     bar.querySelector(".pwa-go").addEventListener("click", function () {
       track("pwa_install_click", { has_prompt: !!deferred });
       if (deferred) {

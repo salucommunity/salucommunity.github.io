@@ -1529,7 +1529,7 @@ textarea {
 
 
 </style>
-</head>
+<script src="salu-team.js" defer></script></head>
 <body data-active-page="representative" data-multipage="1">
 <header class="site-header">
   <div class="bar">
@@ -2800,13 +2800,17 @@ $("#faqList").innerHTML = FAQS.map((f, i) => `
    await photoTask;const a=application();
    if(!photo||!a.name||!a.studentId||!a.dept||!a.semester||!a.contact||!a.reason||!a.contributions.length||!a.verified||!a.activity||!a.agreed)throw new Error('Upload your photo, complete all required fields, select a contribution and check I agree before submitting.');
    if(!form.reportValidity())return;
+   {const norm=x=>String(x||'').toLowerCase().replace(/[^a-z0-9\u0600-\u06ff]+/g,' ').trim(),phone=x=>String(x||'').replace(/\D/g,'').replace(/^(?:0092|92|0)/,''),keyA=norm(a.name)+'|'+norm(a.dept),keyP=phone(a.contact);let seen=[];try{seen=JSON.parse(localStorage.getItem('SALU_REP_SUBMITTED')||'[]');}catch{}
+    const team=(window.SALU_TEAM&&Array.isArray(window.SALU_TEAM.members))?window.SALU_TEAM.members:[];
+    const dup=seen.includes(keyA)||(keyP.length>=7&&seen.includes('p:'+keyP))||team.some(m=>(norm(m.n)===norm(a.name)&&norm(m.d)===norm(a.dept))||(keyP.length>=7&&phone(m.c)===keyP));
+    if(dup&&!receipt)throw new Error('This member has already applied. Duplicate applications are not accepted. If you think this is a mistake, contact the SALU Community team.');}
    const current=JSON.stringify({application:a,photo:photo.dataUrl});if(current!==signature){signature=current;requestId=uuid();receipt=null;}
    if(receipt){say('Your registration has already been received. Reference: '+receipt.id+'. The administrator will prepare your member card.');return receipt;}
    say('Submitting your registration… Please wait.');
    // Only the one current attempt is retained in memory. Identical retries use the same ID.
    const settings=typeof SITE_EDITOR!=='undefined'?SITE_EDITOR?.quizSettings:null,base=(settings?.backendUrl||'https://salu-test-results.nimblebee34.chatgpt.site').replace(/\/$/,''),controller=new AbortController(),timer=setTimeout(()=>controller.abort(),45000);let response;
    try{response=await fetch(base+'/api/representatives',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({requestId,application:a,photo:photo.dataUrl,website:$('repWebsite')?.value||''}),signal:controller.signal});}finally{clearTimeout(timer);}
-   const data=await response.json();if(!response.ok||!data.ok)throw new Error(data.error||'Your registration was not saved. Please retry.');receipt=data;
+   const data=await response.json();if(!response.ok||!data.ok)throw new Error(data.error||'Your registration was not saved. Please retry.');receipt=data;try{const norm=x=>String(x||'').toLowerCase().replace(/[^a-z0-9\u0600-\u06ff]+/g,' ').trim(),ph=String(a.contact||'').replace(/\D/g,'').replace(/^(?:0092|92|0)/,''),seen=JSON.parse(localStorage.getItem('SALU_REP_SUBMITTED')||'[]');seen.push(norm(a.name)+'|'+norm(a.dept));if(ph.length>=7)seen.push('p:'+ph);localStorage.setItem('SALU_REP_SUBMITTED',JSON.stringify(seen.slice(-50)));}catch{}
    say('Registration received successfully. Reference: '+data.id+'. Your details and photo have been sent to the administrator for your member card.');submit.textContent='Submitted';return data;
   }catch(error){say(error.name==='AbortError'?'The connection timed out. Your form is still here. Press Submit to retry safely.':error.message,true);throw error;}
   finally{busy=false;submit.disabled=false;}

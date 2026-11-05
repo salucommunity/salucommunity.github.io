@@ -78,6 +78,12 @@
       "type": "mock",
       "title": "SALU Pre-Entry Test 2027 (Preparation MCQs)",
       "url": "https://salucommunity.github.io/past-paper-salu-2027.html"
+    },
+    {
+      "file": "our-team.html",
+      "type": "team",
+      "title": "Our Team",
+      "url": "https://salucommunity.github.io/our-team.html"
     }
   ]
 }
