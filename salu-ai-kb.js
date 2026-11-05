@@ -1,1 +1,1 @@
-window.SALU_AI_KB={"docs":[],"endpoint":"https://salucommunityai.salucommunity.workers.dev/"};
+window.SALU_AI_KB={"docs":[],"endpoint":"salu-ai.salucommunity.workers.dev"};
