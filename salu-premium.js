@@ -53,7 +53,6 @@
    var bg=box.querySelector('.sp-team-bg');
    if(members.length){var rows=members.slice(0,40).map(function(m){return '<span>'+esc(m.n)+(m.d?' · '+esc(m.d):'')+'</span>';}).join('');bg.innerHTML='<div class="sp-team-roll">'+rows+rows+'</div>';}
    var card=box.querySelector('.sp-stat-team'),hideT=null;
-   card.addEventListener('click',function(ev){ev.preventDefault();card.classList.add('show');clearTimeout(hideT);hideT=setTimeout(function(){card.classList.remove('show');},2600);});
    var seen=false;
    function go(){if(seen)return;seen=true;countUp(document.getElementById('spTeamNum'),n,1600);
     countUp(document.getElementById('spVisNum'),VISITORS,2400,function(){var el=document.getElementById('spVisNum'),v=VISITORS;(function tick(){setTimeout(function(){if(!document.hidden){v++;el.textContent=v.toLocaleString('en-US');}tick();},3500+Math.random()*4500);})();});}
@@ -112,10 +111,48 @@
  /* ---- secure test mode: size the full-screen test area under the header ---- */
  window.spFit=function(){var h=document.querySelector('.hub-header,.site-header,header');var b=h?Math.round(h.getBoundingClientRect().bottom):80;document.documentElement.style.setProperty('--sp-hh',Math.max(60,b+6)+'px');};
  window.addEventListener('resize',function(){if(document.body.classList.contains('sp-secure'))window.spFit();});
+
+ /* ---- Aggregate calculator: Main / 1st / 2nd / 3rd department choice with expected admission chance ---- */
+ var CALC_DEPTS=[["BS Archaeology", 49.99], ["BS Biochemistry", 54.66], ["BS Botany", 57.55], ["BBA", 57.02], ["BS Accounting & Finance", 55.99], ["BS Chemistry", 58.46], ["BS Computer Science", 62.69], ["BS Information Technology", 60.23], ["BS Software Engineering", 57.62], ["BS Economics", 48.02], ["BS English Language & Literature", 60.34], ["BS Geography", 48.02], ["BS Banking & Finance", 47.48], ["BS Commerce", 50.51], ["BS International Relations", 48.13], ["BS Peace & Conflict Studies", 53.86], ["BS Islamic Studies", 51.21], ["BS Mathematics", 51.74], ["BS Media & Communication Studies", 48.56], ["BS Microbiology", 56.06], ["BS Pakistan Studies", 56.21], ["Pharm D", 64.05], ["BS Physics", 54.39], ["BS Political Science", 43.54], ["BS Public Administration", 46.22], ["BS Sindhi", 52.19], ["BS Sociology", 48.67], ["BS Special Education", 47.82], ["BS Statistics", 54.0], ["BA-LLB", 57.27], ["B.Ed (Hons) Elementary", 56.11], ["BS Urdu", 51.13], ["BS Zoology", 60.1]];
+ var CALC_LABELS=['Main choice','1st choice','2nd choice','3rd choice'];
+ function chanceOf(agg,close){var z=(agg-close+0.8)/1.7,p=100/(1+Math.exp(-z));return Math.max(1,Math.min(99,Math.round(p)));}
+ function chanceLevel(p){return p>=85?['Very high','vh']:p>=65?['High','h']:p>=40?['Moderate','m']:p>=15?['Low','l']:['Very low','vl'];}
+ function calcChoices(){
+  if(document.body.dataset.activePage!=='calculator'||document.getElementById('spChoices'))return;
+  var btn=document.getElementById('calcBtn'),seg=document.getElementById('modeSeg'),out=document.getElementById('calcOut');if(!btn||!out||!btn.parentNode)return;
+  var opts='<option value="">Select department</option>'+CALC_DEPTS.map(function(d,i){return '<option value="'+i+'">'+esc(d[0])+'</option>';}).join('');
+  var box=document.createElement('div');box.id='spChoices';box.className='sp-choices';
+  box.innerHTML='<h3 class="sp-ch-title">Your department choices <small>(optional)</small></h3><p class="sp-ch-sub">Select your choices to see your expected chance of admission for each department.</p><div class="sp-ch-grid">'
+   +CALC_LABELS.map(function(l,i){return '<label class="sp-ch-f" for="spCh'+i+'"><span>'+l+'</span><select id="spCh'+i+'">'+opts+'</select></label>';}).join('')+'</div>';
+  var row=btn.parentNode;row.parentNode.insertBefore(box,row);
+  function mode(){var on=seg&&seg.querySelector('button.on');return on?on.getAttribute('data-m'):'salu';}
+  function sync(){box.hidden=mode()==='bs3';}
+  if(seg)seg.addEventListener('click',function(){setTimeout(sync,0);});sync();
+  btn.addEventListener('click',function(){setTimeout(function(){
+   var old=document.getElementById('spChanceOut');if(old)old.remove();
+   if(box.hidden)return;
+   var big=out.querySelector('.big');if(!big)return;
+   var agg=parseFloat(big.textContent);if(isNaN(agg))return;
+   var rows=[];
+   CALC_LABELS.forEach(function(l,i){
+    var v=document.getElementById('spCh'+i).value;if(v==='')return;
+    var d=CALC_DEPTS[+v],p=chanceOf(agg,d[1]),diff=agg-d[1],lv=chanceLevel(p);
+    rows.push('<div class="sp-ch-row"><div class="sp-ch-top"><span class="sp-ch-tag">'+l+'</span><b>'+esc(d[0])+'</b></div>'
+     +'<div class="sp-ch-meta">Closing (Batch 2026): <b>'+d[1].toFixed(2)+'%</b> &middot; Your aggregate: <b>'+agg.toFixed(2)+'%</b> ('+(diff>=0?'+':'')+diff.toFixed(2)+'%)</div>'
+     +'<div class="sp-ch-bar" aria-hidden="true"><i class="sp-lv-'+lv[1]+'" style="width:'+p+'%"></i></div>'
+     +'<div class="sp-ch-pct sp-t-'+lv[1]+'"><b>'+p+'%</b> chance &middot; '+lv[0]+'</div></div>');
+   });
+   if(!rows.length)return;
+   var wrap=document.createElement('div');wrap.id='spChanceOut';wrap.className='sp-chance';
+   wrap.innerHTML='<h3 class="sp-ch-title">Your chances by department</h3>'+rows.join('')
+    +'<p class="sp-ch-note"><b>Disclaimer:</b> This is the closing percentage of batch 2026 and is only an expected percentage. It will change depending on the difficulty of the entry test and is not a guarantee of admission.</p>';
+   out.appendChild(wrap);
+  },0);});
+ }
  /* ---- remove the retired Jobs Hub widget from cached pages ---- */
  function cleanup(){var j=document.getElementById('saluJobsShortcut');if(j)j.remove();}
  function init(){
-  cleanup();waFab();paperCards();repLink();tickerLabel();statsSection();teamPage();(function(){var pn=document.getElementById('panel');if(pn&&window.MutationObserver)new MutationObserver(repLink).observe(pn,{childList:true});window.addEventListener('load',repLink);})();announcePopup();
+  cleanup();waFab();paperCards();repLink();tickerLabel();statsSection();teamPage();calcChoices();(function(){var pn=document.getElementById('panel');if(pn&&window.MutationObserver)new MutationObserver(repLink).observe(pn,{childList:true});window.addEventListener('load',repLink);})();announcePopup();
   window.addEventListener('load',cleanup);
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();

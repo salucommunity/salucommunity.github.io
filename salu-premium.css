@@ -187,7 +187,7 @@ body[data-open-test] .mock-filterbar,body[data-open-test] #mockCatalogue{display
 @media(max-width:480px){.bar{gap:6px;padding:8px 8px 8px 10px}.brand{font-size:16px;min-width:0;gap:7px}.mark{width:42px!important;height:42px!important}.ib{width:40px;height:40px}.menubtn{padding:10px 14px!important;flex-shrink:0;min-width:0}}
 
 /* Secure test mode: full screen, only the header and the question card */
-body.sp-secure .ticker,body.sp-secure .crumb-nav,body.sp-secure .jp-test-hero,body.sp-secure .mock-filterbar,body.sp-secure .mock-related,body.sp-secure .sp-wa,body.sp-secure .pwa-bar,body.sp-secure #saluSitePopup,body.sp-secure .sp-pop,body.sp-secure footer,body.sp-secure .footer,body.sp-secure .hub-tabs,body.sp-secure .gsearch,body.sp-secure #saluJobsShortcut,body.sp-secure .top-nav,body.sp-secure .menubtn,body.sp-secure #panel,body.sp-secure .hdr-sbtn,body.sp-secure #hubSearchToggle,body.sp-secure #hubMenuToggle,body.sp-secure .mock-detail>.pill,body.sp-secure .mock-detail>h2,body.sp-secure .mock-detail>.sub,body.sp-secure .mock-detail>.mock-meta,body.sp-secure #mockResult,body.sp-secure #quizGroups,body.sp-secure #mockCatalogue{display:none!important}
+body.sp-secure .ticker,body.sp-secure .crumb-nav,body.sp-secure .jp-test-hero,body.sp-secure .mock-filterbar,body.sp-secure .mock-related,body.sp-secure .sp-wa,body.sp-secure .pwa-bar,body.sp-secure #saluSitePopup,body.sp-secure .sp-pop,body.sp-secure footer,body.sp-secure .footer,body.sp-secure .gsearch,body.sp-secure #saluJobsShortcut,body.sp-secure .mock-detail>.pill,body.sp-secure .mock-detail>h2,body.sp-secure .mock-detail>.sub,body.sp-secure .mock-detail>.mock-meta,body.sp-secure #mockResult,body.sp-secure #quizGroups,body.sp-secure #mockCatalogue{display:none!important}
 html:has(body.sp-secure),body.sp-secure{overflow:hidden!important;height:100dvh}
 body.sp-secure #v-mocktests{position:fixed;left:0;right:0;bottom:0;top:var(--sp-hh,90px);margin:0;padding:6px 10px calc(10px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;max-width:none}
 body.sp-secure #saluMockLibrary{flex:1;min-height:0;display:flex;flex-direction:column;width:100%;max-width:780px;margin:0 auto}
@@ -280,3 +280,26 @@ body.sp-secure .quiz-question legend{font-size:inherit;padding:0}
 
 .sp-stat-team.show .sp-team-bg{opacity:.5}
 .sp-stat-team{cursor:pointer}
+
+/* header stays visible while a test is running */
+body.sp-secure .hub-header,body.sp-secure .site-header{visibility:visible!important;opacity:1!important}
+body.sp-secure .hub-header{display:block!important}
+
+/* aggregate calculator: department choices and chances */
+.sp-choices{margin:18px 0 0;padding:16px;border-radius:22px;background:linear-gradient(155deg,rgba(255,255,255,.85),rgba(236,242,255,.6));border:1px solid var(--sp-edge,rgba(120,150,255,.35))}
+.sp-choices[hidden]{display:none!important}
+.sp-ch-title{margin:0 0 4px;font-size:17px;color:var(--blue-900,#0f1f5c)}.sp-ch-title small{font-weight:600;color:var(--mute,#4a5a85);font-size:12.5px}
+.sp-ch-sub{margin:0 0 12px;font-size:13.5px;color:var(--mute,#4a5a85)}
+.sp-ch-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.sp-ch-f{display:block}.sp-ch-f span{display:block;margin:0 0 6px;font-size:13.5px;font-weight:800;color:var(--blue-900,#0f1f5c)}
+.sp-ch-f select{width:100%;padding:12px 14px;border-radius:14px;border:1.5px solid rgba(120,150,255,.45);background:#fff;font-size:15px;color:inherit}
+.sp-chance{margin-top:16px;display:grid;gap:12px;text-align:left}
+.sp-ch-row{padding:14px;border-radius:18px;background:#fff;border:1px solid rgba(120,150,255,.3);box-shadow:0 6px 18px rgba(26,52,176,.08)}
+.sp-ch-top{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:4px}.sp-ch-top b{font-size:16px;color:var(--blue-900,#0f1f5c)}
+.sp-ch-tag{padding:3px 10px;border-radius:999px;font-size:11.5px;font-weight:800;color:#fff;background:var(--sp-grad,linear-gradient(135deg,#2447e0,#6d4cff))}
+.sp-ch-meta{font-size:13px;color:var(--mute,#4a5a85);margin-bottom:8px}
+.sp-ch-bar{height:12px;border-radius:999px;background:rgba(120,150,255,.18);overflow:hidden}.sp-ch-bar i{display:block;height:100%;border-radius:999px}
+.sp-lv-vh{background:#16a34a}.sp-lv-h{background:#22c55e}.sp-lv-m{background:#f59e0b}.sp-lv-l{background:#f97316}.sp-lv-vl{background:#dc2626}
+.sp-ch-pct{margin-top:6px;font-size:14px;font-weight:700}.sp-ch-pct b{font-size:22px}
+.sp-t-vh,.sp-t-h{color:#15803d}.sp-t-m{color:#b45309}.sp-t-l{color:#c2410c}.sp-t-vl{color:#b91c1c}
+.sp-ch-note{margin:4px 0 0;padding:12px 14px;border-radius:14px;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.4);font-size:13px;line-height:1.5;color:#7c2d12}
