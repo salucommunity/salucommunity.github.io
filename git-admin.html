@@ -1611,7 +1611,7 @@ body:not(.authed) > *:not(#loginGate):not(script):not(style):not(link):not(meta)
   <button type="button" class="wp-tab-btn" data-wptab="cms-results">Test Results &amp; Groups</button><button type="button" class="wp-tab-btn" data-wptab="cms-hub">Jobs Hub &amp; Popup</button><button type="button" class="wp-tab-btn" data-wptab="cms-jobs">Jobs Preparation</button><button type="button" class="wp-tab-btn" data-wptab="cms-tests">Mock Test Library</button><button type="button" class="wp-tab-btn" data-wptab="cms-media">Uploads &amp; compression</button>
   <button type="button" class="wp-tab-btn" data-wptab="cms-papers">Past Paper Links</button>
   <button type="button" class="wp-tab-btn" data-wptab="cms-site">Site Content</button>
-  <button type="button" class="wp-tab-btn" data-wptab="cms-github">GitHub Publishing</button>
+  <button type="button" class="wp-tab-btn" data-wptab="cms-github">GitHub Publishing</button><button type="button" class="wp-tab-btn" data-wptab="cms-ai">AI Assistant</button>
 </div>
 
 <!-- Live Publish Bar -->
@@ -1901,6 +1901,14 @@ body:not(.authed) > *:not(#loginGate):not(script):not(style):not(link):not(meta)
     </div>
     <div class="card"><span class="pill">CURRENT LINKS</span><h3>Manage links (<span id="cmsPaperCount">0</span>)</h3><div class="stack" id="cmsPaperList" style="margin-top:10px;max-height:520px;overflow-y:auto"></div></div>
   </div>
+</section>
+<section class="wp-cms-panel" id="wptab-cms-ai">
+ <div class="card"><h3>AI Assistant knowledge (PDFs)</h3>
+ <p class="mc-hint">Assistant pehle website ka data (announcements, merit, fees, seats, FAQs, pages) use karta hai, phir yahan upload kiye PDFs se jawab deta hai. PDF upload karein, phir <b>Publish Live to GitHub</b> dabayein.</p>
+ <div><label for="aiPdfInput">Select PDF files</label><input id="aiPdfInput" type="file" accept="application/pdf" multiple></div>
+ <div class="btns" style="margin-top:12px"><button type="button" class="btn" id="aiPdfAdd">Extract &amp; add PDFs</button></div>
+ <p id="aiStatus" class="cms-message" aria-live="polite"></p>
+ <div id="aiDocList" class="test-admin-list"></div></div>
 </section>
 <section class="wp-cms-panel" id="wptab-cms-site">
   <div class="cols">
@@ -6041,6 +6049,7 @@ window.SALU_ADMIN_DRAFT_READY=new Promise(resolve=>{window.SALU_RESOLVE_DRAFT_RE
     lines.push('const TEXTS = '+global.SaluCMS.safeJson(legacy)+';');
     lines.push('const SITE_EDITOR = '+global.SaluCMS.safeJson(global.SaluCMS.editorState(state.EDITOR))+';');
     lines.push('if (typeof window !== "undefined" && SITE_EDITOR.paperArchive) window.SALU_PAPERS = SITE_EDITOR.paperArchive;');
+    lines.push('(function(){try{if(!document||document.getElementById("loginGate"))return;["salu-ai-kb.js","salu-ai-widget.js"].forEach(function(f){var s=document.createElement("script");s.src=f;s.async=false;document.head.appendChild(s);});}catch(e){}})();');
     return lines.join('\n\n')+'\n';
   }
   async function publishSite(options){
@@ -7859,6 +7868,59 @@ window.SALU_ADMIN_DRAFT_READY=new Promise(resolve=>{window.SALU_RESOLVE_DRAFT_RE
  document.addEventListener('salu-cms-change',render);g.SaluHubAdmin={render,loadJob,saveJob,savePopup,choose,upload};render();loadJob('');
 })(window);
 
+</script>
+<script id="salu-ai-admin">
+(function(){
+var KEY='SALU_AI_KB',WIDGET="/* SALU AI Assistant - retrieval based, runs fully in the browser (no API key needed). */\n(function(){\nif(window.__saluAI)return;window.__saluAI=1;\nvar STOP=new Set('the a an is are of to in on for and or me my i you what how when where which who do does can tell about please kya hai hain ka ki ke ko se me mein aur ya kab kahan kaise batao btao mujhe hamen salu'.split(' '));\nfunction norm(s){return String(s||'').toLowerCase().replace(/[^a-z0-9\\u0600-\\u06ff\\s]/g,' ');}\nfunction toks(s){return norm(s).split(/\\s+/).filter(function(w){return w.length>1&&!STOP.has(w);});}\nfunction g(n){try{return(0,eval)('typeof '+n+'!==\"undefined\"?'+n+':null');}catch(e){return null;}}\nvar chunks=[];\nfunction add(t,src,link){t=String(t||'').replace(/\\s+/g,' ').trim();if(t.length>20)chunks.push({t:t,src:src,link:link||'',k:toks(t)});}\nfunction build(){\n chunks=[];\n (g('ANNOUNCE')||[]).forEach(function(a){add((a.date||'')+' '+(a.title||'')+'. '+(a.body||''),'Announcement',a.pdf);});\n (g('MERITS')||[]).forEach(function(m){add('Merit list: '+(m.title||'')+'. '+(m.date||''),'Merit List',m.pdf);});\n (g('FEES')||[]).forEach(function(f){add('Fee - '+(f.dept||f.name||'')+': '+(f.details||f.fee||JSON.stringify(f)),'Fees');});\n (g('SCHOLARSHIPS')||[]).forEach(function(s){add('Scholarship '+(s.name||'')+': '+(s.details||''),'Scholarships');});\n (g('DEPTS')||[]).forEach(function(d){add('Department: '+(d.name||d.dept||JSON.stringify(d)),'Departments');});\n (g('SEATS')||[]).forEach(function(s){add('Seats '+Object.keys(s).map(function(k){return k+': '+s[k];}).join(', '),'Seats');});\n (g('FAQS')||[]).forEach(function(f){add('Q: '+(f.q||f.question||'')+' A: '+(f.a||f.answer||''),'FAQ');});\n (g('RESULTS')||[]).forEach(function(r){add(typeof r==='string'?r:Object.keys(r).map(function(k){return r[k];}).join(' '),'Results');});\n var kb=window.SALU_AI_KB;\n if(kb&&kb.docs)kb.docs.forEach(function(d){(d.chunks||[]).forEach(function(c){add(c,'PDF: '+d.name,d.url);});});\n var m=document.querySelector('main')||document.body;\n if(m){var txt=(m.innerText||'').split(/\\n{2,}/);txt.forEach(function(p){if(p.length>40&&p.length<1500)add(p,'Website page');});}\n}\nfunction search(q){\n var qt=toks(q);if(!qt.length)return[];\n var N=chunks.length||1,df={};\n qt.forEach(function(w){df[w]=chunks.filter(function(c){return c.k.indexOf(w)>-1;}).length;});\n var res=chunks.map(function(c){var s=0;qt.forEach(function(w){var tf=0;for(var i=0;i<c.k.length;i++){if(c.k[i]===w)tf++;}\n   if(!tf&&w.length>3&&c.t.toLowerCase().indexOf(w)>-1)tf=.5;\n   if(tf)s+=(1+Math.log(1+tf))*Math.log(1+N/(1+df[w]));});\n   return{c:c,s:s};}).filter(function(x){return x.s>0;}).sort(function(a,b){return b.s-a.s;});\n var seen={},out=[];res.forEach(function(x){var key=x.c.t.slice(0,60);if(!seen[key]&&out.length<3){seen[key]=1;out.push(x.c);}});\n return out;\n}\nfunction esc(s){return String(s).replace(/[&<>\"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c];});}\nfunction answer(q){\n if(/^(hi|hello|salam|assalam|aoa|hey)/i.test(q.trim()))return'Assalam o Alaikum! Main SALU Assistant hoon. Admissions, merit list, fees, departments, seats ya scholarships ke bare mein poochein.';\n var r=search(q);\n if(!r.length)return'Sorry, mujhe is sawal ka jawab website data mein nahi mila. Mehrbani karke doosre alfaaz mein poochein ya official SALU website / admission office se rabta karein.';\n return r.map(function(c){var t=c.t.length>420?c.t.slice(0,420)+'\u2026':c.t;\n  return'<div class=\"sa-ans\"><div>'+esc(t)+'<\/div><small>'+esc(c.src)+(c.link?' \u00b7 <a href=\"'+esc(c.link)+'\" target=\"_blank\" rel=\"noopener\">Open<\/a>':'')+'<\/small><\/div>';}).join('');\n}\nfunction ui(){\n var css='#sa-btn{position:fixed;right:18px;bottom:18px;z-index:99998;width:58px;height:58px;border-radius:50%;border:0;background:#1552be;color:#fff;font-size:26px;cursor:pointer;box-shadow:0 8px 24px #0a2e6e55}'+\n '#sa-box{position:fixed;right:18px;bottom:88px;z-index:99998;width:min(360px,calc(100vw - 24px));height:min(520px,calc(100vh - 110px));background:#fff;border-radius:16px;box-shadow:0 16px 48px #0a2e6e44;display:none;flex-direction:column;overflow:hidden;font:14px/1.5 system-ui,sans-serif;color:#072252}'+\n '#sa-box.on{display:flex}#sa-h{background:#1552be;color:#fff;padding:12px 14px;font-weight:700;display:flex;justify-content:space-between}#sa-h span{cursor:pointer}'+\n '#sa-m{flex:1;overflow:auto;padding:12px;background:#f4f8ff}.sa-b{margin:6px 0;padding:9px 11px;border-radius:12px;max-width:92%;overflow-wrap:anywhere}'+\n '.sa-u{background:#1552be;color:#fff;margin-left:auto}.sa-a{background:#fff;border:1px solid #d9e8ff}.sa-ans+.sa-ans{border-top:1px solid #e3ecfa;margin-top:8px;padding-top:8px}.sa-ans small{color:#46618f}'+\n '#sa-f{display:flex;gap:6px;padding:10px;border-top:1px solid #d9e8ff}#sa-i{flex:1;padding:10px;border:1px solid #c3dafd;border-radius:10px;font:inherit}#sa-s{background:#1552be;color:#fff;border:0;border-radius:10px;padding:0 14px;cursor:pointer}'+\n '@media(prefers-color-scheme:dark){#sa-box{background:#0f1b33;color:#e6efff}#sa-m{background:#0b1426}.sa-a{background:#14233f;border-color:#243b66;color:#e6efff}#sa-i{background:#14233f;color:#fff;border-color:#243b66}#sa-f{border-color:#243b66}.sa-ans small{color:#9db8e8}}';\n var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);\n var b=document.createElement('button');b.id='sa-btn';b.setAttribute('aria-label','Open SALU AI Assistant');b.innerHTML='\ud83d\udcac';\n var x=document.createElement('div');x.id='sa-box';\n x.innerHTML='<div id=\"sa-h\"><div>SALU AI Assistant<\/div><span id=\"sa-x\" aria-label=\"Close\">\u2715<\/span><\/div><div id=\"sa-m\"><\/div><form id=\"sa-f\"><input id=\"sa-i\" placeholder=\"Sawal likhein\u2026\" autocomplete=\"off\"><button id=\"sa-s\">Send<\/button><\/form>';\n document.body.appendChild(b);document.body.appendChild(x);\n var m=x.querySelector('#sa-m');\n function say(h,c){var d=document.createElement('div');d.className='sa-b '+c;d.innerHTML=h;m.appendChild(d);m.scrollTop=m.scrollHeight;}\n var opened=false;\n function toggle(){x.classList.toggle('on');if(x.classList.contains('on')&&!opened){opened=true;build();say('Assalam o Alaikum! SALU ke bare mein kuch bhi poochein: admission, merit list, fees, seats, departments.','sa-a');}}\n b.onclick=toggle;x.querySelector('#sa-x').onclick=toggle;\n x.querySelector('#sa-f').onsubmit=function(e){e.preventDefault();var i=x.querySelector('#sa-i'),q=i.value.trim();if(!q)return;i.value='';say(esc(q),'sa-u');say(answer(q),'sa-a');};\n}\nif(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ui);else ui();\n})();\n";
+var kb={docs:[]};
+try{var s=localStorage.getItem(KEY);if(s)kb=JSON.parse(s);}catch(e){}
+function $(i){return document.getElementById(i);}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function sync(){
+ window.SALU_TEST_ASSETS=window.SALU_TEST_ASSETS||{};
+ window.SALU_TEST_ASSETS['salu-ai-widget.js']=WIDGET;
+ window.SALU_TEST_ASSETS['salu-ai-kb.js']='window.SALU_AI_KB='+JSON.stringify(kb).replace(/</g,'\\u003c')+';\n';
+ try{localStorage.setItem(KEY,JSON.stringify(kb));}catch(e){$('aiStatus').textContent='Browser storage full; PDFs will still publish from this session.';}
+}
+function render(){
+ $('aiDocList').innerHTML=kb.docs.length?kb.docs.map(function(d,i){return '<div class="test-admin-item"><div><b>'+esc(d.name)+'</b><p>'+d.chunks.length+' sections</p></div><button type="button" class="btn alt" data-ai-del="'+i+'">Remove</button></div>';}).join(''):'<p class="mc-hint">No PDFs added yet.</p>';
+}
+async function lib(){
+ if(window.SALU_FILE_DEPS&&window.SALU_FILE_DEPS.pdfjs)return window.SALU_FILE_DEPS.pdfjs;
+ function dec(id){return Uint8Array.from(atob(JSON.parse($(id).textContent)),function(c){return c.charCodeAt(0);});}
+ var w=URL.createObjectURL(new Blob([dec('salu-pdf-worker-source')],{type:'application/javascript'}));
+ var m=URL.createObjectURL(new Blob([dec('salu-pdf-module-source')],{type:'application/javascript'}));
+ var l=await import(m);l.GlobalWorkerOptions.workerSrc=w;return l;
+}
+function split(text){
+ var out=[],words=text.replace(/\s+/g,' ').trim().split(' '),size=140,step=110;
+ for(var i=0;i<words.length;i+=step){out.push(words.slice(i,i+size).join(' '));if(i+size>=words.length)break;}
+ return out;
+}
+async function extract(file){
+ var L=await lib(),task=L.getDocument({data:new Uint8Array(await file.arrayBuffer()),isEvalSupported:false,useWasm:false,useSystemFonts:true}),doc=await task.promise,txt='';
+ for(var n=1;n<=doc.numPages;n++){var p=await doc.getPage(n),c=await p.getTextContent();txt+=c.items.map(function(i){return i.str;}).join(' ')+' ';p.cleanup();}
+ await task.destroy();return txt;
+}
+$('aiPdfAdd').addEventListener('click',async function(){
+ var files=Array.from($('aiPdfInput').files||[]),st=$('aiStatus');
+ if(!files.length){st.textContent='Pehle PDF select karein.';return;}
+ for(var f of files){
+  st.textContent='Reading '+f.name+'…';
+  try{
+   var t=await extract(f);
+   if(t.trim().length<30){st.textContent=f.name+': text nahi mila (scanned PDF hoga, OCR chahiye).';continue;}
+   kb.docs=kb.docs.filter(function(d){return d.name!==f.name;});
+   kb.docs.push({name:f.name,chunks:split(t)});
+  }catch(e){st.textContent=f.name+': '+e.message;return;}
+ }
+ sync();render();$('aiPdfInput').value='';
+ st.textContent='Done. Ab Publish Live to GitHub dabayein taake website par assistant update ho.';
+});
+$('aiDocList').addEventListener('click',function(e){var i=e.target.getAttribute&&e.target.getAttribute('data-ai-del');if(i===null||i===undefined)return;kb.docs.splice(+i,1);sync();render();});
+sync();render();
+if(!kb.docs.length){var s=document.createElement('script');s.src='https://salucommunity.github.io/salu-ai-kb.js?'+Date.now();s.onload=function(){if(window.SALU_AI_KB&&window.SALU_AI_KB.docs){kb=window.SALU_AI_KB;sync();render();}};s.onerror=function(){};document.head.appendChild(s);}
+})();
 </script>
 </body>
 </html>
