@@ -36,4 +36,4 @@ const SITE_EDITOR = {"version":2,"texts":{},"links":{},"images":{},"pageMeta":{}
 
 if (typeof window !== "undefined" && SITE_EDITOR.paperArchive) window.SALU_PAPERS = SITE_EDITOR.paperArchive;
 
-(function(){try{if(!document||document.getElementById("loginGate"))return;["salu-ai-kb.js","salu-ai-widget.js"].forEach(function(f){var s=document.createElement("script");s.src=f;s.async=false;document.head.appendChild(s);});}catch(e){}})();
+(function(){try{if(!document||document.getElementById("loginGate"))return;var s=document.createElement("script");s.src="salu-ai-widget.js";s.defer=true;document.head.appendChild(s);}catch(e){}})();
