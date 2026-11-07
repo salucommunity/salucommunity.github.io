@@ -56,6 +56,7 @@ function css(){
  var s=document.createElement('style');s.textContent=
  '#saluAiBtn{position:fixed;right:14px;bottom:calc(86px + env(safe-area-inset-bottom,0px));z-index:179;width:58px;height:58px;border-radius:50%;border:2px solid rgba(255,255,255,.8);padding:0;background:#fff;cursor:pointer;box-shadow:0 10px 26px rgba(15,23,42,.28);overflow:hidden;transition:transform .2s}'+
  '#saluAiBtn:hover{transform:translateY(-3px) scale(1.05)}#saluAiBtn:focus-visible{outline:3px solid #86efac;outline-offset:3px}#saluAiBtn img{width:100%;height:100%;object-fit:cover;display:block}'+
+ '#saluAiTip{position:fixed;right:14px;bottom:calc(152px + env(safe-area-inset-bottom,0px));z-index:320;background:#0f5132;color:#fff;font:600 13px/1.3 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:9px 14px;border-radius:14px 14px 4px 14px;box-shadow:0 8px 22px rgba(15,23,42,.3);opacity:0;transform:translateX(10px);transition:opacity .35s,transform .35s;pointer-events:none;white-space:nowrap}#saluAiTip.on{opacity:1;transform:none}@media(max-width:640px){#saluAiTip{right:12px;bottom:calc(138px + env(safe-area-inset-bottom,0px));font-size:12.5px}}body.sp-secure #saluAiTip{display:none!important}'+
  '#saluAiBtn .dot{position:absolute;right:4px;top:4px;width:12px;height:12px;border-radius:50%;background:#22c55e;border:2px solid #fff}'+
  '#saluAi{position:fixed;right:14px;bottom:calc(86px + env(safe-area-inset-bottom,0px));z-index:310;width:min(390px,calc(100vw - 24px));height:min(560px,calc(100vh - 110px));display:none;flex-direction:column;background:#fff;color:#0f172a;border-radius:20px;overflow:hidden;box-shadow:0 24px 70px rgba(15,23,42,.38);border:1px solid rgba(148,163,184,.4);font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}'+
  '#saluAi.on{display:flex}'+
@@ -100,7 +101,7 @@ async function ask(q){
  say('me',q);var L=lang(q),wait=say('bot typing','<span></span><span></span><span></span>',true);
  try{await loadKB();}catch(e){}
  var hits=retrieve(q,8),ep=endpoint(),answer='',problem='';
- if(!ep){problem=L==='en'?'AI is not connected yet (no endpoint saved in the admin panel), so this is a simple website search.':'AI abhi connect nahi hai (admin panel mein endpoint save nahi hua), is liye sirf website search se jawab hai.';}
+ if(!ep){problem=L==='en'?'The AI is not switched on yet, so this is a simple website search.':'AI abhi on nahi hai, is liye sirf website search se jawab hai.';}
  else{
   try{
    var ctl=new AbortController(),t=setTimeout(function(){ctl.abort();},25000);
@@ -108,8 +109,8 @@ async function ask(q){
    clearTimeout(t);
    var d=await r.json().catch(function(){return{};});
    if(r.ok&&d.answer)answer=String(d.answer);
-   else problem=(L==='en'?'AI service problem: ':'AI service mein masla: ')+clip(d.error||('HTTP '+r.status),160);
-  }catch(e){problem=e&&e.name==='AbortError'?(L==='en'?'The AI took too long to answer.':'AI ne jawab dene mein bohat time liya.'):(L==='en'?'Could not reach the AI service (check the endpoint URL and Worker CORS).':'AI service tak rasai nahi hui (endpoint URL aur Worker CORS check karen).');}
+   else problem=(r.status===429||r.status>=500)?(L==='en'?'SALU Community AI Assistant is busy right now. Please try again in a minute.':'SALU Community AI Assistant abhi busy hai. Meharbani karke ek minute baad dobara try karen.'):(L==='en'?'SALU Community AI Assistant could not answer this time.':'SALU Community AI Assistant is waqt jawab nahi de saka.');
+  }catch(e){problem=e&&e.name==='AbortError'?(L==='en'?'SALU Community AI Assistant is taking too long. Please try again.':'SALU Community AI Assistant ko jawab dene mein der lag rahi hai. Dobara try karen.'):(L==='en'?'SALU Community AI Assistant is not reachable right now. Please try again later.':'SALU Community AI Assistant abhi available nahi hai. Baad mein try karen.');}
  }
  wait.remove();
  if(answer){say('bot',answer);history.push({role:'user',text:q},{role:'model',text:answer});history=history.slice(-10);}
@@ -121,15 +122,17 @@ function init(){
  css();
  var b=document.createElement('button');b.id='saluAiBtn';b.type='button';b.setAttribute('aria-label','Open SALU AI Assistant');b.innerHTML='<img src="'+ICON+'" alt=""><span class="dot"></span>';
  var bx=document.createElement('section');bx.id='saluAi';bx.setAttribute('role','dialog');bx.setAttribute('aria-label','SALU AI Assistant');
- bx.innerHTML='<header><img src="'+ICON+'" alt=""><div><b>SALU AI Assistant</b><span>Admissions, merit, fees, tests</span></div><button type="button" aria-label="Close" id="saluAiX">×</button></header><div id="saluAiLog" aria-live="polite"></div><div id="saluAiChips"></div><form id="saluAiForm" autocomplete="off"><input id="saluAiIn" maxlength="500" placeholder="Apna sawal likhen / Ask anything…" aria-label="Your question"><button type="submit" id="saluAiSend">Send</button></form>';
+ bx.innerHTML='<header><img src="'+ICON+'" alt=""><div><b>SALU Community AI Assistant</b><span>Admissions, merit, fees, tests</span></div><button type="button" aria-label="Close" id="saluAiX">×</button></header><div id="saluAiLog" aria-live="polite"></div><div id="saluAiChips"></div><form id="saluAiForm" autocomplete="off"><input id="saluAiIn" maxlength="500" placeholder="Ask your question…" aria-label="Your question"><button type="submit" id="saluAiSend">Send</button></form>';
  document.body.appendChild(b);document.body.appendChild(bx);
  els={btn:b,box:bx,log:bx.querySelector('#saluAiLog'),input:bx.querySelector('#saluAiIn'),send:bx.querySelector('#saluAiSend')};
  var chips=bx.querySelector('#saluAiChips');
- [['Latest announcement','Latest announcement kya hai?'],['Merit formula','Merit aggregate kaise banta hai?'],['CS fee & seats','BS Computer Science ki fee aur seats kitni hain?'],['Scholarships','Scholarships kaun si hain?'],['Past papers','Past papers kahan milenge?'],['Join team','Team join kaise karen?']].forEach(function(c){var x=document.createElement('button');x.type='button';x.textContent=c[0];x.onclick=function(){ask(c[1]);};chips.appendChild(x);});
- b.onclick=function(){toggle(true);};bx.querySelector('#saluAiX').onclick=function(){toggle(false);};
+ [['Latest announcement','What is the latest announcement?'],['Merit formula','How is the merit aggregate calculated?'],['CS fee & seats','What are the fee and seats for BS Computer Science?'],['Scholarships','Which scholarships are available?'],['Past papers','Where can I find past papers?'],['Join team','How can I join the team?']].forEach(function(c){var x=document.createElement('button');x.type='button';x.textContent=c[0];x.onclick=function(){ask(c[1]);};chips.appendChild(x);});
+ var tip=document.createElement('div');tip.id='saluAiTip';tip.textContent='Ask SALU Community AI Assistant';tip.setAttribute('aria-hidden','true');document.body.appendChild(tip);els.tip=tip;
+ setTimeout(function(){if(!open)tip.classList.add('on');},900);setTimeout(function(){tip.classList.remove('on');},900+6000);
+ b.onclick=function(){tip.classList.remove('on');toggle(true);};bx.querySelector('#saluAiX').onclick=function(){toggle(false);};
  bx.querySelector('#saluAiForm').onsubmit=function(e){e.preventDefault();var v=els.input.value;els.input.value='';ask(v);};
  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&open)toggle(false);});
- say('bot','Assalam-o-Alaikum! Main SALU Community AI Assistant hoon. Admissions, merit list, fees, seats, scholarships, past papers aur tests ke bare mein poochhen. Urdu, Roman Urdu ya English, jo bhi aap likhen.');
+ say('bot','Hello! I am the SALU Community AI Assistant. Ask me about admissions, merit lists, fees, seats, scholarships, past papers and tests. You can write in English, Urdu or Roman Urdu and I will reply in the same language.');
  loadKB().then(function(){build();});
 }
 if(document.body)init();else document.addEventListener('DOMContentLoaded',init);
