@@ -104,7 +104,7 @@ async function ask(q){
  if(!ep){problem=L==='en'?'The AI is not switched on yet, so this is a simple website search.':'AI abhi on nahi hai, is liye sirf website search se jawab hai.';}
  else{
   try{
-   var ctl=new AbortController(),t=setTimeout(function(){ctl.abort();},25000);
+   var ctl=new AbortController(),t=setTimeout(function(){ctl.abort();},28000);
    var r=await fetch(ep,{method:'POST',headers:{'Content-Type':'application/json'},signal:ctl.signal,body:JSON.stringify({question:q,context:hits.map(function(h){return h.t+(h.link?' (Link: '+h.link+')':'');}),history:history.slice(-8),lang:L,page:location.pathname.split('/').pop()||'index.html'})});
    clearTimeout(t);
    var d=await r.json().catch(function(){return{};});
