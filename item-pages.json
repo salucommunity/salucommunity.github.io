@@ -84,6 +84,12 @@
       "type": "team",
       "title": "Our Team",
       "url": "https://salucommunity.github.io/our-team.html"
+    },
+    {
+      "file": "ssc.html",
+      "type": "ssc",
+      "title": "SSC – Student Society Center",
+      "url": "https://salucommunity.github.io/ssc.html"
     }
   ]
 }

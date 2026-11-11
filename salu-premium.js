@@ -153,8 +153,16 @@
  }
  /* ---- remove the retired Jobs Hub widget from cached pages ---- */
  function cleanup(){var j=document.getElementById('saluJobsShortcut');if(j)j.remove();}
+ /* ---- SSC (Student Society Center) in the menu ---- */
+ function sscLink(){
+  var panel=document.getElementById('panel');if(!panel||panel.querySelector('a[href="ssc.html"]'))return;
+  var groups=panel.querySelectorAll('.pg'),box=groups[groups.length-1];if(!box)return;
+  var s=document.createElement('a');s.href='ssc.html';
+  s.innerHTML='<svg viewBox="0 0 24 24"><path d="M12 2l3 6 6.5.9-4.7 4.5 1.1 6.5L12 16.8 6.1 19.9l1.1-6.5L2.5 8.9 9 8z"></path></svg><span>SSC</span>';
+  box.appendChild(s);
+ }
  function init(){
-  cleanup();waFab();paperCards();repLink();tickerLabel();statsSection();teamPage();calcChoices();(function(){var pn=document.getElementById('panel');if(pn&&window.MutationObserver)new MutationObserver(repLink).observe(pn,{childList:true});window.addEventListener('load',repLink);})();announcePopup();
+  cleanup();waFab();paperCards();repLink();sscLink();tickerLabel();statsSection();teamPage();calcChoices();(function(){var pn=document.getElementById('panel');if(pn&&window.MutationObserver)new MutationObserver(function(){repLink();sscLink();}).observe(pn,{childList:true});window.addEventListener('load',function(){repLink();sscLink();});})();announcePopup();
   window.addEventListener('load',cleanup);
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
