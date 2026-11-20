@@ -166,4 +166,6 @@
   window.addEventListener('load',cleanup);
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+ /* AI assistant on every page (the widget guards against loading twice) */
+ (function(){try{if(window.__saluAI2||window.__saluAILoading||document.getElementById('loginGate'))return;window.__saluAILoading=1;var s=document.createElement('script');s.src='salu-ai-widget.js';s.defer=true;document.head.appendChild(s);}catch(e){}})();
 })();
