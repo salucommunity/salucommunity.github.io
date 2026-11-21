@@ -2,12 +2,6 @@
   "version": 4,
   "pages": [
     {
-      "file": "mock-test-community-practice.html",
-      "type": "mock",
-      "title": "General Practice Test",
-      "url": "https://salucommunity.github.io/mock-test-community-practice.html"
-    },
-    {
       "file": "past-paper-salu-2015.html",
       "type": "mock",
       "title": "SALU Entry Test Past Paper 2015",
